@@ -1,0 +1,369 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BC26DEB81D10F34100D8580A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BC26DEB71D10F34100D8580A /* main.m */; };
+		BC26DEBB1D10F34200D8580A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC26DEBA1D10F34200D8580A /* AppDelegate.m */; };
+		BC26DEBE1D10F34200D8580A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC26DEBD1D10F34200D8580A /* ViewController.m */; };
+		BC26DEC11D10F34200D8580A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC26DEBF1D10F34200D8580A /* Main.storyboard */; };
+		BC26DEC31D10F34200D8580A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC26DEC21D10F34200D8580A /* Assets.xcassets */; };
+		BC26DEC61D10F34200D8580A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC26DEC41D10F34200D8580A /* LaunchScreen.storyboard */; };
+		BC848CB81D1162D100B52315 /* FingerprintSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC848CB61D1162D100B52315 /* FingerprintSettingViewController.m */; };
+		BC88DA961D11088A00F75832 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88DA941D11088A00F75832 /* SettingViewController.m */; };
+		BC88DA971D11088A00F75832 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BC88DA951D11088A00F75832 /* SettingViewController.xib */; };
+		BC88DA9A1D110EA100F75832 /* DeviceLockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC88DA991D110EA100F75832 /* DeviceLockViewController.m */; };
+		BC8EA66B1D123FA400CFCD79 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8EA66A1D123FA400CFCD79 /* BaseViewController.m */; };
+		BC8EA66E1D12460700CFCD79 /* BaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8EA66D1D12460700CFCD79 /* BaseNavigationViewController.m */; };
+		BCC0CA1E1D211C1D008F9A5F /* CoolNavi.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC0CA1D1D211C1D008F9A5F /* CoolNavi.m */; };
+		BCC6A1C51D14F72100E6A90A /* AccessibilityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCC6A1C41D14F72100E6A90A /* AccessibilityViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BC26DEB31D10F34100D8580A /* TouchIDDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchIDDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC26DEB71D10F34100D8580A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BC26DEB91D10F34100D8580A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BC26DEBA1D10F34200D8580A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BC26DEBC1D10F34200D8580A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		BC26DEBD1D10F34200D8580A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		BC26DEC01D10F34200D8580A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BC26DEC21D10F34200D8580A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BC26DEC51D10F34200D8580A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BC26DEC71D10F34200D8580A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC848CB61D1162D100B52315 /* FingerprintSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FingerprintSettingViewController.m; sourceTree = "<group>"; };
+		BC848CB71D1162D100B52315 /* FingerprintSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerprintSettingViewController.h; sourceTree = "<group>"; };
+		BC88DA931D11088A00F75832 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		BC88DA941D11088A00F75832 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		BC88DA951D11088A00F75832 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		BC88DA981D110EA100F75832 /* DeviceLockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceLockViewController.h; sourceTree = "<group>"; };
+		BC88DA991D110EA100F75832 /* DeviceLockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceLockViewController.m; sourceTree = "<group>"; };
+		BC8EA6691D123FA400CFCD79 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		BC8EA66A1D123FA400CFCD79 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		BC8EA66C1D12460700CFCD79 /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationViewController.h; sourceTree = "<group>"; };
+		BC8EA66D1D12460700CFCD79 /* BaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationViewController.m; sourceTree = "<group>"; };
+		BCC0CA1C1D211C1D008F9A5F /* CoolNavi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoolNavi.h; sourceTree = "<group>"; };
+		BCC0CA1D1D211C1D008F9A5F /* CoolNavi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoolNavi.m; sourceTree = "<group>"; };
+		BCC6A1C31D14F72100E6A90A /* AccessibilityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessibilityViewController.h; sourceTree = "<group>"; };
+		BCC6A1C41D14F72100E6A90A /* AccessibilityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessibilityViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BC26DEB01D10F34100D8580A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BC26DEAA1D10F34100D8580A = {
+			isa = PBXGroup;
+			children = (
+				BC26DEB51D10F34100D8580A /* TouchIDDemo */,
+				BC26DEB41D10F34100D8580A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BC26DEB41D10F34100D8580A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BC26DEB31D10F34100D8580A /* TouchIDDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BC26DEB51D10F34100D8580A /* TouchIDDemo */ = {
+			isa = PBXGroup;
+			children = (
+				BC26DEB91D10F34100D8580A /* AppDelegate.h */,
+				BC26DEBA1D10F34200D8580A /* AppDelegate.m */,
+				BC26DEBC1D10F34200D8580A /* ViewController.h */,
+				BC26DEBD1D10F34200D8580A /* ViewController.m */,
+				BC8EA6691D123FA400CFCD79 /* BaseViewController.h */,
+				BC8EA66A1D123FA400CFCD79 /* BaseViewController.m */,
+				BC8EA66C1D12460700CFCD79 /* BaseNavigationViewController.h */,
+				BC8EA66D1D12460700CFCD79 /* BaseNavigationViewController.m */,
+				BC88DA931D11088A00F75832 /* SettingViewController.h */,
+				BC88DA941D11088A00F75832 /* SettingViewController.m */,
+				BC88DA951D11088A00F75832 /* SettingViewController.xib */,
+				BCC6A1C31D14F72100E6A90A /* AccessibilityViewController.h */,
+				BCC6A1C41D14F72100E6A90A /* AccessibilityViewController.m */,
+				BC88DA981D110EA100F75832 /* DeviceLockViewController.h */,
+				BC88DA991D110EA100F75832 /* DeviceLockViewController.m */,
+				BC848CB71D1162D100B52315 /* FingerprintSettingViewController.h */,
+				BC848CB61D1162D100B52315 /* FingerprintSettingViewController.m */,
+				BC26DEBF1D10F34200D8580A /* Main.storyboard */,
+				BCC0CA1B1D211C1D008F9A5F /* CoolNavi */,
+				BC26DEC21D10F34200D8580A /* Assets.xcassets */,
+				BC26DEC41D10F34200D8580A /* LaunchScreen.storyboard */,
+				BC26DEC71D10F34200D8580A /* Info.plist */,
+				BC26DEB61D10F34100D8580A /* Supporting Files */,
+			);
+			path = TouchIDDemo;
+			sourceTree = "<group>";
+		};
+		BC26DEB61D10F34100D8580A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BC26DEB71D10F34100D8580A /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BCC0CA1B1D211C1D008F9A5F /* CoolNavi */ = {
+			isa = PBXGroup;
+			children = (
+				BCC0CA1C1D211C1D008F9A5F /* CoolNavi.h */,
+				BCC0CA1D1D211C1D008F9A5F /* CoolNavi.m */,
+			);
+			path = CoolNavi;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BC26DEB21D10F34100D8580A /* TouchIDDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC26DECA1D10F34200D8580A /* Build configuration list for PBXNativeTarget "TouchIDDemo" */;
+			buildPhases = (
+				BC26DEAF1D10F34100D8580A /* Sources */,
+				BC26DEB01D10F34100D8580A /* Frameworks */,
+				BC26DEB11D10F34100D8580A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TouchIDDemo;
+			productName = TouchIDDemo;
+			productReference = BC26DEB31D10F34100D8580A /* TouchIDDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BC26DEAB1D10F34100D8580A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = WangZhi;
+				TargetAttributes = {
+					BC26DEB21D10F34100D8580A = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = VCS6MW97DL;
+					};
+				};
+			};
+			buildConfigurationList = BC26DEAE1D10F34100D8580A /* Build configuration list for PBXProject "TouchIDDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BC26DEAA1D10F34100D8580A;
+			productRefGroup = BC26DEB41D10F34100D8580A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BC26DEB21D10F34100D8580A /* TouchIDDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BC26DEB11D10F34100D8580A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC26DEC61D10F34200D8580A /* LaunchScreen.storyboard in Resources */,
+				BC26DEC31D10F34200D8580A /* Assets.xcassets in Resources */,
+				BC26DEC11D10F34200D8580A /* Main.storyboard in Resources */,
+				BC88DA971D11088A00F75832 /* SettingViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BC26DEAF1D10F34100D8580A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BC26DEBE1D10F34200D8580A /* ViewController.m in Sources */,
+				BC88DA9A1D110EA100F75832 /* DeviceLockViewController.m in Sources */,
+				BC26DEBB1D10F34200D8580A /* AppDelegate.m in Sources */,
+				BC8EA66E1D12460700CFCD79 /* BaseNavigationViewController.m in Sources */,
+				BC26DEB81D10F34100D8580A /* main.m in Sources */,
+				BC848CB81D1162D100B52315 /* FingerprintSettingViewController.m in Sources */,
+				BCC6A1C51D14F72100E6A90A /* AccessibilityViewController.m in Sources */,
+				BC8EA66B1D123FA400CFCD79 /* BaseViewController.m in Sources */,
+				BCC0CA1E1D211C1D008F9A5F /* CoolNavi.m in Sources */,
+				BC88DA961D11088A00F75832 /* SettingViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BC26DEBF1D10F34200D8580A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC26DEC01D10F34200D8580A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		BC26DEC41D10F34200D8580A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BC26DEC51D10F34200D8580A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BC26DEC81D10F34200D8580A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Scenes Enshrine Technology Co., Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Scenes Enshrine Technology Co., Ltd";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BC26DEC91D10F34200D8580A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Scenes Enshrine Technology Co., Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Scenes Enshrine Technology Co., Ltd";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BC26DECB1D10F34200D8580A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Scenes Enshrine Technology Co., Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Scenes Enshrine Technology Co., Ltd";
+				INFOPLIST_FILE = TouchIDDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ssyxliuchao.TouchIDDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BC26DECC1D10F34200D8580A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Scenes Enshrine Technology Co., Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Scenes Enshrine Technology Co., Ltd";
+				INFOPLIST_FILE = TouchIDDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ssyxliuchao.TouchIDDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BC26DEAE1D10F34100D8580A /* Build configuration list for PBXProject "TouchIDDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC26DEC81D10F34200D8580A /* Debug */,
+				BC26DEC91D10F34200D8580A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC26DECA1D10F34200D8580A /* Build configuration list for PBXNativeTarget "TouchIDDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC26DECB1D10F34200D8580A /* Debug */,
+				BC26DECC1D10F34200D8580A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BC26DEAB1D10F34100D8580A /* Project object */;
+}
