@@ -18,6 +18,25 @@
 ## Installation
 BTStudio supports multiple methods for installing the library in a project.
 ## Installation with CocoaPods
+[CocoaPods](http://cocoapods.org/) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like BTStudio in your projects. You can install it with the following command:
+
+	gem install cocoapods
+	
+> Command
+
+### Podfile
+To integrate BTStudio into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+	source 'https://github.com/CocoaPods/Specs.git'
+	platform : ios, '8.0'
+	
+	target 'TargetName' do
+	pod 'BTStudio', '~> 1.0'
+	end
+	
+Then, run the following command:
+
+	pod install
 
 ## Requirements
 
