@@ -26,7 +26,7 @@ git push -u origin master
 ## Installation
 BTStudio supports multiple methods for installing the library in a project.
 
-## Installation with CocoaPods
+### Installation with CocoaPods
 [CocoaPods](http://cocoapods.org/) is a dependency manager for Objective-C, which automates and simplifies the process of using 3rd-party libraries like BTStudio in your projects. You can install it with the following command:
 
 ```bash
