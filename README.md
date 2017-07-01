@@ -6,7 +6,7 @@
 - [Download TouchIDDemo](https://github.com/wz15011015github/BTStudio.git) and try out the included iPhone example apps.
 
 - 第一次添加一个README.md文件
-#### Git command
+#####   Git command
 ```bash
 echo "# BTStudio" >> README.md
 git init
@@ -32,7 +32,7 @@ BTStudio supports multiple methods for installing the library in a project.
 ```bash
 $ gem install cocoapods
 ```
-> Command
+> Tips: Nothing lasts forever.
 
 ### Podfile
 
@@ -60,11 +60,11 @@ $ pod install
 
 ## Usage
 
-### TouchIDDemo
+### 1. TouchIDDemo
 
 TouchID使用小Demo.
 
-### LiveForMobile
+### 2. LiveForMobile
 
 移动直播Demo，模仿iOS平台主流直播App界面来搭建，更新中...
 
