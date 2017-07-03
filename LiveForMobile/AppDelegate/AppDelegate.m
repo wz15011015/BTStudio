@@ -77,7 +77,6 @@
         //            [self.window makeKeyAndVisible];
         //
         //        } else { // 如果已登录App，则进入首页
-        
                     BWTabBarController *rootVC = [[BWTabBarController alloc] init];
                     self.window.rootViewController = rootVC;
                     [self.window makeKeyAndVisible];
