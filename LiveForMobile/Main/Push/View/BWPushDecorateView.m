@@ -8,10 +8,17 @@
 
 #import "BWPushDecorateView.h"
 #import "BWMacro.h"
+#import "AudienceCell.h"
+#import "MessageCell.h"
 #import "FilterCell.h"
 #import "AudioEffectCell.h"
 #import "FilterModel.h"
 #import "AudioEffectModel.h"
+
+#define TOP_Y (25) // 顶部第一行控件的y值
+#define TOP_H (30) // 顶部第一行控件的高
+#define TOP_LEFT_MARGIN  (10) // 顶部第一行控件的左边距
+#define TOP_RIGHT_MARGIN (10) // 顶部第一行控件的右边距
 
 #define TOOLBARVIEW_H (170)
 #define TOOLSCROLLVIEW_H (TOOLBARVIEW_H * 0.7)
@@ -24,7 +31,7 @@
 const NSUInteger ButtonCount = 6;     // 底部的功能按钮个数
 const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 
-@interface BWPushDecorateView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
+@interface BWPushDecorateView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource> {
     CGFloat _width;
     CGFloat _height;
     
@@ -33,14 +40,36 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     
     UIButton *_selectedToolButton;
 }
-
-@property (nonatomic, strong) UIButton *closeButton;
-
 @property (nonatomic, strong) UITapGestureRecognizer *tapForFocus; // 聚焦点击手势
 @property (nonatomic, strong) UIPanGestureRecognizer *panForMove;  // 平移手势
 
+// 加在self上的控件
+// 关闭按钮
+@property (nonatomic, strong) UIButton *closeButton;
+// 主播信息 (anchor info)
+@property (nonatomic, strong) UIImageView *anchorInfoView;
+@property (nonatomic, strong) UIImageView *anchorAvatarImageView;
+@property (nonatomic, strong) UILabel *anchorNameLabel;
+@property (nonatomic, strong) UILabel *anchorIDLabel;
+// 聊天输入框部分
+@property (nonatomic, strong) UIView *chatInputView;
+@property (nonatomic, strong) UITextField *chatInputTextField;
+
 // 用来放置除关闭按钮以外的其他控件
 @property (nonatomic, strong) UIView *decorateView;
+
+
+// 加在decorateView上的控件
+// 在线观看人数
+@property (nonatomic, strong) UIImageView *audienceCountView;
+@property (nonatomic, strong) UILabel *audienceCountLabel;
+// 在线观众列表
+@property (nonatomic, strong) UICollectionView *audienceCollectionView;
+@property (nonatomic, strong) NSMutableArray *audienceArr;
+// 消息列表
+@property (nonatomic, strong) UITableView *messageTableView;
+@property (nonatomic, strong) NSMutableArray *messageArr;
+// 底部功能按钮
 @property (nonatomic, strong) UIButton *chatButton;
 @property (nonatomic, strong) UIButton *cameraSwitchButton;
 @property (nonatomic, strong) UIButton *beautyButton;
@@ -180,6 +209,8 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     effect7.name = @"磁性";
     self.audioEffectArr = [NSMutableArray arrayWithObjects:effect0, effect1, effect2, effect3, effect4, effect5, effect6, effect7, nil];
     
+    // 注册键盘高度变化的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
     // 1. 添加点击聚焦手势
     self.tapForFocus = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickScreen:)];
@@ -194,6 +225,28 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 - (void)addSubViews {
     [self addSubview:self.decorateView];
     
+    // 加在decorateView上的控件: 1.观看人数 2.观众列表 3.底部功能按钮(6个) 4.美颜部分 5.音效部分
+    // 1. 在线观看人数
+    CGFloat audienceCount_W = 64;
+    CGFloat audienceCount_X = _width - TOP_RIGHT_MARGIN - audienceCount_W;
+    self.audienceCountView = [[UIImageView alloc] initWithFrame:CGRectMake(audienceCount_X, TOP_Y, audienceCount_W, TOP_H)];
+    self.audienceCountView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
+    self.audienceCountView.layer.cornerRadius = TOP_H / 2;
+    self.audienceCountView.layer.masksToBounds = YES;
+    [self.decorateView addSubview:self.audienceCountView];
+    
+    self.audienceCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 0, audienceCount_W - 8, TOP_H)];
+    self.audienceCountLabel.font = [UIFont systemFontOfSize:12];
+    self.audienceCountLabel.textColor = [UIColor whiteColor];
+    self.audienceCountLabel.textAlignment = NSTextAlignmentCenter;
+    [self.audienceCountView addSubview:self.audienceCountLabel];
+    
+    // 2. 在线观众列表
+    [self.decorateView addSubview:self.audienceCollectionView];
+    
+    // 3. 消息列表
+    [self.decorateView addSubview:self.messageTableView];
+
     // 1. 底部的功能按钮
     //    CGFloat button_leftMargin = 15;
     CGFloat button_bottomMargin = 15;
@@ -443,13 +496,90 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     [self.musicBarView addSubview:self.sliderVolumeForVoice];
     
     
-    // 关闭按钮
+    // 加在self上的控件: 1.关闭按钮 2.主播信息
+    // 1. 关闭按钮
     self.closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.closeButton.frame = CGRectMake(_width - button_middleMargin - button_W, button_Y, button_W, button_W);
     [self.closeButton setImage:[UIImage imageNamed:@"push_close"] forState:UIControlStateNormal];
     [self.closeButton setImage:[UIImage imageNamed:@"push_close_highlighted"] forState:UIControlStateHighlighted];
     [self.closeButton addTarget:self action:@selector(closePush) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.closeButton];
+    // 2. 主播信息
+    CGFloat anchor_W = 125;
+    CGFloat anchor_H = TOP_H;
+    CGFloat anchor_label_X = anchor_H + 5;
+    CGFloat anchor_label_W = anchor_W - anchor_label_X - (anchor_H / 2);
+    self.anchorInfoView = [[UIImageView alloc] initWithFrame:CGRectMake(TOP_LEFT_MARGIN, TOP_Y, anchor_W, anchor_H)];
+    self.anchorInfoView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
+    self.anchorInfoView.layer.cornerRadius = anchor_H / 2;
+    self.anchorInfoView.layer.masksToBounds = YES;
+    [self addSubview:self.anchorInfoView];
+    // 2.1 主播头像
+    self.anchorAvatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, anchor_H, anchor_H)];
+    self.anchorAvatarImageView.layer.cornerRadius = anchor_H / 2;
+    self.anchorAvatarImageView.layer.masksToBounds = YES;
+    self.anchorAvatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.anchorAvatarImageView.layer.borderWidth = 0.8;
+    [self.anchorInfoView addSubview:self.anchorAvatarImageView];
+    // 2.2 主播昵称
+    self.anchorNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(anchor_label_X, 0, anchor_label_W, anchor_H * 0.6)];
+    self.anchorNameLabel.font = [UIFont boldSystemFontOfSize:12.5];
+    self.anchorNameLabel.textColor = [UIColor whiteColor];
+    [self.anchorInfoView addSubview:self.anchorNameLabel];
+    // 2.3 主播ID
+    self.anchorIDLabel = [[UILabel alloc] initWithFrame:CGRectMake(anchor_label_X, CGRectGetMaxY(self.anchorNameLabel.frame), anchor_label_W, anchor_H * 0.4)];
+    self.anchorIDLabel.font = [UIFont boldSystemFontOfSize:11];
+    self.anchorIDLabel.textColor = [UIColor whiteColor];
+    [self.anchorInfoView addSubview:self.anchorIDLabel];
+    
+    // 3. 聊天输入框view
+    CGFloat intput_H = 32;
+    CGFloat intput_margin = 10; 
+    CGFloat intput_textField_X = intput_margin;
+    CGFloat intput_textField_W = WIDTH - (2 * intput_margin);
+    self.chatInputView = [[UIView alloc] initWithFrame:CGRectMake(0, _height, _width, ChatInputViewHeight)];
+    self.chatInputView.backgroundColor = RGB(241, 241, 244);
+    [self addSubview:self.chatInputView];
+    // 3.1 输入框
+    self.chatInputTextField = [[UITextField alloc] initWithFrame:CGRectMake(intput_textField_X, (ChatInputViewHeight - intput_H) / 2, intput_textField_W, intput_H)];
+    self.chatInputTextField.backgroundColor = RGB(233, 233, 233);
+    self.chatInputTextField.layer.borderWidth = 1;
+    self.chatInputTextField.layer.borderColor = RGB(244, 85, 133).CGColor;
+    self.chatInputTextField.layer.masksToBounds = YES;
+    self.chatInputTextField.layer.cornerRadius = intput_H / 2;
+    self.chatInputTextField.delegate = self;
+    self.chatInputTextField.returnKeyType = UIReturnKeySend;
+    self.chatInputTextField.font = [UIFont systemFontOfSize:15];
+    NSAttributedString *placeholderAttriStr = [[NSAttributedString alloc] initWithString:@"  说点什么吧" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15], NSForegroundColorAttributeName : RGB(180, 180, 180)}];
+    self.chatInputTextField.attributedPlaceholder = placeholderAttriStr;
+    [self.chatInputView addSubview:self.chatInputTextField];
+    
+    
+    // 测试数据
+    self.anchorAvatarImageView.image = [UIImage imageNamed:@"avatar_default"];
+    self.anchorNameLabel.text = @"高姿态的🛴，走了...";
+    self.anchorIDLabel.text = [NSString stringWithFormat:@"ID:%@", @"11000007"];
+    self.audienceCountLabel.text = [NSString stringWithFormat:@"%@人", @"1100"];
+    [self.audienceArr addObject:@""];
+    [self.audienceArr addObject:@""];
+    [self.audienceArr addObject:@""];
+    [self.audienceArr addObject:@""];
+    [self.audienceArr addObject:@""];
+    [self.audienceArr addObject:@""];
+    [self.audienceCollectionView reloadData];
+    
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@"直播消息: 我们提倡绿色直播，封面和直播内容含吸烟、低俗、引诱、暴露等都将会被封停账号，同时禁止直播聚众闹事、集会，网警24小时在线巡查哦！😯"];
+    [self.messageTableView reloadData];
+    // 滚动到最后一行
+    NSIndexPath *footIndexPath = [NSIndexPath indexPathForRow:self.messageArr.count - 1 inSection:0];
+    [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 
 
@@ -475,7 +605,7 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 
 // 开始聊天
 - (void)clickChat:(UIButton *)button {
-    NSLog(@"此时应弹出键盘，准备输入...");
+    [self.chatInputTextField becomeFirstResponder];
 }
 
 // 打开或关闭照明灯
@@ -556,6 +686,8 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     // 当decorateView在初始位置时(即刚好充满整个屏幕时),不能向左滑动;
     // 若向右滑动，则当中心线x值 > (_width * 0.7)时，让decorateView完全移出屏幕;
     // 若向左滑动，则当中心线x值 < (_width * 1.4)时，让decorateView移回初始位置.
+    
+    [self endEditing:YES];
     
     CGPoint center = self.decorateView.center;
     
@@ -670,31 +802,28 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 }
 
 
-#pragma mark - Override Touches 相关方法
+#pragma mark - UICollectionViewDataSource
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    _touchBeganPoint = [touch locationInView:self];
-    
-    NSLog(@"touches 开始: %@", NSStringFromCGPoint(_touchBeganPoint));
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.messageArr.count;
 }
 
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    _touchMovedPoint = [touch locationInView:self];
-    
-    NSLog(@"touches 移动: %@", NSStringFromCGPoint(_touchMovedPoint));
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *message = self.messageArr[indexPath.row];
+    CGFloat height = [MessageCell heightForString:message];
+    height = height < MESSAGE_CELL_MIN_H ? MESSAGE_CELL_MIN_H : height;
+    return height;
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInView:self];
-    
-    NSLog(@"touches 结束: %@", NSStringFromCGPoint(touchPoint));
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MessageCell *cell = [tableView dequeueReusableCellWithIdentifier:MessageCellID forIndexPath:indexPath];
+    NSString *message = self.messageArr[indexPath.row];
+    cell.message = message;
+    return cell;
 }
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 
@@ -705,6 +834,8 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
         return self.filterArr.count;
     } else if (collectionView.tag == 203) {
         return self.audioEffectArr.count;
+    } else if (collectionView.tag == 204) {
+        return self.audienceArr.count;
     }
     
     return self.filterArr.count;
@@ -718,6 +849,9 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     } else if (collectionView.tag == 203) {
         AudioEffectCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:AudioEffectCellID forIndexPath:indexPath];
         cell.audioEffect = self.audioEffectArr[indexPath.row];
+        return cell;
+    } else if (collectionView.tag == 204) {
+        AudienceCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:AudienceCellID forIndexPath:indexPath];
         return cell;
     }
     
@@ -836,6 +970,9 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
         if ([self.delegate respondsToSelector:@selector(selectAudioEffect:)]) {
             [self.delegate selectAudioEffect:effectType];
         }
+        
+    } else if (collectionView.tag == 204) {
+        
     }
     
     [self.filterArr enumerateObjectsUsingBlock:^(FilterModel *filter, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -846,6 +983,119 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
         }
     }];
     [collectionView reloadData];
+}
+
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (scrollView == self.messageTableView) {
+        [self endEditing:YES];
+    }
+}
+
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    textField.text = @"";
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSString *messageText = [textField.text stringByTrimmingCharactersInSet:[NSMutableCharacterSet whitespaceCharacterSet]];
+    if (messageText.length <= 0) {
+        textField.text = @"";
+        NSLog(@"消息内容不能为空");
+        return YES;
+    }
+    
+    textField.text = @"";
+    
+    NSLog(@"发送消息: %@", messageText);
+    
+    // 发送成功后，刷新列表
+    [self.messageArr addObject:messageText];
+    [self.messageTableView reloadData];
+    // 滚动到最后一行
+    NSIndexPath *footIndexPath = [NSIndexPath indexPathForRow:self.messageArr.count - 1 inSection:0];
+    [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    
+    return YES;
+}
+
+
+#pragma mark - Notification
+
+- (void)keyboardWillChangeFrame:(NSNotification *)notification {
+    CGRect endKeyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    CGFloat textFieldY = _height;
+    CGFloat Y = 0;
+    if (endKeyboardRect.origin.y == _height) { // 键盘收起
+        textFieldY = _height;
+        Y = 0;
+    } else {
+        textFieldY = endKeyboardRect.origin.y - ChatInputViewHeight;
+        Y = 0 - (endKeyboardRect.size.height + ChatInputViewHeight - BottomButtonWidth - 25); 
+    }
+    [UIView animateWithDuration:duration animations:^{
+        CGRect frame = self.frame;
+        frame.origin.y = Y;
+        self.frame = frame;
+        
+        CGRect frame1 = self.chatInputView.frame;
+        frame1.origin.y = textFieldY - Y;
+        self.chatInputView.frame = frame1;
+    }];
+}
+
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    CGPoint touchPoint = [touch locationInView:self];
+    
+    // 触摸点是否在观众列表区域
+    BOOL isTouchAudienceCollectionView = CGRectContainsPoint(self.audienceCollectionView.frame, touchPoint);
+    
+    if (isTouchAudienceCollectionView) {
+        if (gestureRecognizer == self.panForMove) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+
+#pragma mark - Override Touches 相关方法
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    _touchBeganPoint = [touch locationInView:self];
+    
+    [self endEditing:YES];
+    
+    NSLog(@"touches 开始: %@", NSStringFromCGPoint(_touchBeganPoint));
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    _touchMovedPoint = [touch locationInView:self];
+    
+    NSLog(@"touches 移动: %@", NSStringFromCGPoint(_touchMovedPoint));
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self];
+    
+    NSLog(@"touches 结束: %@", NSStringFromCGPoint(touchPoint));
+}
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    return YES;
 }
 
 
@@ -878,6 +1128,58 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
         [_toolBarView addSubview:self.toolButtonScrollView];
     }
     return _toolBarView;
+}
+
+- (UICollectionView *)audienceCollectionView {
+    if (!_audienceCollectionView) {
+        CGFloat x = _width / 2;
+        CGFloat w = CGRectGetMinX(self.audienceCountView.frame) - x - 2;
+        
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        flowLayout.itemSize = CGSizeMake(AUDIENCE_CELL_W, AUDIENCE_CELL_H);
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        flowLayout.minimumLineSpacing = 0;
+        flowLayout.minimumInteritemSpacing = 0;
+        
+        _audienceCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(x, TOP_Y, w, TOP_H) collectionViewLayout:flowLayout];
+        _audienceCollectionView.backgroundColor = [UIColor clearColor];
+        _audienceCollectionView.showsHorizontalScrollIndicator = NO;
+        _audienceCollectionView.dataSource = self;
+        _audienceCollectionView.delegate = self;
+        _audienceCollectionView.tag = 204;
+        [_audienceCollectionView registerClass:[AudienceCell class] forCellWithReuseIdentifier:AudienceCellID];
+    }
+    return _audienceCollectionView;
+}
+
+- (NSMutableArray *)audienceArr {
+    if (!_audienceArr) {
+        _audienceArr = [NSMutableArray array];
+    }
+    return _audienceArr;
+}
+
+- (UITableView *)messageTableView {
+    if (!_messageTableView) {
+        CGFloat y = _height - MESSAGE_TABLEVIEW_H - BottomButtonWidth - 25;
+        _messageTableView = [[UITableView alloc] initWithFrame:CGRectMake(15, y, MESSAGE_TABLEVIEW_W, MESSAGE_TABLEVIEW_H)];
+        _messageTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+        _messageTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _messageTableView.showsVerticalScrollIndicator = NO;
+        _messageTableView.backgroundColor = [UIColor clearColor];
+        _messageTableView.delegate = self;
+        _messageTableView.dataSource = self;
+        [_messageTableView registerClass:[MessageCell class] forCellReuseIdentifier:MessageCellID];
+    }
+    return _messageTableView;
+}
+
+- (NSMutableArray *)messageArr {
+    if (!_messageArr) {
+        _messageArr = [NSMutableArray array];
+    }
+    return _messageArr;
 }
 
 - (UIScrollView *)toolScrollView {

@@ -7,8 +7,7 @@
 //
 
 #import "MessageCell.h"
-#import "BWMacro.h"
-#import "BWPlayDecorateView.h"
+#import "BWMacro.h" 
 
 NSString *const MessageCellID = @"MessageCellIdentifier";
 

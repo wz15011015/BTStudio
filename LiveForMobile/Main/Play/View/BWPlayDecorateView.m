@@ -17,7 +17,6 @@
 #define TOP_RIGHT_MARGIN (10) // 顶部第一行控件的右边距
  
 const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
-const CGFloat ChatInputViewH = 45;      // 聊天输入框view的高度
 
 @interface BWPlayDecorateView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource> {
     CGFloat _width;
@@ -232,18 +231,18 @@ const CGFloat ChatInputViewH = 45;      // 聊天输入框view的高度
     CGFloat intput_margin = 10;
     CGFloat intput_textField_X = bullet_button_W + (2 * intput_margin);
     CGFloat intput_textField_W = WIDTH - intput_textField_X - intput_margin;
-    self.chatInputView = [[UIView alloc] initWithFrame:CGRectMake(0, _height, _width, ChatInputViewH)];
+    self.chatInputView = [[UIView alloc] initWithFrame:CGRectMake(0, _height, _width, ChatInputViewHeight)];
     self.chatInputView.backgroundColor = RGB(241, 241, 244);
     [self addSubview:self.chatInputView];
     // 3.1 是否开启弹幕效果
     UIButton *bulletButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    bulletButton.frame = CGRectMake(intput_margin, (ChatInputViewH - bullet_button_H) / 2, bullet_button_W, bullet_button_H);
+    bulletButton.frame = CGRectMake(intput_margin, (ChatInputViewHeight - bullet_button_H) / 2, bullet_button_W, bullet_button_H);
     [bulletButton setImage:[UIImage imageNamed:@"play_bullet_switch_off"] forState:UIControlStateNormal];
     [bulletButton setImage:[UIImage imageNamed:@"play_bullet_switch_on"] forState:UIControlStateSelected];
     [bulletButton addTarget:self action:@selector(clickBulletButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.chatInputView addSubview:bulletButton];
     // 3.2 输入框
-    self.chatInputTextField = [[UITextField alloc] initWithFrame:CGRectMake(intput_textField_X, (ChatInputViewH - bullet_button_H) / 2, intput_textField_W, bullet_button_H)];
+    self.chatInputTextField = [[UITextField alloc] initWithFrame:CGRectMake(intput_textField_X, (ChatInputViewHeight - bullet_button_H) / 2, intput_textField_W, bullet_button_H)];
     self.chatInputTextField.backgroundColor = RGB(233, 233, 233);
     self.chatInputTextField.layer.borderWidth = 1;
     self.chatInputTextField.layer.borderColor = RGB(244, 85, 133).CGColor;
@@ -488,8 +487,8 @@ const CGFloat ChatInputViewH = 45;      // 聊天输入框view的高度
         Y = 0;
 //        NSLog(@"11111 键盘frame: %@", NSStringFromCGRect(endKeyboardRect));
     } else {
-        textFieldY = endKeyboardRect.origin.y - ChatInputViewH;
-        Y = 0 - (endKeyboardRect.size.height + ChatInputViewH - BottomButtonWidth - 25);
+        textFieldY = endKeyboardRect.origin.y - ChatInputViewHeight;
+        Y = 0 - (endKeyboardRect.size.height + ChatInputViewHeight - BottomButtonWidth - 25);
 //        NSLog(@"22222222 键盘frame: %@", NSStringFromCGRect(endKeyboardRect));
     }
     [UIView animateWithDuration:duration animations:^{

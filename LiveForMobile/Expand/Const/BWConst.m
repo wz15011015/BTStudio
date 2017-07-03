@@ -34,3 +34,5 @@ NSString *const LecloudAppSignSecretKey = @"7XBALF3GB6BIZM1JRSC8";
 #pragma mark - 基本类型常量
 
 const CGFloat BottomButtonWidth = 35;
+
+const CGFloat ChatInputViewHeight = 45;      

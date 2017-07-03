@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define MESSAGE_TABLEVIEW_H (120)        // 消息TableView的高度
-#define MESSAGE_TABLEVIEW_W (WIDTH - 65) // 消息TableView的宽度
-
-
 @protocol BWPlayDecorateDelegate <NSObject>
 
 // 退出播放页面
