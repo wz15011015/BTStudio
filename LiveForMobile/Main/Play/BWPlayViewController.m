@@ -66,18 +66,19 @@
     UIImage *backgroundImage = [UIImage imageNamed:@"avatar_default"];
     UIImage *clipImage = backgroundImage;
     if (backgroundImage) {
-//        UIImage *gaussBlurImage = [self gaussBlurImage:backgroundImage withGaussNumber:0.3];
-//        UIImage *scaleImage = [self scaleImage:gaussBlurImage scaleToSize:CGSizeMake(WIDTH * (backgroundImage.size.width / backgroundImage.size.height), HEIGHT)];
-//        clipImage = [self clipImage:scaleImage inRect:CGRectMake(0, 0, WIDTH, HEIGHT)];
-//        clipImage = scaleImage;
+        UIImage *gaussBlurImage = [self gaussBlurImage:backgroundImage withGaussNumber:0.4];
+        CGFloat ratioOfWH = backgroundImage.size.width / backgroundImage.size.height; // 原图的宽高比
+        // 缩放为与屏幕等高的图片
+        UIImage *scaleImage = [self scaleImage:gaussBlurImage scaleToSize:CGSizeMake(HEIGHT * ratioOfWH, HEIGHT)];
+        // 缩放后的图片与屏幕等高时，其宽度会比屏幕更宽，因此，需要将其裁剪成屏幕大小
+        clipImage = [self clipImage:scaleImage inRect:CGRectMake((scaleImage.size.width - WIDTH) / 2, 0, WIDTH, HEIGHT)];
     }
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    backgroundImageView.contentMode = UIViewContentModeScaleAspectFit;
     backgroundImageView.image = clipImage;
-    [backgroundImageView setContentScaleFactor:[[UIScreen mainScreen] scale]];
-    backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    backgroundImageView.clipsToBounds = YES;
+    //    [backgroundImageView setContentScaleFactor:[[UIScreen mainScreen] scale]];
+    //    backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    //    backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    //    backgroundImageView.clipsToBounds = YES;
     [self.view addSubview:backgroundImageView];
     
     // 2.1 视频画面的父view
@@ -101,23 +102,23 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-//    if (self.rtmpURL) {
-//        [self startRTMP];
-//    }
-//    
-//    if (!_firstAppear) {
-//        // 是否有摄像头权限
-//        AVAuthorizationStatus cameraStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-//        if (cameraStatus == AVAuthorizationStatusDenied) {
-//            return;
-//        }
-//        if (!_isPreviewing) {
-//            [self.livePush startPreview:self.videoParentView];
-//            _isPreviewing = YES;
-//        }
-//    } else {
-//        _firstAppear = NO;
-//    }
+    //    if (self.rtmpURL) {
+    //        [self startRTMP];
+    //    }
+    //
+    //    if (!_firstAppear) {
+    //        // 是否有摄像头权限
+    //        AVAuthorizationStatus cameraStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    //        if (cameraStatus == AVAuthorizationStatusDenied) {
+    //            return;
+    //        }
+    //        if (!_isPreviewing) {
+    //            [self.livePush startPreview:self.videoParentView];
+    //            _isPreviewing = YES;
+    //        }
+    //    } else {
+    //        _firstAppear = NO;
+    //    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -129,12 +130,12 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-//    [self stopRTMP];
+    //    [self stopRTMP];
 }
 
 
 #pragma mark - Override
- 
+
 
 
 #pragma mark - Methods
@@ -149,7 +150,7 @@
     if (![self checkPlayURL:self.rtmpURL]) {
         return NO;
     }
-   
+    
     // 2. 检查拉流对象
     if (!self.livePlayer) {
         return NO;
@@ -278,49 +279,49 @@
     NSDictionary *info = notification.userInfo;
     AVAudioSessionInterruptionType type = [info[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
     if (type == AVAudioSessionInterruptionTypeBegan) {
-//        if (_appIsInterrupt == NO) {
-//            if (_playType == PLAY_TYPE_VOD_FLV || _playType == PLAY_TYPE_VOD_HLS || _playType == PLAY_TYPE_VOD_MP4) {
-//                if (!_videoPause) {
-//                    [self.livePlayer pause];
-//                }
-//            }
-//            _appIsInterrupt = YES;
-//        }
+        //        if (_appIsInterrupt == NO) {
+        //            if (_playType == PLAY_TYPE_VOD_FLV || _playType == PLAY_TYPE_VOD_HLS || _playType == PLAY_TYPE_VOD_MP4) {
+        //                if (!_videoPause) {
+        //                    [self.livePlayer pause];
+        //                }
+        //            }
+        //            _appIsInterrupt = YES;
+        //        }
     } else {
         AVAudioSessionInterruptionOptions options = [info[AVAudioSessionInterruptionOptionKey] unsignedIntegerValue];
         if (options == AVAudioSessionInterruptionOptionShouldResume) {
-//            if (_appIsInterrupt == YES) {
-//                if (_playType == PLAY_TYPE_VOD_FLV || _playType == PLAY_TYPE_VOD_HLS || _playType == PLAY_TYPE_VOD_MP4) {
-//                    if (!_videoPause) {
-//                        [self.livePlayer resume];
-//                    }
-//                }
-//                _appIsInterrupt = NO;
-//            }
+            //            if (_appIsInterrupt == YES) {
+            //                if (_playType == PLAY_TYPE_VOD_FLV || _playType == PLAY_TYPE_VOD_HLS || _playType == PLAY_TYPE_VOD_MP4) {
+            //                    if (!_videoPause) {
+            //                        [self.livePlayer resume];
+            //                    }
+            //                }
+            //                _appIsInterrupt = NO;
+            //            }
         }
     }
 }
 
 - (void)onAppDidEnterBackground:(UIApplication *)app {
-//    if (_appIsInterrupt == NO) {
-//        if (_playType == PLAY_TYPE_VOD_FLV || _playType == PLAY_TYPE_VOD_HLS || _playType == PLAY_TYPE_VOD_MP4) {
-//            if (!_videoPause) {
-//                [self.livePlayer pause];
-//            }
-//        }
-//        _appIsInterrupt = YES;
-//    }
+    //    if (_appIsInterrupt == NO) {
+    //        if (_playType == PLAY_TYPE_VOD_FLV || _playType == PLAY_TYPE_VOD_HLS || _playType == PLAY_TYPE_VOD_MP4) {
+    //            if (!_videoPause) {
+    //                [self.livePlayer pause];
+    //            }
+    //        }
+    //        _appIsInterrupt = YES;
+    //    }
 }
 
 - (void)onAppWillEnterForeground:(UIApplication *)app {
-//    if (_appIsInterrupt == YES) {
-//        if (_playType == PLAY_TYPE_VOD_FLV || _playType == PLAY_TYPE_VOD_HLS || _playType == PLAY_TYPE_VOD_MP4) {
-//            if (!_videoPause) {
-//                [self.livePlayer resume];
-//            }
-//        }
-//        _appIsInterrupt = NO;
-//    }
+    //    if (_appIsInterrupt == YES) {
+    //        if (_playType == PLAY_TYPE_VOD_FLV || _playType == PLAY_TYPE_VOD_HLS || _playType == PLAY_TYPE_VOD_MP4) {
+    //            if (!_videoPause) {
+    //                [self.livePlayer resume];
+    //            }
+    //        }
+    //        _appIsInterrupt = NO;
+    //    }
 }
 
 
@@ -404,7 +405,7 @@
 }
 
 
-#pragma mark - Tool Methods 
+#pragma mark - Tool Methods
 
 - (BOOL)checkPlayURL:(NSString *)playURL {
     BOOL hasHTTP = [playURL hasPrefix:@"http:"];
@@ -458,7 +459,7 @@
 
 /**
  缩放图片
-
+ 
  @param image 原图片
  @param size 缩放后图片
  */
@@ -486,6 +487,9 @@
 
 /**
  创建高斯模糊效果图片
+ 
+ @param image 原图片
+ @param blur  [0, 1]
  */
 - (UIImage *)gaussBlurImage:(UIImage *)image withGaussNumber:(CGFloat)blur {
     if (blur < 0 || blur > 1) {
@@ -497,12 +501,13 @@
     CGImageRef img = image.CGImage;
     vImage_Buffer inBuffer, outBuffer;
     vImage_Error error;
-    
     void *pixelBuffer;
-    // 从CGImage中获取数据
+    
+    // 1. 从CGImage中获取数据
     CGDataProviderRef inProvider = CGImageGetDataProvider(img);
     CFDataRef inBitmapData = CGDataProviderCopyData(inProvider);
-    // 设置从CGImage获取对象的属性
+    
+    // 2. 设置从CGImage获取对象的属性
     inBuffer.width = CGImageGetWidth(img);
     inBuffer.height = CGImageGetHeight(img);
     inBuffer.rowBytes = CGImageGetBytesPerRow(img);
@@ -525,12 +530,11 @@
     CGImageRef imageRef = CGBitmapContextCreateImage(contextRef);
     UIImage *gaussBlurImage = [UIImage imageWithCGImage:imageRef];
     
-    // Clean up
+    // 3. Clean up
     CGContextRelease(contextRef);
     CGColorSpaceRelease(colorSpace);
     free(pixelBuffer);
     CFRelease(inBitmapData);
-//    CGColorSpaceRelease(colorSpace);
     CGImageRelease(imageRef);
     
     return gaussBlurImage;
@@ -543,13 +547,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

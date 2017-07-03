@@ -12,16 +12,16 @@
 
 #pragma mark - 头文件导入
 
-#import <AFNetworking.h> // 网络框架
-#import <MJRefresh.h> // 刷新框架
-#import <MJExtension.h> // 解析框架
-#import "MBProgressHUD.h" // 提示框架
+#import <AFNetworking.h>         // 网络框架
+#import <MJRefresh.h>            // 刷新框架
+#import <MJExtension.h>          // 解析框架
+#import "MBProgressHUD.h"        // 提示框架
 #import "UIImageView+WebCache.h" // 图片加载
 #import "BWConst.h" // 常量
-//#import "UIColor+CustomColor.h" // 分类: 自定义颜色
-//#import "UIFont+CustomFont.h" // 分类: 自定义字体
-//#import "NSString+BrianExtension.h" // 分类: 字符串功能扩展
-//#import "AFNetworkingManager.h" // 自定义封装的网络请求类
+//#import "UIColor+CustomColor.h"   // 分类: 自定义颜色
+//#import "UIFont+CustomFont.h"     // 分类: 自定义字体
+#import "NSString+BrianExtension.h" // 分类: 字符串功能扩展
+//#import "AFNetworkingManager.h"   // 自定义封装的网络请求类
 
 
 #pragma mark - 调试模式 (DEBUG:调试模式  DEBUG1:非调试模式)

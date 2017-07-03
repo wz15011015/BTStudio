@@ -9,17 +9,21 @@
 #import "BWPlayDecorateView.h"
 #import "BWMacro.h"
 #import "AudienceCell.h"
+#import "MessageCell.h"
 
 #define TOP_Y (25) // 顶部第一行控件的y值
 #define TOP_H (30) // 顶部第一行控件的高
 #define TOP_LEFT_MARGIN  (10) // 顶部第一行控件的左边距
 #define TOP_RIGHT_MARGIN (10) // 顶部第一行控件的右边距
+ 
+const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
+const CGFloat ChatInputViewH = 45;      // 聊天输入框view的高度
 
-const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
-
-@interface BWPlayDecorateView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate> {
+@interface BWPlayDecorateView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource> {
     CGFloat _width;
     CGFloat _height;
+    
+    BOOL _isBulletOn; // 是否开启了弹幕效果
 }
 @property (nonatomic, strong) UITapGestureRecognizer *tapForScreen; // 点击手势
 @property (nonatomic, strong) UIPanGestureRecognizer *panForMove;  // 平移手势
@@ -32,6 +36,9 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
 @property (nonatomic, strong) UIImageView *anchorAvatarImageView;
 @property (nonatomic, strong) UILabel *anchorNameLabel;
 @property (nonatomic, strong) UILabel *anchorIDLabel;
+// 聊天输入框部分
+@property (nonatomic, strong) UIView *chatInputView;
+@property (nonatomic, strong) UITextField *chatInputTextField;
 
 
 // 用来放置除关闭按钮以外的其他控件
@@ -44,6 +51,9 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
 // 在线观众列表
 @property (nonatomic, strong) UICollectionView *audienceCollectionView;
 @property (nonatomic, strong) NSMutableArray *audienceArr;
+// 消息列表
+@property (nonatomic, strong) UITableView *messageTableView;
+@property (nonatomic, strong) NSMutableArray *messageArr;
 // 底部功能按钮
 @property (nonatomic, strong) UIButton *chatButton;
 @property (nonatomic, strong) UIButton *pmButton;        // 私信按钮 (Private Message)
@@ -76,13 +86,14 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        _width = frame.size.width;
-        _height = frame.size.height;
-        
         [self initializeParameters];
         [self addSubViews];
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -92,6 +103,10 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
 - (void)initializeParameters {
     _width = WIDTH;
     _height = HEIGHT;
+    _isBulletOn = NO;
+    
+    // 注册键盘高度变化的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
     // 1. 添加点击手势
     self.tapForScreen = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickScreen:)];
@@ -126,43 +141,46 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
     // 2. 在线观众列表
     [self.decorateView addSubview:self.audienceCollectionView];
     
-    // 3. 底部的功能按钮(6个)
+    // 3. 消息列表
+    [self.decorateView addSubview:self.messageTableView];
+    
+    // 4. 底部的功能按钮(6个)
     CGFloat button_bottomMargin = 15;
     CGFloat button_W = BottomButtonWidth;
     CGFloat button_Y = _height - button_bottomMargin - button_W;
     CGFloat button_middleMargin = (_width - (ButtonCountOfPlay * button_W)) / (ButtonCountOfPlay + 1);
-    // 3.1 聊天按钮
+    // 4.1 聊天按钮
     self.chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.chatButton.frame = CGRectMake(button_middleMargin, button_Y, button_W, button_W);
     [self.chatButton setImage:[UIImage imageNamed:@"push_chat"] forState:UIControlStateNormal];
     [self.chatButton addTarget:self action:@selector(clickChat:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.chatButton];
-    // 3.2 私信按钮
+    // 4.2 私信按钮
     self.pmButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.pmButton.frame = CGRectMake(CGRectGetMaxX(self.chatButton.frame) + button_middleMargin, button_Y, button_W, button_W);
     [self.pmButton setImage:[UIImage imageNamed:@"play_pm"] forState:UIControlStateNormal];
     [self.pmButton addTarget:self action:@selector(clickPM:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.pmButton];
-    // 3.3 点歌按钮
+    // 4.3 点歌按钮
     self.orderSongButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.orderSongButton.frame = CGRectMake(CGRectGetMaxX(self.pmButton.frame) + button_middleMargin, button_Y, button_W, button_W);
     [self.orderSongButton setImage:[UIImage imageNamed:@"push_chat"] forState:UIControlStateNormal];
     [self.orderSongButton addTarget:self action:@selector(clickOrderSong:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.orderSongButton];
-    // 3.4 礼物按钮
+    // 4.4 礼物按钮
     self.giftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.giftButton.frame = CGRectMake(CGRectGetMaxX(self.orderSongButton.frame) + button_middleMargin, button_Y, button_W, button_W);
     [self.giftButton setImage:[UIImage imageNamed:@"play_gift"] forState:UIControlStateNormal];
     [self.giftButton addTarget:self action:@selector(clickGift:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.giftButton];
-    // 3.5 录制视频按钮
+    // 4.5 录制视频按钮
     self.cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.cameraButton.frame = CGRectMake(CGRectGetMaxX(self.giftButton.frame) + button_middleMargin, button_Y, button_W, button_W);
     [self.cameraButton setImage:[UIImage imageNamed:@"play_video_record"] forState:UIControlStateNormal];
     [self.cameraButton setImage:[UIImage imageNamed:@"play_video_record_highlighted"] forState:UIControlStateHighlighted];
     [self.cameraButton addTarget:self action:@selector(clickCamera:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.cameraButton];
-    // 3.6 分享按钮
+    // 4.6 分享按钮
     self.shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.shareButton.frame = CGRectMake(CGRectGetMaxX(self.cameraButton.frame) + button_middleMargin, button_Y, button_W, button_W);
     [self.shareButton setImage:[UIImage imageNamed:@"play_share"] forState:UIControlStateNormal];
@@ -208,6 +226,36 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
     self.anchorIDLabel.textColor = [UIColor whiteColor];
     [self.anchorInfoView addSubview:self.anchorIDLabel];
     
+    // 3. 聊天输入框view
+    CGFloat bullet_button_W = 50;
+    CGFloat bullet_button_H = 32;
+    CGFloat intput_margin = 10;
+    CGFloat intput_textField_X = bullet_button_W + (2 * intput_margin);
+    CGFloat intput_textField_W = WIDTH - intput_textField_X - intput_margin;
+    self.chatInputView = [[UIView alloc] initWithFrame:CGRectMake(0, _height, _width, ChatInputViewH)];
+    self.chatInputView.backgroundColor = RGB(241, 241, 244);
+    [self addSubview:self.chatInputView];
+    // 3.1 是否开启弹幕效果
+    UIButton *bulletButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    bulletButton.frame = CGRectMake(intput_margin, (ChatInputViewH - bullet_button_H) / 2, bullet_button_W, bullet_button_H);
+    [bulletButton setImage:[UIImage imageNamed:@"play_bullet_switch_off"] forState:UIControlStateNormal];
+    [bulletButton setImage:[UIImage imageNamed:@"play_bullet_switch_on"] forState:UIControlStateSelected];
+    [bulletButton addTarget:self action:@selector(clickBulletButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.chatInputView addSubview:bulletButton];
+    // 3.2 输入框
+    self.chatInputTextField = [[UITextField alloc] initWithFrame:CGRectMake(intput_textField_X, (ChatInputViewH - bullet_button_H) / 2, intput_textField_W, bullet_button_H)];
+    self.chatInputTextField.backgroundColor = RGB(233, 233, 233);
+    self.chatInputTextField.layer.borderWidth = 1;
+    self.chatInputTextField.layer.borderColor = RGB(244, 85, 133).CGColor;
+    self.chatInputTextField.layer.masksToBounds = YES;
+    self.chatInputTextField.layer.cornerRadius = bullet_button_H / 2;
+    self.chatInputTextField.delegate = self;
+    self.chatInputTextField.returnKeyType = UIReturnKeySend;
+    self.chatInputTextField.font = [UIFont systemFontOfSize:15];
+    NSAttributedString *placeholderAttriStr = [[NSAttributedString alloc] initWithString:@"  说点什么吧" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15], NSForegroundColorAttributeName : RGB(180, 180, 180)}];
+    self.chatInputTextField.attributedPlaceholder = placeholderAttriStr;
+    [self.chatInputView addSubview:self.chatInputTextField];
+    
     
     // 测试数据
     self.anchorAvatarImageView.image = [UIImage imageNamed:@"avatar_default"];
@@ -221,6 +269,19 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
     [self.audienceArr addObject:@""];
     [self.audienceArr addObject:@""];
     [self.audienceCollectionView reloadData];
+    
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@" "];
+    [self.messageArr addObject:@"直播消息: 我们提倡绿色直播，封面和直播内容含吸烟、低俗、引诱、暴露等都将会被封停账号，同时禁止直播聚众闹事、集会，网警24小时在线巡查哦！😯"];
+    [self.messageTableView reloadData];
+    // 滚动到最后一行
+    NSIndexPath *footIndexPath = [NSIndexPath indexPathForRow:self.messageArr.count - 1 inSection:0];
+    [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 
 
@@ -237,7 +298,14 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
 
 // 开始聊天
 - (void)clickChat:(UIButton *)button {
-    NSLog(@"此时应弹出键盘，准备输入...");
+    [self.chatInputTextField becomeFirstResponder];
+}
+
+// 是否开启弹幕效果
+- (void)clickBulletButton:(UIButton *)button {
+    button.selected = !button.selected;
+    _isBulletOn = button.selected;
+    NSLog(@"%@弹幕效果", _isBulletOn ? @"开启" : @"关闭");
 }
 
 // 私信
@@ -287,6 +355,8 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
     // 当decorateView在初始位置时(即刚好充满整个屏幕时),不能向左滑动;
     // 若向右滑动，则当中心线x值 > (_width * 0.7)时，让decorateView完全移出屏幕;
     // 若向左滑动，则当中心线x值 < (_width * 1.4)时，让decorateView移回初始位置.
+    
+    [self endEditing:YES];
     
     CGPoint center = self.decorateView.center;
     
@@ -338,6 +408,99 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+}
+
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.messageArr.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *message = self.messageArr[indexPath.row];
+    CGFloat height = [MessageCell heightForString:message];
+    height = height < MESSAGE_CELL_MIN_H ? MESSAGE_CELL_MIN_H : height;
+    return height;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MessageCell *cell = [tableView dequeueReusableCellWithIdentifier:MessageCellID forIndexPath:indexPath];
+    NSString *message = self.messageArr[indexPath.row];
+    cell.message = message;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (scrollView == self.messageTableView) {
+        [self endEditing:YES];
+    }
+}
+
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    textField.text = @"";
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSString *messageText = [textField.text stringByTrimmingCharactersInSet:[NSMutableCharacterSet whitespaceCharacterSet]];
+    if (messageText.length <= 0) {
+        textField.text = @"";
+        NSLog(@"消息内容不能为空");
+        return YES;
+    }
+    
+    textField.text = @"";
+    
+    NSLog(@"发送消息: %@", messageText);
+    
+    // 发送成功后，刷新列表
+    [self.messageArr addObject:messageText];
+    [self.messageTableView reloadData];
+    // 滚动到最后一行
+    NSIndexPath *footIndexPath = [NSIndexPath indexPathForRow:self.messageArr.count - 1 inSection:0];
+    [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    
+    return YES;
+}
+
+
+#pragma mark - Notification
+
+- (void)keyboardWillChangeFrame:(NSNotification *)notification {
+    CGRect endKeyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    
+    CGFloat textFieldY = _height;
+    CGFloat Y = 0;
+    if (endKeyboardRect.origin.y == _height) { // 键盘收起
+        textFieldY = _height;
+        Y = 0;
+//        NSLog(@"11111 键盘frame: %@", NSStringFromCGRect(endKeyboardRect));
+    } else {
+        textFieldY = endKeyboardRect.origin.y - ChatInputViewH;
+        Y = 0 - (endKeyboardRect.size.height + ChatInputViewH - BottomButtonWidth - 25);
+//        NSLog(@"22222222 键盘frame: %@", NSStringFromCGRect(endKeyboardRect));
+    }
+    [UIView animateWithDuration:duration animations:^{
+        CGRect frame = self.frame;
+        frame.origin.y = Y;
+        self.frame = frame;
+        
+        CGRect frame1 = self.chatInputView.frame;
+        frame1.origin.y = textFieldY - Y;
+        self.chatInputView.frame = frame1;
+    }];
 }
 
 
@@ -396,6 +559,36 @@ const NSUInteger ButtonCountOfPlay = 7;     // 底部的功能按钮个数
     }
     return _audienceArr;
 }
+
+- (UITableView *)messageTableView {
+    if (!_messageTableView) {
+        CGFloat y = _height - MESSAGE_TABLEVIEW_H - BottomButtonWidth - 25;
+        _messageTableView = [[UITableView alloc] initWithFrame:CGRectMake(15, y, MESSAGE_TABLEVIEW_W, MESSAGE_TABLEVIEW_H)];
+        _messageTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+        _messageTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _messageTableView.showsVerticalScrollIndicator = NO;
+        _messageTableView.backgroundColor = [UIColor clearColor];
+        _messageTableView.delegate = self;
+        _messageTableView.dataSource = self;
+        [_messageTableView registerClass:[MessageCell class] forCellReuseIdentifier:MessageCellID];
+    }
+    return _messageTableView;
+}
+
+- (NSMutableArray *)messageArr {
+    if (!_messageArr) {
+        _messageArr = [NSMutableArray array];
+    }
+    return _messageArr;
+}
+
+
+#pragma mark - Override
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self endEditing:YES];
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -42,7 +42,6 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 // 用来放置除关闭按钮以外的其他控件
 @property (nonatomic, strong) UIView *decorateView;
 @property (nonatomic, strong) UIButton *chatButton;
-@property (nonatomic, strong) UIButton *torchButton;
 @property (nonatomic, strong) UIButton *cameraSwitchButton;
 @property (nonatomic, strong) UIButton *beautyButton;
 @property (nonatomic, strong) UIButton *musicButton;
@@ -196,7 +195,7 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     [self addSubview:self.decorateView];
     
     // 1. 底部的功能按钮
-//    CGFloat button_leftMargin = 15;
+    //    CGFloat button_leftMargin = 15;
     CGFloat button_bottomMargin = 15;
     CGFloat button_W = BottomButtonWidth;
     CGFloat button_Y = _height - button_bottomMargin - button_W;
@@ -279,7 +278,7 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     [self.toolMotionButton setTitleColor:RGB(10, 204, 172) forState:UIControlStateSelected];
     self.toolMotionButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -5);
     [self.toolMotionButton addTarget:self action:@selector(selectTool:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.toolButtonScrollView addSubview:self.toolMotionButton];
+    //    [self.toolButtonScrollView addSubview:self.toolMotionButton];
     
     // 2.2 工具
     // 2.2.1 美颜工具
@@ -343,7 +342,7 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     self.sliderBeauty.value = 6.3;
     self.sliderBeauty.tag = 113;
     [self.toolScrollView addSubview:self.sliderBeauty];
-   
+    
     // 2.2.1.4 美白
     UILabel *whiteningLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.sliderBeauty.frame) + tool_beauty_MiddleMargin, CGRectGetMaxY(bigEyeLabel.frame) + tool_beauty_TopMargin, tool_beauty_LabelW, tool_beauty_H)];
     whiteningLabel.font = tool_beauty_Font;
@@ -723,7 +722,7 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     }
     
     FilterCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:FilterCellID forIndexPath:indexPath];
-    cell.filter = self.filterArr[indexPath.row]; 
+    cell.filter = self.filterArr[indexPath.row];
     return cell;
 }
 
@@ -976,11 +975,11 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end

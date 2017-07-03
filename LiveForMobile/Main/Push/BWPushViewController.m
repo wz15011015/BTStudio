@@ -198,7 +198,7 @@
 }
 
 
-#pragma mark - BWPushDecorateDelegate (UI Events) 
+#pragma mark - BWPushDecorateDelegate (UI Events)
 
 // 结束直播
 - (void)closeRTMP {
@@ -221,6 +221,11 @@
     if (!self.livePush) {
         return;
     }
+    if (self.livePush.frontCamera) {
+        NSLog(@"当前为前置摄像头状态，不能启动照明灯");
+        return;
+    }
+    
     _torch_on = !_torch_on;
     if (![self.livePush toggleTorch:_torch_on]) {
         _torch_on = !_torch_on;
@@ -240,6 +245,11 @@
     }
     _camera_switch = !_camera_switch;
     [self.livePush switchCamera];
+    
+    if (self.livePush.frontCamera) { // 切换为前置摄像头时，照明灯会被关闭
+        _torch_on = NO;
+        [self.decorateView.torchButton setImage:[UIImage imageNamed:@"push_torch_off"] forState:UIControlStateNormal];
+    }
 }
 
 // 显示美颜效果设置界面
@@ -283,10 +293,10 @@
 
 // 选择背景音乐
 - (void)selectBGM:(UIButton *)button {
-//    MPMediaPickerController *mediaPickerController = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeAnyAudio];
-//    mediaPickerController.delegate = self;
-//    mediaPickerController.editing = YES;
-//    [self presentViewController:mediaPickerController animated:YES completion:nil];
+    //    MPMediaPickerController *mediaPickerController = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeAnyAudio];
+    //    mediaPickerController.delegate = self;
+    //    mediaPickerController.editing = YES;
+    //    [self presentViewController:mediaPickerController animated:YES completion:nil];
 }
 
 // 关闭背景音乐
@@ -315,22 +325,22 @@
             } else if (EvtID == PUSH_EVT_PUSH_BEGIN) { // 该事件表示推流成功，可以通知业务server将该流置为上线状态
                 
             } else if (EvtID == PUSH_EVT_CONNECT_SUCC) { // 已经连接推流服务器
-//                BOOL isWIFIReachable = [AFNetworkReachabilityManager sharedManager].reachableViaWiFi;
-//                if (isWIFIReachable) {
-//                    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-//                        if (self.rtmpURL.length == 0) {
-//                            return;
-//                        }
-//                        if (status == AFNetworkReachabilityStatusReachableViaWiFi) {
-//                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"" preferredStyle:UIAlertControllerStyleAlert];
-//                            [alert addAction:[UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:nil]];
-//                            [alert addAction:[UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                                [self stopRTMP];
-//                            }]];
-//                            [self presentViewController:alert animated:YES completion:nil];
-//                        }
-//                    }];
-//                }
+                //                BOOL isWIFIReachable = [AFNetworkReachabilityManager sharedManager].reachableViaWiFi;
+                //                if (isWIFIReachable) {
+                //                    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+                //                        if (self.rtmpURL.length == 0) {
+                //                            return;
+                //                        }
+                //                        if (status == AFNetworkReachabilityStatusReachableViaWiFi) {
+                //                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"" preferredStyle:UIAlertControllerStyleAlert];
+                //                            [alert addAction:[UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleCancel handler:nil]];
+                //                            [alert addAction:[UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //                                [self stopRTMP];
+                //                            }]];
+                //                            [self presentViewController:alert animated:YES completion:nil];
+                //                        }
+                //                    }];
+                //                }
             } else if (EvtID == PUSH_WARNING_NET_BUSY) {
                 NSLog(@"您当前的网络环境不佳，请尽快更换网络保证正常直播");
             }
@@ -403,7 +413,7 @@
     
     if ([self.livePush isPublishing]) {
         [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-//            [self.livePush resumePush];
+            //            [self.livePush resumePush];
         }];
         [self.livePush pausePush];
     }
@@ -413,7 +423,7 @@
     if (self.rtmpURL) {
         [self startRTMP];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [[NSNotificationCenter defaultCenter] addObserver:_logicView selector:@selector(keyboardFrameDidChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
+            //            [[NSNotificationCenter defaultCenter] addObserver:_logicView selector:@selector(keyboardFrameDidChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
         });
         return;
     }
@@ -537,9 +547,9 @@
     format.dateFormat = @"hh:mm:ss";
     NSString *time = [format stringFromDate:date];
     NSString *log = [NSString stringWithFormat:@"[%@.%-3.3d] %@", time, mil, evt];
-//    if (_logMsg == nil) {
-//        _logMsg = @"";
-//    }
+    //    if (_logMsg == nil) {
+    //        _logMsg = @"";
+    //    }
     NSString *logMsg = [NSString stringWithFormat:@"%@", log];
     NSLog(@"%@", logMsg);
 }
@@ -551,13 +561,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

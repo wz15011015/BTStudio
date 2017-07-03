@@ -16,6 +16,13 @@ UIKIT_EXTERN NSString *const IsLaunchedAppKey; // 是否启动过App
 
 UIKIT_EXTERN NSString *const TipMsgStopPush;
 
+// MARK: 乐视云
+
+UIKIT_EXTERN NSString *const LecloudRTMPPushDomain;
+UIKIT_EXTERN NSString *const LecloudRTMPPullDomain;
+UIKIT_EXTERN NSString *const LecloudAppSignSecretKey;
+UIKIT_EXTERN NSString *const LecloudPublishingPointKey;
+
 
 #pragma mark - 基本类型常量
 

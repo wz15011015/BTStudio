@@ -69,7 +69,10 @@ typedef NS_ENUM(NSInteger, BWLiveFilterType) {
 
 @property (nonatomic, weak) id<BWPushDecorateDelegate>delegate;
 
-// view所在的控制器
+/** view所在的控制器 */
 @property (nonatomic, strong) UIViewController *parentViewController;
+
+/** 照明灯开关按钮 */
+@property (nonatomic, strong) UIButton *torchButton;
 
 @end
