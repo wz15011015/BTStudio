@@ -1,20 +1,25 @@
 //
-//  BWPlayShareView.h
+//  SnapShotShareView.h
 //  LiveForMobile
 //
-//  Created by  Sierra on 2017/6/27.
+//  Created by  Sierra on 2017/07/05.
 //  Copyright © 2017年 BaiFuTak. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 /**
- 播放界面的分享view
+ 截屏分享view
  */
-@interface BWPlayShareView : UIView
+@interface SnapShotShareView : UIView
 
 /** view所在的控制器 */
 @property (nonatomic, strong) UIViewController *parentViewController;
+
+/** 截图 (UIImage) */
+@property (nonatomic, strong) UIImage *snapShotImage;
+
+@property (nonatomic, copy) void(^dismissBlock)(void);
 
 
 /**

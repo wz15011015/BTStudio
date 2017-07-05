@@ -149,22 +149,26 @@
 }
 
 - (void)tabBarDidSelectedMiddleButton:(BWTabBar *)tabBar {
-    UIViewController *selectedVC = self.selectedViewController;
-    if (![selectedVC isKindOfClass:[UINavigationController class]]) {
-        return;
-    }
-    UINavigationController *nav = (UINavigationController *)selectedVC;
+//    UIViewController *selectedVC = self.selectedViewController;
+//    if (![selectedVC isKindOfClass:[UINavigationController class]]) {
+//        return;
+//    }
+//    UINavigationController *nav = (UINavigationController *)selectedVC;
+//    
+//    PushPrepareView *pushPrepareView = [[PushPrepareView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+//    pushPrepareView.pushBlock = ^{
+//        BWPushViewController *pushVC = [[BWPushViewController alloc] init];
+//        pushVC.hidesBottomBarWhenPushed = YES;
+//        [nav pushViewController:pushVC animated:YES];
+//    };
+//    pushPrepareView.recordVideoBlock = ^{
+//        NSLog(@"小视频");
+//    };
+//    [self.view addSubview:pushPrepareView];
     
-    PushPrepareView *pushPrepareView = [[PushPrepareView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
-    pushPrepareView.pushBlock = ^{
-        BWPushViewController *pushVC = [[BWPushViewController alloc] init];
-        pushVC.hidesBottomBarWhenPushed = YES;
-        [nav pushViewController:pushVC animated:YES];
-    };
-    pushPrepareView.recordVideoBlock = ^{
-        NSLog(@"小视频");
-    };
-    [self.view addSubview:pushPrepareView];
+    
+    BWPushViewController *pushVC = [[BWPushViewController alloc] init];
+    [self presentViewController:pushVC animated:YES completion:nil];
 }
 
 

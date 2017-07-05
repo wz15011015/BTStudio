@@ -15,11 +15,13 @@
 #import "BWGiftView.h"
 #import "PrivateMessageView.h"
 #import "BWPlayShareView.h"
+#import "SnapShotShareView.h"
 
 #define RTMP_PLAY_URL @"rtmp://20994.mpull.live.lecloud.com/live/leshiTest?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9"
 
 @interface BWPlayViewController () <TXLivePlayListener, TXVideoRecordListener, BWPlayDecorateDelegate, PlayUGCDecorateViewDelegate> {
     BOOL _isLivePlay; // 是否为播放直播视频
+    BOOL _isResetVideoRecord; // 是否重新录制短视频
     TX_Enum_PlayType _playType;
 }
 
@@ -31,6 +33,8 @@
 @property (nonatomic, strong) BWPlayDecorateView *decorateView;
 
 @property (nonatomic, strong) PlayUGCDecorateView *recordUGCView; // 短视频录制界面
+
+@property (nonatomic, strong) SnapShotShareView *snapShotView; // 截屏分享view
 
 @end
 
@@ -49,9 +53,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAudioSessionEvent:) name:AVAudioSessionInterruptionNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidTakeScreenshot:) name:UIApplicationUserDidTakeScreenshotNotification object:nil];
     
     // 1.0 初始化参数
     _isLivePlay = YES;
+    _isResetVideoRecord = NO;
     self.rtmpURL = RTMP_PLAY_URL;
     
     // 1.1 拉流配置对象
@@ -60,6 +66,7 @@
     // 1.2 拉流对象
     self.livePlayer = [[TXLivePlayer alloc] init];
     self.livePlayer.enableHWAcceleration = YES;
+    self.livePlayer.recordDelegate = self; // 设置视频录制的代理
     
     // 2. 添加控件
     // 2.0 背景图
@@ -243,6 +250,7 @@
 // 分享主播
 - (void)clickShare:(UIButton *)sender {
     BWPlayShareView *shareView = [[BWPlayShareView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    shareView.parentViewController = self;
     [shareView showToView:self.view];
 }
 
@@ -257,18 +265,55 @@
 
 // 开始录制短视频
 - (void)recordVideoStart {
+    _isResetVideoRecord = NO;
+    // 目前只支持录制视频源，弹幕消息等等目前还不支持
     int result = [self.livePlayer startRecord:RECORD_TYPE_STREAM_SOURCE];
-    NSLog(@"开始录制: %d", result);
+    if (0 == result) {
+        NSLog(@"开始录制成功");
+    } else if (-1 == result) {
+        NSLog(@"正在录制短视频");
+    } else if (-2 == result) {
+        NSLog(@"videoRecorder初始化失败");
+    } else {
+        NSLog(@"开始录制: %d", result);
+    }
 }
 
-// 停止录制短视频
-- (void)recordVideoStop {
-    [self.livePlayer stopRecord];
+// 结束录制短视频
+- (void)recordVideoEnd {
+    _isResetVideoRecord = NO;
+    int result = [self.livePlayer stopRecord];
+    if (0 == result) {
+        NSLog(@"结束录制成功");
+    } else if (-1 == result) {
+        NSLog(@"不存在录制任务");
+    } else if (-2 == result) {
+        NSLog(@"videoRecorder未初始化");
+    } else {
+        NSLog(@"结束录制: %d", result);
+    }
 }
 
 // 重新录制短视频
 - (void)recordVideoReset {
+    _isResetVideoRecord = YES;
     [self.livePlayer stopRecord];
+}
+
+// 截屏
+- (void)playUGCDecorateViewSnapshot:(PlayUGCDecorateView *)view {
+    [self.livePlayer snapshot:^(UIImage *snapShotImage) {
+        if (!snapShotImage) {
+            [[BWHUDHelper sharedInstance] showHUDMessageInKeyWindow:@"截屏失败"];
+//            return;
+        }
+        if (!_snapShotView) {
+            self.snapShotView.snapShotImage = snapShotImage;
+            [self.snapShotView showToView:self.view];
+        } else {
+            self.snapShotView.snapShotImage = snapShotImage;
+        }
+    }];
 }
 
 
@@ -303,6 +348,7 @@
 }
 
 - (void)onAppDidEnterBackground:(UIApplication *)app {
+    NSLog(@"App进入后台");
     //    if (_appIsInterrupt == NO) {
     //        if (_playType == PLAY_TYPE_VOD_FLV || _playType == PLAY_TYPE_VOD_HLS || _playType == PLAY_TYPE_VOD_MP4) {
     //            if (!_videoPause) {
@@ -314,6 +360,7 @@
 }
 
 - (void)onAppWillEnterForeground:(UIApplication *)app {
+    NSLog(@"App即将回到前台");
     //    if (_appIsInterrupt == YES) {
     //        if (_playType == PLAY_TYPE_VOD_FLV || _playType == PLAY_TYPE_VOD_HLS || _playType == PLAY_TYPE_VOD_MP4) {
     //            if (!_videoPause) {
@@ -322,6 +369,21 @@
     //        }
     //        _appIsInterrupt = NO;
     //    }
+}
+
+// 系统截屏事件通知
+- (void)userDidTakeScreenshot:(NSNotification *)notification {
+    [self.livePlayer snapshot:^(UIImage *snapShotImage) {
+        if (!snapShotImage) {
+//            return;
+        }
+        if (!_snapShotView) {
+            self.snapShotView.snapShotImage = snapShotImage;
+            [self.snapShotView showToView:self.view];
+        } else {
+            self.snapShotView.snapShotImage = snapShotImage;
+        }
+    }];
 }
 
 
@@ -387,7 +449,7 @@
 }
 
 
-#pragma mark - TXVideoRecordListener
+#pragma mark - TXVideoRecordListener (短视频录制相关事件)
 
 - (void)onRecordProgress:(NSInteger)milliSecond {
     if (!self.recordUGCView) {
@@ -397,11 +459,30 @@
 }
 
 - (void)onRecordComplete:(TXRecordResult *)result {
+    if (_isResetVideoRecord) {
+        NSLog(@"点击了重新录制按钮, 放弃之前录制的视频");
+        return;
+    }
+    
     if (result.retCode == RECORD_RESULT_FAILED || result.retCode == RECORD_RESULT_OK_INTERRUPT) {
         NSLog(@"录制失败: %@", result.descMsg);
     } else {
-        NSLog(@"录制成功.");
+        NSLog(@"录制成功, videoPath = %@", result.videoPath);
     }
+}
+
+
+#pragma mark - Getters
+
+- (SnapShotShareView *)snapShotView {
+    if (!_snapShotView) {
+        _snapShotView = [[SnapShotShareView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+        _snapShotView.parentViewController = self;
+        _snapShotView.dismissBlock = ^{
+            _snapShotView = nil;
+        };
+    }
+    return _snapShotView;
 }
 
 
@@ -450,9 +531,6 @@
     format.dateFormat = @"hh:mm:ss";
     NSString *time = [format stringFromDate:date];
     NSString *log = [NSString stringWithFormat:@"[%@.%-3.3d] %@", time, mil, evt];
-    //    if (_logMsg == nil) {
-    //        _logMsg = @"";
-    //    }
     NSString *logMsg = [NSString stringWithFormat:@"%@", log];
     NSLog(@"%@", logMsg);
 }
@@ -540,10 +618,49 @@
     return gaussBlurImage;
 }
 
+// 截取整个scrollView视图
+- (UIImage *)captureScrollView:(UIScrollView *)scrollView {
+    UIImage *image = nil;
+    UIGraphicsBeginImageContextWithOptions(scrollView.contentSize, NO, 0.0);
+    {
+        CGPoint savedContentOffset = scrollView.contentOffset;
+        CGRect savedFrame = scrollView.frame;
+        scrollView.contentOffset = CGPointZero;
+        scrollView.frame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height);
+        
+        [scrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        scrollView.contentOffset = savedContentOffset;
+        scrollView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    if (image != nil) {
+        return image;
+    }
+    return nil;
+}
+
+// 截取整个View视图
+- (UIImage *)snapShotWithView:(UIView *)view {
+    UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, 0.0);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    if (image != nil) {
+        return image;
+    }
+    return nil;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    NSLog(@"BWPlayViewController.m  收到内存警告⚠️");
 }
 
 /*

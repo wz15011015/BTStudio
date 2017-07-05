@@ -624,11 +624,7 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 
 // 显示美颜效果设置界面
 - (void)clickBeauty:(UIButton *)button {
-    if ([self.delegate respondsToSelector:@selector(clickBeauty:)]) {
-        [self.delegate clickBeauty:button];
-        
-        [self showToolBarView];
-    }
+    [self showToolBarView];
 }
 
 // 开启音效
@@ -1273,6 +1269,77 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
         _audioEffectArr = [NSMutableArray array];
     }
     return _audioEffectArr;
+}
+
+
+#pragma mark - Setters 
+
+- (void)setBigEyeLevel:(float)bigEyeLevel {
+    _bigEyeLevel = bigEyeLevel;
+    self.sliderBigEye.value = bigEyeLevel;
+}
+
+- (void)setSlimFaceLevel:(float)slimFaceLevel {
+    _slimFaceLevel = slimFaceLevel;
+    self.sliderSlimFace.value = slimFaceLevel;
+}
+
+- (void)setBeautyLevel:(float)beautyLevel {
+    _beautyLevel = beautyLevel;
+    self.sliderBeauty.value = beautyLevel;
+}
+
+- (void)setWhiteningLevel:(float)whiteningLevel {
+    _whiteningLevel = whiteningLevel;
+    self.sliderWhitening.value = whiteningLevel;
+}
+
+- (void)setFilterType:(BWLiveFilterType)filterType {
+    _filterType = filterType;
+    
+    NSInteger index = 0;
+    switch (filterType) {
+        case FilterType_none:
+            index = 0;
+            break;
+        case FilterType_white:
+            index = 1;
+            break;
+        case FilterType_langman:
+            index = 2;
+            break;
+        case FilterType_qingxin:
+            index = 3;
+            break;
+        case FilterType_weimei:
+            index = 4;
+            break;
+        case FilterType_fennen:
+            index = 5;
+            break;
+        case FilterType_huaijiu:
+            index = 6;
+            break;
+        case FilterType_landiao:
+            index = 7;
+            break;
+        case FilterType_qingliang:
+            index = 8;
+            break;
+        case FilterType_rixi:
+            index = 9;
+            break;
+        default:
+            index = 0;
+            break;
+    }
+    [self.filterArr enumerateObjectsUsingBlock:^(FilterModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx == index) {
+            obj.selected = YES;
+        } else {
+            obj.selected = NO;
+        }
+    }];
 }
 
 

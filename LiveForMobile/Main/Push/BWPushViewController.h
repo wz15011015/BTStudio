@@ -13,4 +13,6 @@
  */
 @interface BWPushViewController : BaseViewController
 
+@property (nonatomic, copy) NSString *rtmpURL; // 推流地址
+
 @end

@@ -23,9 +23,8 @@
     NSLog(@"SDK Version: %@", [[TXLivePush getSDKVersion] componentsJoinedByString:@"."]);
     
     // 根据用户ID生成推流／拉流地址
-    
-    NSString *userID = [NSString stringWithFormat:@"022%02ld%02ld%02ld", random() % 100, random() % 100, random() % 100];
-    NSLog(@"随机生成的用户ID: %@", userID);
+    NSString *userID = [NSString stringWithFormat:@"022%02d%02d%02d", arc4random() % 100, arc4random() % 100, arc4random() % 100];
+    NSLog(@"随机生成的用户ID: %@", userID); // 022838677
     NSString *streamName = [NSString stringWithFormat:@"DaNiu%@", userID];
     NSString *rtmpPushURL = [self lecloudRTMPAddressWithDomain:LecloudRTMPPushDomain streamName:streamName appKey:LecloudAppSignSecretKey];
     NSString *rtmpPullURL = [self lecloudRTMPPullAddressWithDomain:LecloudRTMPPullDomain streamName:streamName appKey:LecloudAppSignSecretKey];

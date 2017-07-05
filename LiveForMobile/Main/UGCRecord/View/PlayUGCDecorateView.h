@@ -18,11 +18,14 @@
 // 开始录制短视频
 - (void)recordVideoStart;
 
-// 停止录制短视频
-- (void)recordVideoStop;
+// 结束录制短视频
+- (void)recordVideoEnd;
 
 // 重新录制短视频
 - (void)recordVideoReset;
+
+// 截屏
+- (void)playUGCDecorateViewSnapshot:(PlayUGCDecorateView *)view;
 
 @end
 
@@ -34,7 +37,9 @@
 
 @property (nonatomic, weak) id<PlayUGCDecorateViewDelegate>delegate;
 
-@property (nonatomic, assign) CGFloat recordDuration; // 录制进度
+/** 录制进度 */
+@property (nonatomic, assign) CGFloat recordDuration;
+
 
 /**
  显示在view上

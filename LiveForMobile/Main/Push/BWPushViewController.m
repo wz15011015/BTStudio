@@ -12,30 +12,31 @@
 #import <sys/sysctl.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "TXRTMPSDK/TXLivePush.h"
+#import "PushPrepareDecorateView.h"
 #import "BWPushDecorateView.h"
 
 
-// 播放地址(拉流地址): rtmp://20994.mpull.live.lecloud.com/live/leshiTest?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9
 #define RTMP_PUBLISH_URL @"rtmp://20994.mpush.live.lecloud.com/live/leshiTest?&tm=20170627094929&sign=5c9ce4e8d4531606ee3cb16d3bcfe9c7"
 
-@interface BWPushViewController () <TXLivePushListener, BWPushDecorateDelegate, MPMediaPickerControllerDelegate> {
-    BOOL _isPreviewing;  // 是否已开始推流画面的预览
-    BOOL _firstAppear;
-    BOOL _torch_on;      // 照明灯是否打开
-    BOOL _camera_switch; // 前后摄像头切换
+@interface BWPushViewController () <TXLivePushListener, BWPushDecorateDelegate, PushPrepareDecorateViewDelegate, MPMediaPickerControllerDelegate> {
+    BOOL _isAvailablePush; // 是否可以直播
+    BOOL _isPreviewing;    // 是否已开始推流画面的预览
+    BOOL _torch_on;        // 照明灯是否打开
+    BOOL _camera_switch;   // 前后摄像头切换
     
     float _bigEyeLevel;    // 大眼参数值
     float _slimFaceLevel;  // 瘦脸参数值
     float _beautyLevel;    // 美颜参数值
     float _whiteningLevel; // 美白参数值
+    BWLiveFilterType _filterType; // 滤镜类型
 }
 
-@property (nonatomic, copy) NSString *rtmpURL; // 推流地址
 @property (nonatomic, strong) TXLivePushConfig *livePushConfig;
 @property (nonatomic, strong) TXLivePush *livePush;
 
 @property (nonatomic, strong) UIView *videoParentView; // 视频画面的父view
 @property (nonatomic, strong) BWPushDecorateView *decorateView;
+@property (nonatomic, strong) PushPrepareDecorateView *prepareDecorateView; // 直播设置准备界面
 
 @end
 
@@ -51,22 +52,23 @@
     [super viewDidLoad];
     
     // 1. 初始化
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onAppDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     // 1.0 初始化参数
+    _isAvailablePush = NO;
     _isPreviewing = NO;
-    _firstAppear = YES;
     _torch_on = NO;
     _camera_switch = NO;
     self.rtmpURL = RTMP_PUBLISH_URL;
     _beautyLevel = 9;
     _whiteningLevel = 3;
+    _filterType = FilterType_none;
     
     // 1.1 推流配置对象
     self.livePushConfig = [[TXLivePushConfig alloc] init];
-    self.livePushConfig.frontCamera = NO;
+    self.livePushConfig.frontCamera = YES;
     self.livePushConfig.enableAutoBitrate = NO;
     self.livePushConfig.videoResolution = [self isSuitableMachine:5] ? VIDEO_RESOLUTION_TYPE_540_960 : VIDEO_RESOLUTION_TYPE_360_640; // 由于iphone4s及以下机型前置摄像头不支持540p，故iphone4s及以下采用360p
     self.livePushConfig.videoBitratePIN = 10000;
@@ -92,10 +94,15 @@
     self.decorateView = [[BWPushDecorateView alloc] initWithFrame:self.view.bounds];
     self.decorateView.delegate = self;
     self.decorateView.parentViewController = self;
-    [self.view addSubview:self.decorateView];
+//    [self.view addSubview:self.decorateView];
+    // 2.3 直播设置界面
+    self.prepareDecorateView = [[PushPrepareDecorateView alloc] initWithFrame:self.view.bounds];
+    self.prepareDecorateView.delegate = self;
+    self.prepareDecorateView.parentViewController = self;
+    [self.view addSubview:self.prepareDecorateView];
     
-    // 3. 开始推流
-    [self startRTMP];
+    // 3. 开始预览
+    [self startPreview];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,22 +110,18 @@
     
     self.navigationController.navigationBarHidden = YES;
     
-    if (self.rtmpURL) {
+    if (self.rtmpURL && _isAvailablePush) {
         [self startRTMP];
     }
     
-    if (!_firstAppear) {
-        // 是否有摄像头权限
-        AVAuthorizationStatus cameraStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-        if (cameraStatus == AVAuthorizationStatusDenied) {
-            return;
-        }
-        if (!_isPreviewing) {
-            [self.livePush startPreview:self.videoParentView];
-            _isPreviewing = YES;
-        }
-    } else {
-        _firstAppear = NO;
+    // 是否有摄像头权限
+    AVAuthorizationStatus cameraStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (cameraStatus == AVAuthorizationStatusDenied) {
+        return;
+    }
+    if (!_isPreviewing) {
+        [self.livePush startPreview:self.videoParentView];
+        _isPreviewing = YES;
     }
 }
 
@@ -136,6 +139,42 @@
 
 
 #pragma mark - Methods
+
+// 开始预览
+- (BOOL)startPreview {
+    // 1. 检查系统硬件访问权限
+    // 是否有摄像头权限
+    AVAuthorizationStatus cameraStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (cameraStatus == AVAuthorizationStatusDenied) {
+        return NO;
+    }
+    // 是否有麦克风权限
+    AVAuthorizationStatus audioStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    if (audioStatus == AVAuthorizationStatusDenied) {
+        return NO;
+    }
+    
+    // 2. 检查推流对象
+    if (!self.livePush) {
+        return NO;
+    }
+    [self.livePush setVideoQuality:VIDEO_QUALITY_HIGH_DEFINITION];
+    if (!_isPreviewing) {
+        [self.livePush startPreview:self.videoParentView];
+        _isPreviewing = YES;
+    }
+    return YES;
+}
+
+// 结束预览
+- (void)stopPreview {
+    if (!self.livePush) {
+        return;
+    }
+    [self.livePush stopPreview];
+    self.livePush = nil;
+    _isPreviewing = NO;
+}
 
 // 开始推流
 - (BOOL)startRTMP {
@@ -174,7 +213,7 @@
         NSLog(@"推流器启动失败！");
         return NO;
     }
-    
+    NSLog(@"推流器启动成功！");
     // 关闭系统空闲定时器，保持屏幕常亮
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
@@ -198,6 +237,70 @@
 }
 
 
+#pragma mark - PushPrepareDecorateViewDelegate (直播准备的设置)
+
+// 关闭直播设置页面
+- (void)pushPrepareDecorateView:(PushPrepareDecorateView *)view dismissViewController:(UIViewController *)parentViewController {
+    [self stopPreview];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+// 切换前后摄像头
+- (void)pushPrepareDecorateView:(PushPrepareDecorateView *)view cameraSwitch:(UIButton *)sender {
+    if (!self.livePush) {
+        return;
+    }
+    [self.livePush switchCamera];
+}
+
+// 开始直播
+- (void)pushPrepareDecorateView:(PushPrepareDecorateView *)view startPush:(NSString *)title {
+    [self.prepareDecorateView removeFromSuperview];
+    _isAvailablePush = YES;
+    
+    // 开始推流
+    [self startRTMP];
+    
+    self.decorateView.bigEyeLevel = _bigEyeLevel;
+    self.decorateView.slimFaceLevel = _slimFaceLevel;
+    self.decorateView.beautyLevel = _beautyLevel;
+    self.decorateView.whiteningLevel = _whiteningLevel;
+    self.decorateView.filterType = _filterType;
+    [self.view addSubview:self.decorateView];
+}
+
+// 美颜工具滑杆事件
+- (void)pushPrepareDecorateView:(PushPrepareDecorateView *)view sliderValueChange:(UISlider *)sender {
+    if (sender.tag == 111) { // 大眼
+        _bigEyeLevel = sender.value;
+        [self.livePush setEyeScaleLevel:_bigEyeLevel];
+    } else if (sender.tag == 112) { // 瘦脸
+        _slimFaceLevel = sender.value;
+        [self.livePush setFaceScaleLevel:_slimFaceLevel];
+    } else if (sender.tag == 113) { // 美颜
+        _beautyLevel = sender.value;
+        [self.livePush setBeautyFilterDepth:_beautyLevel setWhiteningFilterDepth:_whiteningLevel];
+    } else if (sender.tag == 114) { // 美白
+        _whiteningLevel = sender.value;
+        [self.livePush setBeautyFilterDepth:_beautyLevel setWhiteningFilterDepth:_whiteningLevel];
+    }
+}
+
+// 选择了滤镜类型和滤镜文件名称
+- (void)pushPrepareDecorateView:(PushPrepareDecorateView *)view selectedFilter:(BWLiveFilterType)filterType fileName:(NSString *)fileName {
+    if (self.livePush == nil) {
+        return;
+    }
+    _filterType = filterType;
+    UIImage *filterImage = [UIImage imageNamed:fileName];
+    if (filterImage == nil || filterType == FilterType_none) {
+        [self.livePush setFilter:nil];
+    } else {
+        [self.livePush setFilter:filterImage];
+    }
+}
+
+
 #pragma mark - BWPushDecorateDelegate (UI Events)
 
 // 结束直播
@@ -207,7 +310,9 @@
 
 // 退出直播页面
 - (void)closePushViewController {
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 // 手动聚焦
@@ -252,10 +357,6 @@
     }
 }
 
-// 显示美颜效果设置界面
-- (void)clickBeauty:(UIButton *)button {
-}
-
 // 设置美颜效果参数值 及 BGM音量/麦克风音量大小
 - (void)sliderValueChange:(UISlider *)sender {
     if (sender.tag == 111) { // 大眼
@@ -282,7 +383,7 @@
     if (self.livePush == nil) {
         return;
     }
-    
+    _filterType = filterType;
     UIImage *filterImage = [UIImage imageNamed:fileName];
     if (filterImage == nil || filterType == FilterType_none) {
         [self.livePush setFilter:nil];
@@ -342,7 +443,7 @@
                 //                    }];
                 //                }
             } else if (EvtID == PUSH_WARNING_NET_BUSY) {
-                NSLog(@"您当前的网络环境不佳，请尽快更换网络保证正常直播");
+                [[BWHUDHelper sharedInstance] showHUDMessageInKeyWindow:@"您当前的网络环境不佳，请尽快更换网络保证正常直播" afterDelay:1.6];
             }
         } else {
             if (EvtID == PUSH_ERR_NET_DISCONNECT) { // 网络断连,且经三次抢救无效,可以放弃治疗,更多重试请自行重启推流
@@ -405,25 +506,34 @@
 
 #pragma mark - Notification
 
+- (void)onAppWillResignActive:(NSNotification *)notification {
+    NSLog(@"App即将进入后台");
+    [self.livePush pausePush];
+}
+
 - (void)onAppDidEnterBackground:(UIApplication *)app {
+    NSLog(@"App进入后台");
     // 暂停背景音乐
     if (self.livePush) {
         [self.livePush pauseBGM];
     }
     
     if ([self.livePush isPublishing]) {
+        // 如果在系统规定时间内任务还没有完成，在时间到之前会调用到这个方法[[UIApplication sharedApplication] endBackgroundTask:<#(UIBackgroundTaskIdentifier)#>]，一般是10分钟.
         [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-            //            [self.livePush resumePush];
+//            [self.livePush resumePush];
+            NSLog(@"后台任务时间 要结束了！");
         }];
         [self.livePush pausePush];
     }
 }
 
 - (void)onAppWillEnterForeground:(UIApplication *)app {
-    if (self.rtmpURL) {
+    NSLog(@"App即将回到前台");
+    if (self.rtmpURL && _isAvailablePush) {
         [self startRTMP];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //            [[NSNotificationCenter defaultCenter] addObserver:_logicView selector:@selector(keyboardFrameDidChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
+//            [[NSNotificationCenter defaultCenter] addObserver:_logicView selector:@selector(keyboardFrameDidChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
         });
         return;
     }
@@ -437,11 +547,8 @@
     }
 }
 
-- (void)onAppWillResignActive:(NSNotification *)notification {
-    [self.livePush pausePush];
-}
-
 - (void)onAppDidBecomeActive:(NSNotification *)notification {
+    NSLog(@"App回到前台");
     [self.livePush resumePush];
 }
 
@@ -547,9 +654,6 @@
     format.dateFormat = @"hh:mm:ss";
     NSString *time = [format stringFromDate:date];
     NSString *log = [NSString stringWithFormat:@"[%@.%-3.3d] %@", time, mil, evt];
-    //    if (_logMsg == nil) {
-    //        _logMsg = @"";
-    //    }
     NSString *logMsg = [NSString stringWithFormat:@"%@", log];
     NSLog(@"%@", logMsg);
 }
@@ -558,6 +662,8 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    NSLog(@"BWPushViewController.m  收到内存警告⚠️");
 }
 
 /*

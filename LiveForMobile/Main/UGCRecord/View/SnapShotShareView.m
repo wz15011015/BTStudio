@@ -1,32 +1,32 @@
 //
-//  BWPlayShareView.m
+//  SnapShotShareView.m
 //  LiveForMobile
 //
-//  Created by  Sierra on 2017/6/27.
+//  Created by  Sierra on 2017/07/05.
 //  Copyright © 2017年 BaiFuTak. All rights reserved.
 //
 
-#import "BWPlayShareView.h"
+#import "SnapShotShareView.h"
 #import "BWMacro.h"
 #import "ShareCell.h"
 #import "ShareModel.h"
 
-#define CONTENTVIEW_H (120)
+#define CONTENTVIEW_W (350 * WIDTH_SCALE)
+#define CONTENTVIEW_H (590 * HEIGHT_SCALE)
 
-@interface BWPlayShareView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
+@interface SnapShotShareView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout> {
     CGFloat _width;
     CGFloat _height;
 }
-@property (nonatomic, strong) UIView *blankView; // 空白view
-@property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, strong) UIButton *titleButton;
-@property (nonatomic, strong) UIView *separatorLineView;
+@property (nonatomic, strong) UIImageView *contentView;
+@property (nonatomic, strong) UIButton *closeButton;
+@property (nonatomic, strong) UIImageView *snapShotImageView;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSArray *dataArr;
 
 @end
 
-@implementation BWPlayShareView
+@implementation SnapShotShareView
 
 #pragma mark - Life cycle
 
@@ -48,9 +48,6 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        _width = frame.size.width;
-        _height = frame.size.height;
-        
         [self initializeParameters];
         [self addSubViews];
     }
@@ -64,6 +61,7 @@
 - (void)initializeParameters {
     _width = WIDTH;
     _height = HEIGHT;
+    self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.76];
     
     // 1. 分享平台
     ShareModel *model0 = [[ShareModel alloc] init];
@@ -91,26 +89,31 @@
 
 // 添加子控件
 - (void)addSubViews {
-    [self addSubview:self.blankView];
     [self addSubview:self.contentView];
-    [self.contentView addSubview:self.titleButton];
-    [self.contentView addSubview:self.separatorLineView];
-    [self.contentView addSubview:self.collectionView];
     
     // 动画效果
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.25];
     
     CGRect frame = self.contentView.frame;
-    frame.origin.y = HEIGHT - frame.size.height;
+    frame.size.width = CONTENTVIEW_W;
+    frame.origin.x = (_width - CONTENTVIEW_W) / 2;
     self.contentView.frame = frame;
-    
+   
     [UIView commitAnimations];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.251 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self addSubview:self.closeButton];
+        [self.contentView addSubview:self.snapShotImageView];
+        [self.contentView addSubview:self.collectionView];
+    });
 }
 
 // 移除子控件
 - (void)removeSubviews {
-    [self.blankView removeFromSuperview];
+    [self.closeButton removeFromSuperview];
+    [self.snapShotImageView removeFromSuperview];
+    [self.collectionView removeFromSuperview];
     [self.contentView removeFromSuperview];
 }
 
@@ -130,19 +133,25 @@
  移除view
  */
 - (void)dismiss {
-    [UIView animateWithDuration:0.25 animations:^{
+    [self.closeButton removeFromSuperview];
+    [self.snapShotImageView removeFromSuperview];
+    [self.collectionView removeFromSuperview];
+    
+    [UIView animateWithDuration:0.24 animations:^{
         CGRect frame = self.contentView.frame;
-        frame.origin.y = HEIGHT;
+        frame.origin.y = _height / 2;
+        frame.size.height = 0;
         self.contentView.frame = frame;
-        
     } completion:^(BOOL finished) {
-        if (finished) {
-            [self removeSubviews];
-            
-            // 移除self
-            [self removeFromSuperview];
+        if (self.dismissBlock) {
+            self.dismissBlock();
         }
+        
+        [self.contentView removeFromSuperview];
+        // 移除self
+        [self removeFromSuperview];
     }];
+    
 }
 
 
@@ -163,7 +172,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self dismiss];
+//    [self dismiss];
     
 //    if (0 == indexPath.row) {
 //        [[BWHUDHelper sharedInstance] showHUDMessageInKeyWindow:@"朋友圈 分享了主播"];
@@ -175,9 +184,12 @@
 //        [[BWHUDHelper sharedInstance] showHUDMessageInKeyWindow:@"QQ空间 分享了主播"];
 //    } else if (4 == indexPath.row) {
 //        [[BWHUDHelper sharedInstance] showHUDMessageInKeyWindow:@"微博 分享了主播"];
-//    }
+//    } 
     
-    NSArray *itemsArr = @[[NSURL URLWithString:@"http://115.159.35.193:8080/WebPage/"]];
+    if (!self.snapShotImage) {
+        self.snapShotImage = [UIImage imageNamed:@"Icon"];
+    }
+    NSArray *itemsArr = @[self.snapShotImage];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:itemsArr applicationActivities:nil];
     [self.parentViewController presentViewController:activityViewController animated:YES completion:nil];
 }
@@ -185,61 +197,55 @@
 
 #pragma mark - Getters
 
-- (UIView *)blankView {
-    if (!_blankView) {
-        CGFloat h = HEIGHT - CONTENTVIEW_H;
-        _blankView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _width, h)];
-        _blankView.backgroundColor = [UIColor clearColor];
-        
-        // 添加点击手势
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
-        [_blankView addGestureRecognizer:tapGestureRecognizer];
-    }
-    return _blankView;
-}
-
-- (UIView *)contentView {
+- (UIImageView *)contentView {
     if (!_contentView) {
-        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT, _width, CONTENTVIEW_H)];
-        _contentView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:1.0];
+        CGFloat y = (_height - CONTENTVIEW_H) / 2;
+        _contentView = [[UIImageView alloc] initWithFrame:CGRectMake(_width / 2, y, 0, CONTENTVIEW_H)];
+        _contentView.image = [UIImage imageNamed:@"play_snapshot_background"];
+        _contentView.userInteractionEnabled = YES;
     }
     return _contentView;
 }
 
-- (UIButton *)titleButton {
-    if (!_titleButton) {
-        CGFloat h = 30;
-        _titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _titleButton.frame = CGRectMake(0, 0, _width, h);
-        _titleButton.titleLabel.font = [UIFont systemFontOfSize:14];
-        [_titleButton setTitle:@"分享主播" forState:UIControlStateNormal];
-        [_titleButton setTitleColor:RGB(20, 20, 19) forState:UIControlStateNormal];
+- (UIButton *)closeButton {
+    if (!_closeButton) {
+        CGFloat w = 44;
+        CGFloat x = CGRectGetMaxX(self.contentView.frame) - (w * 0.5);
+        CGFloat y = CGRectGetMinY(self.contentView.frame) - (w * 0.5);
+        _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _closeButton.frame = CGRectMake(x, y, w, w);
+        [_closeButton setImage:[UIImage imageNamed:@"push_close"] forState:UIControlStateNormal];
+        [_closeButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _titleButton;
+    return _closeButton;
 }
 
-- (UIView *)separatorLineView {
-    if (!_separatorLineView) {
-        CGFloat y = CGRectGetMaxY(self.titleButton.frame);
-        _separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, y, _width, 1)];
-        _separatorLineView.backgroundColor = RGB(230, 230, 230);
+- (UIImageView *)snapShotImageView {
+    if (!_snapShotImageView) {
+        CGFloat y = 12;
+        CGFloat x = 12;
+        CGFloat w = CGRectGetWidth(self.contentView.frame) - (2 * x);
+        CGFloat h = CGRectGetHeight(self.contentView.frame) * 0.75;
+        _snapShotImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+        _snapShotImageView.backgroundColor = [UIColor whiteColor];
     }
-    return _separatorLineView;
+    return _snapShotImageView;
 }
 
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        CGFloat y = CGRectGetMaxY(self.separatorLineView.frame);
+        CGFloat w = CGRectGetWidth(self.contentView.frame);
+        CGFloat y = CGRectGetMaxY(self.snapShotImageView.frame) + (22 * HEIGHT_SCALE);
         CGFloat h = CGRectGetHeight(self.contentView.frame) - y;
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         flowLayout.itemSize = CGSizeMake(SHARE_CELL_W, SHARE_CELL_H);
         flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
         flowLayout.minimumLineSpacing = 0;
         flowLayout.minimumInteritemSpacing = 0;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, y, _width, h) collectionViewLayout:flowLayout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, y, w, h) collectionViewLayout:flowLayout];
         _collectionView.backgroundColor = [UIColor clearColor];
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.dataSource = self;
@@ -254,6 +260,15 @@
         _dataArr = [NSArray array];
     }
     return _dataArr;
+}
+
+
+#pragma mark - Setters
+
+- (void)setSnapShotImage:(UIImage *)snapShotImage {
+    _snapShotImage = snapShotImage;
+    
+    self.snapShotImageView.image = snapShotImage;
 }
 
 

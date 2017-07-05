@@ -23,7 +23,8 @@
 @property (nonatomic, strong) UIButton *recordButton; // 录制按钮
 @property (nonatomic, strong) UIButton *closeButton; // 关闭按钮
 
-@property (nonatomic, strong) NSTimer *timer; // 录制计时器
+@property (nonatomic, strong) UIImageView *breatheLight; // 呼吸灯
+@property (nonatomic, strong) NSTimer *breatheTimer; // 呼吸灯计时器
 
 @end
 
@@ -63,6 +64,7 @@
     _width = WIDTH;
     _height = HEIGHT;
     _isRecording = NO;
+    NSLog(@"初始化录制进度");
     self.recordDuration = 0;
     
     // 添加点击手势
@@ -79,6 +81,7 @@
     CGFloat button_W2 = 70 * WIDTH_SCALE;
     CGFloat button_X2 = (_width - button_W2) / 2;
     CGFloat button_Y2 = (button_Y1 + (button_W1 / 2)) - (button_W2 / 2);
+    CGFloat breatheLight_W = 10;
     
     // 1. 录制时长
     self.timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _width, 44 * HEIGHT_SCALE)];
@@ -88,6 +91,12 @@
     self.timerLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.timerLabel];
     self.timerLabel.hidden = YES;
+    // 1.1 呼吸灯
+    self.breatheLight = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.timerLabel.frame) - 42, (CGRectGetHeight(self.timerLabel.frame) - breatheLight_W) / 2, breatheLight_W, breatheLight_W)];
+    self.breatheLight.backgroundColor = [UIColor redColor];
+    self.breatheLight.layer.cornerRadius = breatheLight_W / 2;
+    self.breatheLight.layer.masksToBounds = YES;
+    [self.timerLabel addSubview:self.breatheLight];
     // 2. 截屏/重新录制按钮
     self.screenshotButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.screenshotButton.frame = CGRectMake(button_margin, button_Y1, button_W1, button_W1);
@@ -115,6 +124,7 @@
 
 // 移除子控件
 - (void)removeSubviews {
+    [self.timerLabel removeFromSuperview];
     [self.screenshotButton removeFromSuperview];
     [self.recordButton removeFromSuperview];
     [self.closeButton removeFromSuperview];
@@ -135,9 +145,9 @@
  移除view
  */
 - (void)dismiss {
+    [self stopBreatheLight];
+    // 移除子控件
     [self removeSubviews];
-    // 关闭定时器
-    [self.timer invalidate];
     // 移除self
     [self removeFromSuperview];
 }
@@ -150,36 +160,32 @@
     if (_isRecording) { // 若正在录制中，则为重新录制功能
         [self resetRecord];
     } else { // 若未在录制中，则为截屏功能
-        NSLog(@"截屏");
+        if ([self.delegate respondsToSelector:@selector(playUGCDecorateViewSnapshot:)]) {
+            [self.delegate playUGCDecorateViewSnapshot:self];
+        }
     }
 }
 
 // 录制视频
 - (void)recordEvent:(UIButton *)sender {
     _isRecording = !_isRecording;
-    if (_isRecording) { // 正在录制中...
-        [self updateDisplayWithRecordStatus:YES];
-        
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(recording) userInfo:nil repeats:YES];
-        [self.timer fire];
-        
+    [self updateDisplayWithRecordStatus:_isRecording];
+    
+    if (_isRecording) { // 开始录制
+        self.recordDuration = 0;
         if ([self.delegate respondsToSelector:@selector(recordVideoStart)]) {
             [self.delegate recordVideoStart];
         }
         
-    } else { // 未在录制中
-        [self.timer invalidate];
-        
-        [self updateDisplayWithRecordStatus:NO];
-        
-        self.recordDuration = 0.0; 
-        
+    } else { // 结束录制
         if (self.recordDuration < 5) {
-            NSLog(@"至少要录够5秒");
+            [[BWHUDHelper sharedInstance] showHUDMessageInKeyWindow:@"至少要录制5秒钟"];
+            [self resetRecord];
             return;
         }
-        if ([self.delegate respondsToSelector:@selector(recordVideoStop)]) {
-            [self.delegate recordVideoStop];
+        // 大于5秒时，才能结束录制
+        if ([self.delegate respondsToSelector:@selector(recordVideoEnd)]) {
+            [self.delegate recordVideoEnd];
         }
     }
 }
@@ -187,20 +193,21 @@
 // 关闭录制
 - (void)close {
     if ([self.delegate respondsToSelector:@selector(closePlayUGCDecorateView)]) {
+        [self resetRecord];
+        
         [self.delegate closePlayUGCDecorateView];
+        
         [self dismiss];
     }
 }
 
 
-// 录制中...
-- (void)recording {
-    self.recordDuration += 1;
-}
-
-// 重新录制
+// 重新录制(停止录制)
 - (void)resetRecord {
+    _isRecording = NO;
+    [self updateDisplayWithRecordStatus:_isRecording];
     self.recordDuration = 0;
+    
     if ([self.delegate respondsToSelector:@selector(recordVideoReset)]) {
         [self.delegate recordVideoReset];
     }
@@ -226,6 +233,8 @@
         self.timerLabel.hidden = NO;
         [self.screenshotButton setImage:[UIImage imageNamed:@"play_resetRecord"] forState:UIControlStateNormal];
         
+        [self startBreatheLight];
+        
     } else {
         w = 70 * WIDTH_SCALE;
         frame.size.width = w;
@@ -239,7 +248,25 @@
         [self addGestureRecognizer:self.tap];
         self.timerLabel.hidden = YES;
         [self.screenshotButton setImage:[UIImage imageNamed:@"play_screenshot"] forState:UIControlStateNormal];
+        
+        [self stopBreatheLight];
     }
+}
+
+
+// 启动呼吸灯
+- (void)startBreatheLight {
+    self.breatheTimer = [NSTimer scheduledTimerWithTimeInterval:0.6 target:self selector:@selector(breathing) userInfo:nil repeats:YES];
+}
+
+// 关闭呼吸灯
+- (void)stopBreatheLight {
+    [self.breatheTimer invalidate];
+}
+
+// 呼吸中...
+- (void)breathing {
+    self.breatheLight.hidden = !self.breatheLight.isHidden;
 }
 
 
@@ -255,10 +282,17 @@
     self.timerLabel.text = [NSString stringWithFormat:@"00:%02d", (int)self.recordDuration];
     NSLog(@"录制进度: %.fs", self.recordDuration);
     
-    if (recordDuration == 60) {
-        NSLog(@"至多录60秒，一分钟");
-        [self.timer invalidate];
-        return;
+    if (recordDuration >= 60) {
+        [[BWHUDHelper sharedInstance] showHUDMessageInKeyWindow:@"最多录制一分钟"];
+        if ([self.delegate respondsToSelector:@selector(recordVideoEnd)]) {
+            [self.delegate recordVideoEnd];
+        }
+        
+        [self stopBreatheLight];
+        
+        _isRecording = NO;
+        [self updateDisplayWithRecordStatus:_isRecording];
+        self.recordDuration = 0;
     }
 }
 

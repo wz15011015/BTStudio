@@ -41,9 +41,6 @@ typedef NS_ENUM(NSInteger, BWLiveFilterType) {
 // 切换前后摄像头
 - (void)clickCameraSwitch:(UIButton *)button;
 
-// 显示美颜效果设置界面
-- (void)clickBeauty:(UIButton *)button;
-
 // 美颜工具滑杆事件
 - (void)sliderValueChange:(UISlider *)sender;
 
@@ -74,5 +71,17 @@ typedef NS_ENUM(NSInteger, BWLiveFilterType) {
 
 /** 照明灯开关按钮 */
 @property (nonatomic, strong) UIButton *torchButton;
+
+/** 大眼参数值 */
+@property (nonatomic, assign) float bigEyeLevel;
+/** 瘦脸参数值 */
+@property (nonatomic, assign) float slimFaceLevel;
+/** 美颜参数值 */
+@property (nonatomic, assign) float beautyLevel;
+/** 美白参数值 */
+@property (nonatomic, assign) float whiteningLevel;
+
+/** 滤镜类型 */
+@property (nonatomic, assign) BWLiveFilterType filterType;
 
 @end
