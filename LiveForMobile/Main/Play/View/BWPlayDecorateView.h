@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class GiftModel;
+
 @protocol BWPlayDecorateDelegate <NSObject>
 
 // 退出播放页面
@@ -40,5 +42,9 @@
 
 /** view所在的控制器 */
 @property (nonatomic, strong) UIViewController *parentViewController;
+
+
+/** 显示礼物 */
+- (void)shwoGift:(GiftModel *)gift;
 
 @end

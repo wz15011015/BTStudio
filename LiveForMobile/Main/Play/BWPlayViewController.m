@@ -19,7 +19,7 @@
 
 #define RTMP_PLAY_URL @"rtmp://20994.mpull.live.lecloud.com/live/leshiTest?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9"
 
-@interface BWPlayViewController () <TXLivePlayListener, TXVideoRecordListener, BWPlayDecorateDelegate, PlayUGCDecorateViewDelegate> {
+@interface BWPlayViewController () <TXLivePlayListener, TXVideoRecordListener, BWPlayDecorateDelegate, PlayUGCDecorateViewDelegate, BWGiftViewDelegate> {
     BOOL _isLivePlay; // 是否为播放直播视频
     BOOL _isResetVideoRecord; // 是否重新录制短视频
     TX_Enum_PlayType _playType;
@@ -136,8 +136,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
-    //    [self stopRTMP];
 }
 
 
@@ -235,6 +233,7 @@
 // 送主播礼物
 - (void)clickGift:(UIButton *)sender {
     BWGiftView *giftView = [[BWGiftView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    giftView.delegate = self;
     [giftView showToView:self.view];
 }
 
@@ -314,6 +313,14 @@
             self.snapShotView.snapShotImage = snapShotImage;
         }
     }];
+}
+
+
+#pragma mark - BWGiftViewDelegate
+
+// 展示礼物
+- (void)giftView:(BWGiftView *)view sendGift:(GiftModel *)gift {
+    [self.decorateView shwoGift:gift];
 }
 
 

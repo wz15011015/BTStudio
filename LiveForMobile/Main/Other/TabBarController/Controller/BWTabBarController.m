@@ -12,6 +12,8 @@
 #import "BaseNavigationController.h"
 #import "BaseViewController.h"
 #import "HomeViewController.h"
+#import "FollowViewController.h"
+#import "MineViewController.h"
 #import "HotViewController.h"
 #import "PushPrepareView.h"
 #import "BWPushViewController.h"
@@ -71,17 +73,17 @@
     
     BaseNavigationController *homeNav = [self createNavigationControllerWithViewController:homeVC title:@"广场" imageName:@"home_5s_320"  selectedImageName:@"home_selected_5s_320"];
     
-    BaseViewController *appointmentVC = [[BaseViewController alloc] init];
-    BaseNavigationController *appointmentNav = [self createNavigationControllerWithViewController:appointmentVC title:@"关注" imageName:@"appointment_5s_320"  selectedImageName:@"appointment_selected_5s_320"];
+    FollowViewController *followVC = [[FollowViewController alloc] init];
+    BaseNavigationController *followNav = [self createNavigationControllerWithViewController:followVC title:@"关注" imageName:@"appointment_5s_320"  selectedImageName:@"appointment_selected_5s_320"];
     
     BaseViewController *queryVC = [[BaseViewController alloc] init];
     BaseNavigationController *queryNav = [self createNavigationControllerWithViewController:queryVC title:@"私信" imageName:@"query_5s_320"  selectedImageName:@"query_selected_5s_320"];
     
-    BaseViewController *mineVC = [[BaseViewController alloc] init];
+    MineViewController *mineVC = [[MineViewController alloc] init];
     BaseNavigationController *mineNav = [self createNavigationControllerWithViewController:mineVC title:@"我的" imageName:@"mine_5s_320"  selectedImageName:@"mine_selected_5s_320"];
     
     // 2. 添加导航控制器
-    self.viewControllers = @[homeNav, appointmentNav, queryNav, mineNav];
+    self.viewControllers = @[homeNav, followNav, queryNav, mineNav];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -110,7 +112,7 @@
     nav.navigationBar.translucent = NO;
     nav.navigationBar.tintColor = [UIColor whiteColor];
     nav.navigationBar.barTintColor = [UIColor whiteColor];
-    [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
     
     // tabBarItem设置
     nav.tabBarItem.title = title;

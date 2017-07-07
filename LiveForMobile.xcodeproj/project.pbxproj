@@ -60,6 +60,14 @@
 		9A887C641F0CB05A00D61042 /* SnapShotShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A887C631F0CB05A00D61042 /* SnapShotShareView.m */; };
 		9A887C661F0CD5C700D61042 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A887C651F0CD5C700D61042 /* Icon.png */; };
 		9ADBC6AA1EFA485E000E60D2 /* BWPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADBC6A91EFA485E000E60D2 /* BWPushViewController.m */; };
+		9AED2E591F0E096200BCD05A /* GiftModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED2E581F0E096200BCD05A /* GiftModel.m */; };
+		9AED2E5B1F0E186F00BCD05A /* GiftResource.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AED2E5A1F0E186F00BCD05A /* GiftResource.plist */; };
+		9AED2E5E1F0E1C5F00BCD05A /* BWPlistHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED2E5D1F0E1C5F00BCD05A /* BWPlistHelper.m */; };
+		9AED2E651F0E36A300BCD05A /* FollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED2E641F0E36A300BCD05A /* FollowViewController.m */; };
+		9AED2E681F0E3BF400BCD05A /* WaterFallCollectionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED2E671F0E3BF400BCD05A /* WaterFallCollectionLayout.m */; };
+		9AEF0CF51F0F33FA000B3A3D /* FollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF0CF41F0F33FA000B3A3D /* FollowCell.m */; };
+		9AEF0CF81F0F6C3C000B3A3D /* FollowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF0CF71F0F6C3C000B3A3D /* FollowModel.m */; };
+		9AEF0CFB1F0F782C000B3A3D /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF0CFA1F0F782C000B3A3D /* MineViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +164,21 @@
 		9A887C651F0CD5C700D61042 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		9ADBC6A81EFA485E000E60D2 /* BWPushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWPushViewController.h; sourceTree = "<group>"; };
 		9ADBC6A91EFA485E000E60D2 /* BWPushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPushViewController.m; sourceTree = "<group>"; };
+		9AED2E571F0E096200BCD05A /* GiftModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftModel.h; sourceTree = "<group>"; };
+		9AED2E581F0E096200BCD05A /* GiftModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftModel.m; sourceTree = "<group>"; };
+		9AED2E5A1F0E186F00BCD05A /* GiftResource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GiftResource.plist; sourceTree = "<group>"; };
+		9AED2E5C1F0E1C5F00BCD05A /* BWPlistHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWPlistHelper.h; sourceTree = "<group>"; };
+		9AED2E5D1F0E1C5F00BCD05A /* BWPlistHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPlistHelper.m; sourceTree = "<group>"; };
+		9AED2E631F0E36A300BCD05A /* FollowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowViewController.h; sourceTree = "<group>"; };
+		9AED2E641F0E36A300BCD05A /* FollowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowViewController.m; sourceTree = "<group>"; };
+		9AED2E661F0E3BF400BCD05A /* WaterFallCollectionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterFallCollectionLayout.h; sourceTree = "<group>"; };
+		9AED2E671F0E3BF400BCD05A /* WaterFallCollectionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterFallCollectionLayout.m; sourceTree = "<group>"; };
+		9AEF0CF31F0F33FA000B3A3D /* FollowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowCell.h; sourceTree = "<group>"; };
+		9AEF0CF41F0F33FA000B3A3D /* FollowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowCell.m; sourceTree = "<group>"; };
+		9AEF0CF61F0F6C3C000B3A3D /* FollowModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowModel.h; sourceTree = "<group>"; };
+		9AEF0CF71F0F6C3C000B3A3D /* FollowModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowModel.m; sourceTree = "<group>"; };
+		9AEF0CF91F0F782C000B3A3D /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
+		9AEF0CFA1F0F782C000B3A3D /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		B8531DC410AC75D508CC67ED /* libPods-LiveForMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LiveForMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -305,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				9A1AB8C81EF8BDBC0018BD60 /* Home */,
+				9AED2E5F1F0E368400BCD05A /* Follow */,
 				9A1AB8CC1EF8BDBC0018BD60 /* Mine */,
 				9A81BE521EF91FD300899E4C /* Push */,
 				9A81BE511EF91FCE00899E4C /* Play */,
@@ -380,6 +404,8 @@
 			children = (
 				9A54984B1F02257800FA4E06 /* ShareModel.h */,
 				9A54984C1F02257800FA4E06 /* ShareModel.m */,
+				9AED2E571F0E096200BCD05A /* GiftModel.h */,
+				9AED2E581F0E096200BCD05A /* GiftModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -387,12 +413,12 @@
 		9A267AF71F00EA9A00BD9B6B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9A29D2FA1F09D77E00FC4389 /* BWPlayDecorateView.h */,
+				9A29D2FB1F09D77E00FC4389 /* BWPlayDecorateView.m */,
 				9A29D2F61F09D77E00FC4389 /* AudienceCell.h */,
 				9A29D2F71F09D77E00FC4389 /* AudienceCell.m */,
 				9A29D2F81F09D77E00FC4389 /* BWGiftView.h */,
 				9A29D2F91F09D77E00FC4389 /* BWGiftView.m */,
-				9A29D2FA1F09D77E00FC4389 /* BWPlayDecorateView.h */,
-				9A29D2FB1F09D77E00FC4389 /* BWPlayDecorateView.m */,
 				9A29D2FC1F09D77E00FC4389 /* BWPlayShareView.h */,
 				9A29D2FD1F09D77E00FC4389 /* BWPlayShareView.m */,
 				9A29D2FE1F09D77E00FC4389 /* GiftCell.h */,
@@ -431,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				9A887C651F0CD5C700D61042 /* Icon.png */,
+				9AED2E5A1F0E186F00BCD05A /* GiftResource.plist */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -445,6 +472,8 @@
 		9A29D3321F0A1DCD00FC4389 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				9AEF0CF91F0F782C000B3A3D /* MineViewController.h */,
+				9AEF0CFA1F0F782C000B3A3D /* MineViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -573,6 +602,8 @@
 			children = (
 				9A6733151F0B6AF6005423F2 /* BWHUDHelper.h */,
 				9A6733161F0B6AF6005423F2 /* BWHUDHelper.m */,
+				9AED2E5C1F0E1C5F00BCD05A /* BWPlistHelper.h */,
+				9AED2E5D1F0E1C5F00BCD05A /* BWPlistHelper.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -698,6 +729,45 @@
 			path = Push;
 			sourceTree = "<group>";
 		};
+		9AED2E5F1F0E368400BCD05A /* Follow */ = {
+			isa = PBXGroup;
+			children = (
+				9AED2E601F0E368400BCD05A /* Controller */,
+				9AED2E611F0E368400BCD05A /* Model */,
+				9AED2E621F0E368400BCD05A /* View */,
+			);
+			path = Follow;
+			sourceTree = "<group>";
+		};
+		9AED2E601F0E368400BCD05A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9AED2E631F0E36A300BCD05A /* FollowViewController.h */,
+				9AED2E641F0E36A300BCD05A /* FollowViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9AED2E611F0E368400BCD05A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9AEF0CF61F0F6C3C000B3A3D /* FollowModel.h */,
+				9AEF0CF71F0F6C3C000B3A3D /* FollowModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9AED2E621F0E368400BCD05A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9AED2E661F0E3BF400BCD05A /* WaterFallCollectionLayout.h */,
+				9AED2E671F0E3BF400BCD05A /* WaterFallCollectionLayout.m */,
+				9AEF0CF31F0F33FA000B3A3D /* FollowCell.h */,
+				9AEF0CF41F0F33FA000B3A3D /* FollowCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -766,6 +836,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A887C661F0CD5C700D61042 /* Icon.png in Resources */,
+				9AED2E5B1F0E186F00BCD05A /* GiftResource.plist in Resources */,
 				9A1AB8BA1EF8BB860018BD60 /* LaunchScreen.storyboard in Resources */,
 				9A1AB8B71EF8BB860018BD60 /* Assets.xcassets in Resources */,
 				9A1AB8B51EF8BB860018BD60 /* Main.storyboard in Resources */,
@@ -828,6 +899,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A29D30F1F09D77E00FC4389 /* PrivateMessageView.m in Sources */,
+				9AED2E681F0E3BF400BCD05A /* WaterFallCollectionLayout.m in Sources */,
 				9A35306A1EFCFECE006CE3A2 /* FilterCell.m in Sources */,
 				9ADBC6AA1EFA485E000E60D2 /* BWPushViewController.m in Sources */,
 				9A81BE321EF8EE5500899E4C /* HotLiveCell.m in Sources */,
@@ -838,6 +910,7 @@
 				9A81BE161EF8C00B00899E4C /* BaseNavigationController.m in Sources */,
 				9A81BDFC1EF8BE4C00899E4C /* AppDelegate.m in Sources */,
 				9A54984A1F021F9A00FA4E06 /* PushPrepareView.m in Sources */,
+				9AEF0CF51F0F33FA000B3A3D /* FollowCell.m in Sources */,
 				9A54984D1F02257800FA4E06 /* ShareModel.m in Sources */,
 				9A29D30B1F09D77E00FC4389 /* BWPlayShareView.m in Sources */,
 				9A29D30A1F09D77E00FC4389 /* BWPlayDecorateView.m in Sources */,
@@ -852,18 +925,23 @@
 				9A6733171F0B6AF6005423F2 /* BWHUDHelper.m in Sources */,
 				9A29D3081F09D77E00FC4389 /* AudienceCell.m in Sources */,
 				9A29D3171F09F40900FC4389 /* NSString+BrianExtension.m in Sources */,
+				9AEF0CFB1F0F782C000B3A3D /* MineViewController.m in Sources */,
 				9A29D30E1F09D77E00FC4389 /* PrivateMessageCell.m in Sources */,
+				9AED2E5E1F0E1C5F00BCD05A /* BWPlistHelper.m in Sources */,
+				9AED2E651F0E36A300BCD05A /* FollowViewController.m in Sources */,
 				9A267AF21F00AEA500BD9B6B /* AudioEffectCell.m in Sources */,
 				9A81BE281EF8C68E00899E4C /* BWTabBar.m in Sources */,
 				9A267AF51F00B21D00BD9B6B /* AudioEffectModel.m in Sources */,
 				9A81BE2C1EF8D30500899E4C /* HomeViewController.m in Sources */,
 				9A29D3101F09D77E00FC4389 /* ShareCell.m in Sources */,
+				9AED2E591F0E096200BCD05A /* GiftModel.m in Sources */,
 				9A81BE201EF8C64800899E4C /* BWTabBarController.m in Sources */,
 				9A1AB8AC1EF8BB860018BD60 /* main.m in Sources */,
 				9A81BE1C1EF8C2CF00899E4C /* BWConst.m in Sources */,
 				9A81BE191EF8C06500899E4C /* BaseTableViewController.m in Sources */,
 				9A29D30C1F09D77E00FC4389 /* GiftCell.m in Sources */,
 				9A29D30D1F09D77E00FC4389 /* MessageCell.m in Sources */,
+				9AEF0CF81F0F6C3C000B3A3D /* FollowModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

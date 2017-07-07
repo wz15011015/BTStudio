@@ -8,10 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@class BWGiftView;
+@class GiftModel;
+
+@protocol BWGiftViewDelegate <NSObject>
+
+- (void)giftView:(BWGiftView *)view sendGift:(GiftModel *)gift;
+
+@end
+
+
 /**
  礼物view
  */
 @interface BWGiftView : UIView
+
+@property (nonatomic, weak) id<BWGiftViewDelegate>delegate;
 
 /**
  显示在view上

@@ -7,6 +7,7 @@
 //
 
 #import "GiftCell.h"
+#import "GiftModel.h"
 
 NSString *const GiftCellID = @"GiftCellIdentifier";
 NSString *const SingleGiftCellID = @"SingleGiftCellIdentifier";
@@ -63,13 +64,15 @@ NSString *const SingleGiftCellID = @"SingleGiftCellIdentifier";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SingleGiftCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SingleGiftCellID forIndexPath:indexPath];
-    cell.model = @"";
+    GiftModel *model = self.dataArr[indexPath.row];
+    cell.model = model;
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.selectGiftBlock) {
-        self.selectGiftBlock();
+        GiftModel *model = self.dataArr[indexPath.row];
+        self.selectGiftBlock(model);
     }
 }
 
@@ -166,7 +169,7 @@ NSString *const SingleGiftCellID = @"SingleGiftCellIdentifier";
 
 #pragma mark - Setters
 
-- (void)setModel:(NSString *)model {
+- (void)setModel:(GiftModel *)model {
     _model = model;
     
     int random = arc4random() % 10;

@@ -17,6 +17,9 @@ UIKIT_EXTERN NSString *const GiftCellID;
 #define SINGLEGIFT_CELL_W (GIFT_CELL_W / 5)
 #define SINGLEGIFT_CELL_H ((GIFT_CELL_H - (2 * GIFT_CELL_TOP_MARGIN) - 2) / 2)
 
+@class GiftModel;
+
+
 /**
  礼物 Cell
  */
@@ -24,7 +27,7 @@ UIKIT_EXTERN NSString *const GiftCellID;
 
 @property (nonatomic, strong) NSMutableArray *dataArr;
 
-@property (nonatomic, copy) void(^selectGiftBlock)(void);
+@property (nonatomic, copy) void(^selectGiftBlock)(GiftModel *);
 
 @end
 
@@ -34,6 +37,6 @@ UIKIT_EXTERN NSString *const GiftCellID;
  */
 @interface SingleGiftCell : UICollectionViewCell
 
-@property (nonatomic, copy) NSString *model;
+@property (nonatomic, strong) GiftModel *model;
 
 @end

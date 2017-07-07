@@ -9,6 +9,7 @@
 #import "BWGiftView.h"
 #import "BWMacro.h"
 #import "GiftCell.h"
+#import "GiftModel.h"
 
 #define CONTENTVIEW_H (216)
 #define COLLECTIONVIEW_H (164)
@@ -29,6 +30,8 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
 @property (nonatomic, strong) UIButton *sendButton;
 
 @property (nonatomic, assign) NSUInteger pageCountOfGift; // 礼物的页数
+
+@property (nonatomic, strong) GiftModel *selectedGift;
 
 @end
 
@@ -68,18 +71,54 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
     _width = WIDTH;
     _height = HEIGHT;
     
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
-    [self.dataArr addObject:@""];
+    GiftModel *model0 = [[GiftModel alloc] init];
+    model0.giftId = @"0";
+    model0.giftName = @"布加迪";
+    model0.giftImageName = @"bugatti";
+    model0.giftImageCount = 68;
+    model0.giftDuration = 2.27;
+    
+    GiftModel *model1 = [[GiftModel alloc] init];
+    model1.giftId = @"1";
+    model1.giftName = @"巧克力";
+    model1.giftImageName = @"ChocoFall";
+    model1.giftImageCount = 33;
+    model1.giftDuration = 1.07;
+    
+    GiftModel *model2 = [[GiftModel alloc] init];
+    model2.giftId = @"2";
+    model2.giftName = @"花";
+    model2.giftImageName = @"gift_animation_31";
+    model2.giftImageCount = 22;
+    model2.giftDuration = 1.07;
+    
+    GiftModel *model3 = [[GiftModel alloc] init];
+    model3.giftId = @"3";
+    model3.giftName = @"爱心";
+    model3.giftImageName = @"LoveFalling";
+    model3.giftImageCount = 16;
+    model3.giftDuration = 1.5;
+    
+    [self.dataArr addObject:model0];
+    [self.dataArr addObject:model0];
+    [self.dataArr addObject:model0];
+    [self.dataArr addObject:model0];
+    [self.dataArr addObject:model1];
+    [self.dataArr addObject:model1];
+    [self.dataArr addObject:model1];
+    [self.dataArr addObject:model1];
+    [self.dataArr addObject:model1];
+    [self.dataArr addObject:model2];
+    [self.dataArr addObject:model2];
+    [self.dataArr addObject:model2];
+    [self.dataArr addObject:model2];
+    [self.dataArr addObject:model3];
+    [self.dataArr addObject:model3];
+    [self.dataArr addObject:model3];
+    [self.dataArr addObject:model3];
+    [self.dataArr addObject:model3];
+    [self.dataArr addObject:model3];
+    
     self.pageControl.numberOfPages = self.pageCountOfGift;
 }
 
@@ -147,8 +186,11 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
 }
 
 - (void)sendGiftEvent:(UIButton *)sender {
-    NSLog(@"送礼物");
     [self dismiss];
+    
+    if ([self.delegate respondsToSelector:@selector(giftView:sendGift:)]) {
+        [self.delegate giftView:self sendGift:self.selectedGift];
+    }
 }
 
 
@@ -180,8 +222,9 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
     cell.dataArr = dataArr;
     
     // Block回调
-    cell.selectGiftBlock = ^{
+    cell.selectGiftBlock = ^(GiftModel *cellModel) {
         self.sendButton.enabled = YES;
+        self.selectedGift = cellModel;
     };
     return cell;
 }

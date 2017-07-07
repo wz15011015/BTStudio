@@ -10,4 +10,6 @@ pod 'MJExtension'
 pod 'MBProgressHUD'
 pod 'WMPageController'
 
+pod 'SocketRocket'
+
 end

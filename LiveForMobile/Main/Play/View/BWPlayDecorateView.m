@@ -10,6 +10,8 @@
 #import "BWMacro.h"
 #import "AudienceCell.h"
 #import "MessageCell.h"
+#import "GiftModel.h"
+#import "BWPlistHelper.h"
 
 #define TOP_Y (25) // 顶部第一行控件的y值
 #define TOP_H (30) // 顶部第一行控件的高
@@ -60,6 +62,11 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 @property (nonatomic, strong) UIButton *giftButton;   // 礼物按钮
 @property (nonatomic, strong) UIButton *cameraButton; // 录制视频按钮
 @property (nonatomic, strong) UIButton *shareButton;  // 分享按钮
+
+
+@property (nonatomic, strong) UIImageView *animationImageView;
+
+@property (nonatomic, strong) CAEmitterLayer *praiseEmitterLayer; // 点赞效果 (粒子动画)
 
 @end
 
@@ -119,6 +126,10 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
 // 初始化子控件并添加
 - (void)addSubViews {
+    // 动画ImageView
+    self.animationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    [self addSubview:self.animationImageView];
+    
     [self addSubview:self.decorateView];
     
     // 加在decorateView上的控件: 1.观看人数 2.观众列表 3.底部功能按钮(6个)
@@ -281,6 +292,34 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     // 滚动到最后一行
     NSIndexPath *footIndexPath = [NSIndexPath indexPathForRow:self.messageArr.count - 1 inSection:0];
     [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+}
+
+
+#pragma mark - Public Methods
+
+// 显示礼物
+- (void)shwoGift:(GiftModel *)gift {
+    BWPlistHelper *plistHelper = [[BWPlistHelper alloc] initWithPropertyListFileName:@"GiftResource.plist"];
+    NSArray *images = [plistHelper imagesWithGiftId:gift.giftId];
+    if (images.count == 0) {
+        return;
+    }
+    CGRect frame = self.animationImageView.frame;
+    frame.origin.x = [plistHelper imageXWithGiftId:gift.giftId] * WIDTH_SCALE;
+    frame.origin.y = [plistHelper imageYWithGiftId:gift.giftId] * HEIGHT_SCALE;
+    frame.size.width = [plistHelper imageWWithGiftId:gift.giftId] * WIDTH_SCALE;
+    frame.size.height = [plistHelper imageHWithGiftId:gift.giftId] * HEIGHT_SCALE;
+    self.animationImageView.frame = frame;
+    
+    self.animationImageView.animationImages = images;
+    self.animationImageView.animationDuration = [plistHelper durationWithGiftId:gift.giftId];
+    self.animationImageView.animationRepeatCount = 1;
+    
+    [self.animationImageView startAnimating];
+    
+    
+    // 粒子发射器实现
+    //    [self.decorateView.layer addSublayer:self.praiseEmitterLayer];
 }
 
 
@@ -468,7 +507,7 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     [self.messageTableView reloadData];
     // 滚动到最后一行
     NSIndexPath *footIndexPath = [NSIndexPath indexPathForRow:self.messageArr.count - 1 inSection:0];
-    [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     
     return YES;
 }
@@ -582,10 +621,121 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 }
 
 
+// MARK: 点赞动画效果实现
+// 1. 粒子发射器实现
+- (CAEmitterLayer *)praiseEmitterLayer {
+    if (!_praiseEmitterLayer) {
+        _praiseEmitterLayer = [CAEmitterLayer layer];
+        _praiseEmitterLayer.emitterPosition = CGPointMake(WIDTH - 60, HEIGHT - 60); // 发射器的位置
+        _praiseEmitterLayer.emitterSize = CGSizeMake(20, 20); // 发射器的尺寸大小
+        // 渲染效果
+        _praiseEmitterLayer.renderMode = kCAEmitterLayerUnordered;
+        _praiseEmitterLayer.emitterShape = kCAEmitterLayerPoint;
+        
+        // 创建保存粒子的数组
+        NSMutableArray *cells = [NSMutableArray array];
+        // 创建粒子
+        for (int i = 0; i < 10; i++) {
+            // 发射单元
+            CAEmitterCell *cell = [CAEmitterCell emitterCell];
+            cell.birthRate = 1; // 粒子创建速率，默认1/s
+            cell.lifetime = arc4random_uniform(4) + 1; // 粒子存活时间
+            cell.lifetimeRange = 1.5; // 粒子的生存时间容差
+            // 粒子的内容
+            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"play_gift"]];
+            cell.contents = (id)image.CGImage;
+            cell.name = [NSString stringWithFormat:@"%d", i]; // 粒子的名字
+            cell.velocity = arc4random_uniform(100) + 100; // 粒子的运动速率
+            cell.velocityRange = 80; // 粒子速率的容差
+            cell.emissionLongitude = M_PI + M_PI_2; // 粒子在XY平面的发射角度
+            cell.emissionRange = M_PI_2 / 6; // 粒子发射角度容差
+            cell.scale = 0.3; // 缩放比例
+            [cells addObject:cell];
+        }
+        // 将粒子数组放入发射器中
+        _praiseEmitterLayer.emitterCells = cells;
+    }
+    return _praiseEmitterLayer;
+}
+
+// 2. UIView Animation实现
+- (void)praiseAnimation {
+    // 随机生成一个0～7的数，以便下面拼接图片名
+    int imageNum = round(random() % 8);
+    NSString *imageName = [NSString stringWithFormat:@"play_gift"];
+    if (imageNum > 5) {
+        imageName = @"play_gift";
+    } else if (imageNum > 2) {
+        imageName = @"play_pm";
+    } else {
+        imageName = @"play_video_record";
+    }
+    
+    // 1. 生成一个UIImageView
+    UIImageView *imageView = [[UIImageView alloc] init];
+    
+    // 2. 初始化frame及其他属性
+    CGRect frame = self.frame;
+    CGFloat imageViewW = 26;
+    CGFloat imageViewH = imageViewW;
+    CGFloat startX = frame.size.width - 70;
+    CGFloat startY = frame.size.height - 70;
+    // 初始化frame，即设置了动画的起点
+    imageView.frame = CGRectMake(startX, startY, imageViewW, imageViewH);
+    imageView.alpha = 0; // 初始化imageView透明度为0
+    imageView.backgroundColor = [UIColor clearColor];
+    imageView.clipsToBounds = YES;
+    
+    // 3. 用0.2秒的时间将imageView的透明度变为1.0，同时将其放大1.3倍，这里参数根据需求设置
+    [UIView animateWithDuration:0.2 animations:^{
+        imageView.alpha = 1.0;
+        imageView.frame = CGRectMake(startX, startY - 30, imageViewW, imageViewH);
+        CGAffineTransform transform = CGAffineTransformMakeScale(1.3, 1.3);
+        imageView.transform = CGAffineTransformScale(transform, 1, 1);
+    }];
+    [self.decorateView addSubview:imageView];
+    
+    // 4. 设置终点frame  随机产生一个动画结束点的x值 (round(): 如果参数是小数，则求本身的四舍五入)
+    CGFloat finishX = frame.size.width - round(random() % 200);
+    CGFloat finishY = 300; // 动画结束点的y值
+    CGFloat scale = round(random() % 2) + 0.7; // imageView在运动过程中的缩放比例 (0.7或1.7)
+    scale = 1.0;
+    CGFloat speed = 1 / round(random() % 900) + 0.6; // 生成一个作为速度参数的随机数 [0.6, 1.6]
+    NSTimeInterval duration = 4 * speed; // 动画执行时间
+    if (duration == INFINITY) { // 如果得到的时间是无穷大，就重新赋一个值
+        duration = 2.412346;
+    }
+    
+    // 5. 开始动画
+    [UIView beginAnimations:nil context:(__bridge void *_Nullable)(imageView)];
+    [UIView setAnimationDuration:duration];
+    imageView.image = [UIImage imageNamed:imageName];
+    // 设置imageView的结束frame
+    imageView.frame = CGRectMake(finishX, finishY, imageViewW * scale, imageViewH * scale);
+    // 设置渐渐消失的效果，这里的时间最好和动画时间一样
+    [UIView animateWithDuration:duration animations:^{
+        imageView.alpha = 0;
+    }];
+    // 6. 结束动画，调用方法销毁imageView
+    [UIView setAnimationDidStopSelector:@selector(onPraiseAnimationComplete:finished:context:)];
+    [UIView setAnimationDelegate:self];
+    [UIView commitAnimations];
+}
+
+// 2.1 动画完成后，销毁imageView
+- (void)onPraiseAnimationComplete:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+    UIImageView *imageView = (__bridge UIImageView *)(context);
+    [imageView removeFromSuperview];
+    imageView = nil;
+}
+
+
 #pragma mark - Override
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self endEditing:YES];
+    
+    [self praiseAnimation];
 }
 
 
