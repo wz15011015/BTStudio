@@ -12,6 +12,10 @@
 #import "MessageCell.h"
 #import "GiftModel.h"
 #import "BWPlistHelper.h"
+// 礼物展示
+#import "PresentView.h"
+#import "GiftOneCell.h"
+#import "GiftOneModel.h"
 
 #define TOP_Y (25) // 顶部第一行控件的y值
 #define TOP_H (30) // 顶部第一行控件的高
@@ -20,7 +24,7 @@
  
 const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
-@interface BWPlayDecorateView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource> {
+@interface BWPlayDecorateView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, PresentViewDelegate> {
     CGFloat _width;
     CGFloat _height;
     
@@ -63,10 +67,13 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 @property (nonatomic, strong) UIButton *cameraButton; // 录制视频按钮
 @property (nonatomic, strong) UIButton *shareButton;  // 分享按钮
 
-
+// 礼物展示
 @property (nonatomic, strong) UIImageView *animationImageView;
 
 @property (nonatomic, strong) CAEmitterLayer *praiseEmitterLayer; // 点赞效果 (粒子动画)
+
+@property (nonatomic, strong) PresentView *giftOneView;
+@property (nonatomic, strong) NSMutableArray *giftOneArr;
 
 @end
 
@@ -126,8 +133,7 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
 // 初始化子控件并添加
 - (void)addSubViews {
-    // 动画ImageView
-    self.animationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    // 0. 动画ImageView
     [self addSubview:self.animationImageView];
     
     [self addSubview:self.decorateView];
@@ -266,6 +272,12 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     self.chatInputTextField.attributedPlaceholder = placeholderAttriStr;
     [self.chatInputView addSubview:self.chatInputTextField];
     
+    // 4. 礼物展示
+    self.giftOneView = [[PresentView alloc] initWithFrame:CGRectMake(0, 300 * HEIGHT_SCALE, WIDTH * 0.4, 100)];
+    self.giftOneView.backgroundColor = [UIColor clearColor];
+    self.giftOneView.delegate = self;
+    [self.decorateView addSubview:self.giftOneView];
+    
     
     // 测试数据
     self.anchorAvatarImageView.image = [UIImage imageNamed:@"avatar_default"];
@@ -320,6 +332,13 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     
     // 粒子发射器实现
     //    [self.decorateView.layer addSublayer:self.praiseEmitterLayer];
+}
+
+/** 显示礼物1 */
+- (void)shwoGiftOne:(GiftOneModel *)gift {
+    NSArray *models = @[gift, gift, gift, gift];
+    self.giftOneArr = [NSMutableArray arrayWithArray:models];
+    [self.giftOneView insertPresentMessages:self.giftOneArr showShakeAnimation:YES];
 }
 
 
@@ -430,6 +449,28 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
             }
         }];
     }
+}
+
+
+#pragma mark - PresentViewDelegate
+
+- (PresentViewCell *)presentView:(PresentView *)presentView cellOfRow:(NSInteger)row {
+    GiftOneCell *cell = [[GiftOneCell alloc] initWithRow:row];
+    return cell;
+}
+
+- (void)presentView:(PresentView *)presentView configCell:(PresentViewCell *)cell model:(id<PresentModelAble>)model {
+    GiftOneCell *giftOneCell = (GiftOneCell *)cell;
+    giftOneCell.model = (GiftOneModel *)model;
+}
+
+- (void)presentView:(PresentView *)presentView didSelectedCellOfRowAtIndex:(NSUInteger)index {
+    GiftOneModel *model = self.giftOneArr[index];
+    NSLog(@"点击了: %@", model.giftName);
+}
+
+- (void)presentView:(PresentView *)presentView animationCompleted:(NSInteger)shakeNumber model:(id<PresentModelAble>)model {
+    NSLog(@"%@ 礼物的连送动画执行完成", model.giftName);
 }
 
 
@@ -561,10 +602,18 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
 #pragma mark - Getters
 
+- (UIImageView *)animationImageView {
+    if (!_animationImageView) {
+        _animationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    }
+    return _animationImageView;
+}
+
 - (UIView *)decorateView {
     if (!_decorateView) {
         _decorateView = [[UIView alloc] initWithFrame:self.bounds];
         _decorateView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
+        _decorateView.clipsToBounds = YES;
     }
     return _decorateView;
 }
@@ -618,6 +667,13 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
         _messageArr = [NSMutableArray array];
     }
     return _messageArr;
+}
+
+- (NSMutableArray *)giftOneArr {
+    if (!_giftOneArr) {
+        _giftOneArr = [NSMutableArray array];
+    }
+    return _giftOneArr;
 }
 
 

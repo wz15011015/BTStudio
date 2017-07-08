@@ -29,9 +29,4 @@
 /** 礼物显示时长 */
 @property (nonatomic, assign) float giftDuration;
 
-
-
-/** 礼物显示时长 */
-//@property (nonatomic, assign) float giftDuration;
-
 @end

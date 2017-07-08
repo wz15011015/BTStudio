@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class GiftModel;
+@class GiftOneModel;
 
 @protocol BWPlayDecorateDelegate <NSObject>
 
@@ -46,5 +47,8 @@
 
 /** 显示礼物 */
 - (void)shwoGift:(GiftModel *)gift;
+
+/** 显示礼物1 */
+- (void)shwoGiftOne:(GiftOneModel *)gift;
 
 @end

@@ -29,6 +29,12 @@
 		9A29D31A1F09F41C00FC4389 /* NSData+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29D3191F09F41C00FC4389 /* NSData+AES.m */; };
 		9A3530671EFCDD85006CE3A2 /* FilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3530661EFCDD85006CE3A2 /* FilterModel.m */; };
 		9A35306A1EFCFECE006CE3A2 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3530691EFCFECE006CE3A2 /* FilterCell.m */; };
+		9A3D4BB41F1068A000B546E2 /* PresentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BB11F1068A000B546E2 /* PresentView.m */; };
+		9A3D4BB51F1068A000B546E2 /* PresentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BB31F1068A000B546E2 /* PresentViewCell.m */; };
+		9A3D4BB91F10697E00B546E2 /* GiftOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BB81F10697E00B546E2 /* GiftOneCell.m */; };
+		9A3D4BBC1F106D5100B546E2 /* GiftOneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BBB1F106D5100B546E2 /* GiftOneModel.m */; };
+		9A3D4BC31F10870D00B546E2 /* PrivateMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BC21F10870D00B546E2 /* PrivateMessageViewController.m */; };
+		9A3D4BC61F1089CE00B546E2 /* PMPrivateMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BC51F1089CE00B546E2 /* PMPrivateMessageCell.m */; };
 		9A5498471F021F9400FA4E06 /* BWPushDecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498461F021F9400FA4E06 /* BWPushDecorateView.m */; };
 		9A54984A1F021F9A00FA4E06 /* PushPrepareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498491F021F9A00FA4E06 /* PushPrepareView.m */; };
 		9A54984D1F02257800FA4E06 /* ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A54984C1F02257800FA4E06 /* ShareModel.m */; };
@@ -113,6 +119,19 @@
 		9A3530661EFCDD85006CE3A2 /* FilterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterModel.m; sourceTree = "<group>"; };
 		9A3530681EFCFECE006CE3A2 /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
 		9A3530691EFCFECE006CE3A2 /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
+		9A3D4BAF1F1068A000B546E2 /* PresentModelAble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentModelAble.h; sourceTree = "<group>"; };
+		9A3D4BB01F1068A000B546E2 /* PresentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentView.h; sourceTree = "<group>"; };
+		9A3D4BB11F1068A000B546E2 /* PresentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentView.m; sourceTree = "<group>"; };
+		9A3D4BB21F1068A000B546E2 /* PresentViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentViewCell.h; sourceTree = "<group>"; };
+		9A3D4BB31F1068A000B546E2 /* PresentViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentViewCell.m; sourceTree = "<group>"; };
+		9A3D4BB71F10697E00B546E2 /* GiftOneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftOneCell.h; sourceTree = "<group>"; };
+		9A3D4BB81F10697E00B546E2 /* GiftOneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftOneCell.m; sourceTree = "<group>"; };
+		9A3D4BBA1F106D5100B546E2 /* GiftOneModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftOneModel.h; sourceTree = "<group>"; };
+		9A3D4BBB1F106D5100B546E2 /* GiftOneModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftOneModel.m; sourceTree = "<group>"; };
+		9A3D4BC11F10870D00B546E2 /* PrivateMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateMessageViewController.h; sourceTree = "<group>"; };
+		9A3D4BC21F10870D00B546E2 /* PrivateMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateMessageViewController.m; sourceTree = "<group>"; };
+		9A3D4BC41F1089CE00B546E2 /* PMPrivateMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPrivateMessageCell.h; sourceTree = "<group>"; };
+		9A3D4BC51F1089CE00B546E2 /* PMPrivateMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPrivateMessageCell.m; sourceTree = "<group>"; };
 		9A5498451F021F9400FA4E06 /* BWPushDecorateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWPushDecorateView.h; sourceTree = "<group>"; };
 		9A5498461F021F9400FA4E06 /* BWPushDecorateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPushDecorateView.m; sourceTree = "<group>"; };
 		9A5498481F021F9A00FA4E06 /* PushPrepareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushPrepareView.h; sourceTree = "<group>"; };
@@ -329,6 +348,7 @@
 			children = (
 				9A1AB8C81EF8BDBC0018BD60 /* Home */,
 				9AED2E5F1F0E368400BCD05A /* Follow */,
+				9A3D4BBD1F1086F500B546E2 /* PrivateMessage */,
 				9A1AB8CC1EF8BDBC0018BD60 /* Mine */,
 				9A81BE521EF91FD300899E4C /* Push */,
 				9A81BE511EF91FCE00899E4C /* Play */,
@@ -431,6 +451,7 @@
 				9A29D3051F09D77E00FC4389 /* PrivateMessageView.m */,
 				9A29D3061F09D77E00FC4389 /* ShareCell.h */,
 				9A29D3071F09D77E00FC4389 /* ShareCell.m */,
+				9A3D4BB61F10691E00B546E2 /* GiftDisplay */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -449,6 +470,7 @@
 		9A29D3251F0A1D3700FC4389 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				9A3D4BAE1F1068A000B546E2 /* Present */,
 			);
 			path = Vender;
 			sourceTree = "<group>";
@@ -593,6 +615,64 @@
 				9A3530691EFCFECE006CE3A2 /* FilterCell.m */,
 				9A267AF01F00AEA500BD9B6B /* AudioEffectCell.h */,
 				9A267AF11F00AEA500BD9B6B /* AudioEffectCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9A3D4BAE1F1068A000B546E2 /* Present */ = {
+			isa = PBXGroup;
+			children = (
+				9A3D4BAF1F1068A000B546E2 /* PresentModelAble.h */,
+				9A3D4BB01F1068A000B546E2 /* PresentView.h */,
+				9A3D4BB11F1068A000B546E2 /* PresentView.m */,
+				9A3D4BB21F1068A000B546E2 /* PresentViewCell.h */,
+				9A3D4BB31F1068A000B546E2 /* PresentViewCell.m */,
+			);
+			path = Present;
+			sourceTree = "<group>";
+		};
+		9A3D4BB61F10691E00B546E2 /* GiftDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				9A3D4BB71F10697E00B546E2 /* GiftOneCell.h */,
+				9A3D4BB81F10697E00B546E2 /* GiftOneCell.m */,
+				9A3D4BBA1F106D5100B546E2 /* GiftOneModel.h */,
+				9A3D4BBB1F106D5100B546E2 /* GiftOneModel.m */,
+			);
+			path = GiftDisplay;
+			sourceTree = "<group>";
+		};
+		9A3D4BBD1F1086F500B546E2 /* PrivateMessage */ = {
+			isa = PBXGroup;
+			children = (
+				9A3D4BBE1F1086F500B546E2 /* Controller */,
+				9A3D4BBF1F1086F500B546E2 /* Model */,
+				9A3D4BC01F1086F500B546E2 /* View */,
+			);
+			path = PrivateMessage;
+			sourceTree = "<group>";
+		};
+		9A3D4BBE1F1086F500B546E2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9A3D4BC11F10870D00B546E2 /* PrivateMessageViewController.h */,
+				9A3D4BC21F10870D00B546E2 /* PrivateMessageViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9A3D4BBF1F1086F500B546E2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9A3D4BC01F1086F500B546E2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9A3D4BC41F1089CE00B546E2 /* PMPrivateMessageCell.h */,
+				9A3D4BC51F1089CE00B546E2 /* PMPrivateMessageCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -910,6 +990,7 @@
 				9A81BE161EF8C00B00899E4C /* BaseNavigationController.m in Sources */,
 				9A81BDFC1EF8BE4C00899E4C /* AppDelegate.m in Sources */,
 				9A54984A1F021F9A00FA4E06 /* PushPrepareView.m in Sources */,
+				9A3D4BC61F1089CE00B546E2 /* PMPrivateMessageCell.m in Sources */,
 				9AEF0CF51F0F33FA000B3A3D /* FollowCell.m in Sources */,
 				9A54984D1F02257800FA4E06 /* ShareModel.m in Sources */,
 				9A29D30B1F09D77E00FC4389 /* BWPlayShareView.m in Sources */,
@@ -920,6 +1001,7 @@
 				9A5498471F021F9400FA4E06 /* BWPushDecorateView.m in Sources */,
 				9A29D3091F09D77E00FC4389 /* BWGiftView.m in Sources */,
 				9A81BE271EF8C68E00899E4C /* BWBadgeButton.m in Sources */,
+				9A3D4BBC1F106D5100B546E2 /* GiftOneModel.m in Sources */,
 				9A81BE131EF8BFBA00899E4C /* BaseViewController.m in Sources */,
 				9A3530671EFCDD85006CE3A2 /* FilterModel.m in Sources */,
 				9A6733171F0B6AF6005423F2 /* BWHUDHelper.m in Sources */,
@@ -927,6 +1009,7 @@
 				9A29D3171F09F40900FC4389 /* NSString+BrianExtension.m in Sources */,
 				9AEF0CFB1F0F782C000B3A3D /* MineViewController.m in Sources */,
 				9A29D30E1F09D77E00FC4389 /* PrivateMessageCell.m in Sources */,
+				9A3D4BB91F10697E00B546E2 /* GiftOneCell.m in Sources */,
 				9AED2E5E1F0E1C5F00BCD05A /* BWPlistHelper.m in Sources */,
 				9AED2E651F0E36A300BCD05A /* FollowViewController.m in Sources */,
 				9A267AF21F00AEA500BD9B6B /* AudioEffectCell.m in Sources */,
@@ -938,9 +1021,12 @@
 				9A81BE201EF8C64800899E4C /* BWTabBarController.m in Sources */,
 				9A1AB8AC1EF8BB860018BD60 /* main.m in Sources */,
 				9A81BE1C1EF8C2CF00899E4C /* BWConst.m in Sources */,
+				9A3D4BB41F1068A000B546E2 /* PresentView.m in Sources */,
 				9A81BE191EF8C06500899E4C /* BaseTableViewController.m in Sources */,
 				9A29D30C1F09D77E00FC4389 /* GiftCell.m in Sources */,
 				9A29D30D1F09D77E00FC4389 /* MessageCell.m in Sources */,
+				9A3D4BB51F1068A000B546E2 /* PresentViewCell.m in Sources */,
+				9A3D4BC31F10870D00B546E2 /* PrivateMessageViewController.m in Sources */,
 				9AEF0CF81F0F6C3C000B3A3D /* FollowModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

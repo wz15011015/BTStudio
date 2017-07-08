@@ -13,6 +13,7 @@
 #import "BaseViewController.h"
 #import "HomeViewController.h"
 #import "FollowViewController.h"
+#import "PrivateMessageViewController.h"
 #import "MineViewController.h"
 #import "HotViewController.h"
 #import "PushPrepareView.h"
@@ -71,19 +72,19 @@
 //    homeVC.progressWidth = 40;
 //    homeVC.progressViewIsNaughty = YES;
     
-    BaseNavigationController *homeNav = [self createNavigationControllerWithViewController:homeVC title:@"广场" imageName:@"home_5s_320"  selectedImageName:@"home_selected_5s_320"];
+    BaseNavigationController *homeNav = [self createNavigationControllerWithViewController:homeVC title:@"广场" imageName:@""  selectedImageName:@""];
     
     FollowViewController *followVC = [[FollowViewController alloc] init];
-    BaseNavigationController *followNav = [self createNavigationControllerWithViewController:followVC title:@"关注" imageName:@"appointment_5s_320"  selectedImageName:@"appointment_selected_5s_320"];
+    BaseNavigationController *followNav = [self createNavigationControllerWithViewController:followVC title:@"关注" imageName:@""  selectedImageName:@""];
     
-    BaseViewController *queryVC = [[BaseViewController alloc] init];
-    BaseNavigationController *queryNav = [self createNavigationControllerWithViewController:queryVC title:@"私信" imageName:@"query_5s_320"  selectedImageName:@"query_selected_5s_320"];
+    PrivateMessageViewController *pmVC = [[PrivateMessageViewController alloc] init];
+    BaseNavigationController *pmNav = [self createNavigationControllerWithViewController:pmVC title:@"私信" imageName:@""  selectedImageName:@""];
     
     MineViewController *mineVC = [[MineViewController alloc] init];
-    BaseNavigationController *mineNav = [self createNavigationControllerWithViewController:mineVC title:@"我的" imageName:@"mine_5s_320"  selectedImageName:@"mine_selected_5s_320"];
+    BaseNavigationController *mineNav = [self createNavigationControllerWithViewController:mineVC title:@"我的" imageName:@""  selectedImageName:@""];
     
     // 2. 添加导航控制器
-    self.viewControllers = @[homeNav, followNav, queryNav, mineNav];
+    self.viewControllers = @[homeNav, followNav, pmNav, mineNav];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -178,6 +179,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

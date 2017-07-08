@@ -16,6 +16,8 @@
 #import "PrivateMessageView.h"
 #import "BWPlayShareView.h"
 #import "SnapShotShareView.h"
+#import "GiftModel.h"
+#import "GiftOneModel.h"
 
 #define RTMP_PLAY_URL @"rtmp://20994.mpull.live.lecloud.com/live/leshiTest?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9"
 
@@ -108,24 +110,6 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = YES;
-    
-    //    if (self.rtmpURL) {
-    //        [self startRTMP];
-    //    }
-    //
-    //    if (!_firstAppear) {
-    //        // 是否有摄像头权限
-    //        AVAuthorizationStatus cameraStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    //        if (cameraStatus == AVAuthorizationStatusDenied) {
-    //            return;
-    //        }
-    //        if (!_isPreviewing) {
-    //            [self.livePush startPreview:self.videoParentView];
-    //            _isPreviewing = YES;
-    //        }
-    //    } else {
-    //        _firstAppear = NO;
-    //    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -319,8 +303,13 @@
 #pragma mark - BWGiftViewDelegate
 
 // 展示礼物
-- (void)giftView:(BWGiftView *)view sendGift:(GiftModel *)gift {
-    [self.decorateView shwoGift:gift];
+- (void)giftView:(BWGiftView *)view sendGift:(GiftModel *)gift { 
+    if ([gift.giftId intValue] == 1) {
+        GiftOneModel *model = [GiftOneModel modelWithSender:@"观众1" giftName:@"金话筒" giftImageName:@"goldenMicrophone"];
+        [self.decorateView shwoGiftOne:model];
+    } else {
+        [self.decorateView shwoGift:gift];
+    }
 }
 
 
