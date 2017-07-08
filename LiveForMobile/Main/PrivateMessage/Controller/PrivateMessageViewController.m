@@ -25,7 +25,7 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT - 49 - 64)];
         _tableView.backgroundColor = RGB(241, 241, 241);
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerClass:[PMPrivateMessageCell class] forCellReuseIdentifier:PMPrivateMessageCellID];
@@ -61,7 +61,6 @@
 #pragma mark - Load Data
 
 - (void)loadData {
-    [self.dataArr addObject:@""];
     [self.dataArr addObject:@""];
     [self.dataArr addObject:@""];
     

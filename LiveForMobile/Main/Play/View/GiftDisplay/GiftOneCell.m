@@ -7,10 +7,11 @@
 //
 
 #import "GiftOneCell.h"
+#import "BWMacro.h"
 #import "GiftOneModel.h"
 
 #define GIFTONE_CELL_H (37)
-#define CONTENT_W (140)
+#define CONTENT_W (WIDTH * 0.4)
 
 @interface GiftOneCell ()
 

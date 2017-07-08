@@ -179,6 +179,7 @@
     
     NSArray *itemsArr = @[[NSURL URLWithString:@"http://115.159.35.193:8080/WebPage/"]];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:itemsArr applicationActivities:nil];
+    activityViewController.excludedActivityTypes = @[UIActivityTypeMessage, UIActivityTypeMail, UIActivityTypeAddToReadingList];
     [self.parentViewController presentViewController:activityViewController animated:YES completion:nil];
 }
 

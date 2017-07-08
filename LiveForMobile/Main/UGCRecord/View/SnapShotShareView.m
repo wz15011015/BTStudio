@@ -191,6 +191,7 @@
     }
     NSArray *itemsArr = @[self.snapShotImage];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:itemsArr applicationActivities:nil];
+    activityViewController.excludedActivityTypes = @[UIActivityTypeMessage, UIActivityTypeMail, UIActivityTypeAddToReadingList];
     [self.parentViewController presentViewController:activityViewController animated:YES completion:nil];
 }
 

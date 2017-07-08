@@ -78,6 +78,7 @@ NSString *const PMPrivateMessageCellID = @"PMPrivateMessageCellIdentifier";
         CGFloat h = CGRectGetHeight(self.timeLabel.frame);
         CGFloat w = CGRectGetMinX(self.timeLabel.frame) - x - (10 * WIDTH_SCALE);
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, w, h)];
+        _titleLabel.textColor = RGB(50, 50, 50);
         _titleLabel.font = [UIFont boldSystemFontOfSize:15];
     }
     return _titleLabel;

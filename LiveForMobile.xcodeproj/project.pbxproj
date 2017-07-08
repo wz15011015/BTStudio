@@ -35,6 +35,7 @@
 		9A3D4BBC1F106D5100B546E2 /* GiftOneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BBB1F106D5100B546E2 /* GiftOneModel.m */; };
 		9A3D4BC31F10870D00B546E2 /* PrivateMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BC21F10870D00B546E2 /* PrivateMessageViewController.m */; };
 		9A3D4BC61F1089CE00B546E2 /* PMPrivateMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BC51F1089CE00B546E2 /* PMPrivateMessageCell.m */; };
+		9A3D4BC91F10A2D400B546E2 /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BC81F10A2D400B546E2 /* MineCell.m */; };
 		9A5498471F021F9400FA4E06 /* BWPushDecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498461F021F9400FA4E06 /* BWPushDecorateView.m */; };
 		9A54984A1F021F9A00FA4E06 /* PushPrepareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498491F021F9A00FA4E06 /* PushPrepareView.m */; };
 		9A54984D1F02257800FA4E06 /* ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A54984C1F02257800FA4E06 /* ShareModel.m */; };
@@ -132,6 +133,8 @@
 		9A3D4BC21F10870D00B546E2 /* PrivateMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateMessageViewController.m; sourceTree = "<group>"; };
 		9A3D4BC41F1089CE00B546E2 /* PMPrivateMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMPrivateMessageCell.h; sourceTree = "<group>"; };
 		9A3D4BC51F1089CE00B546E2 /* PMPrivateMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPrivateMessageCell.m; sourceTree = "<group>"; };
+		9A3D4BC71F10A2D400B546E2 /* MineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
+		9A3D4BC81F10A2D400B546E2 /* MineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineCell.m; sourceTree = "<group>"; };
 		9A5498451F021F9400FA4E06 /* BWPushDecorateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWPushDecorateView.h; sourceTree = "<group>"; };
 		9A5498461F021F9400FA4E06 /* BWPushDecorateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPushDecorateView.m; sourceTree = "<group>"; };
 		9A5498481F021F9A00FA4E06 /* PushPrepareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushPrepareView.h; sourceTree = "<group>"; };
@@ -510,6 +513,8 @@
 		9A29D3341F0A1DCD00FC4389 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9A3D4BC71F10A2D400B546E2 /* MineCell.h */,
+				9A3D4BC81F10A2D400B546E2 /* MineCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -983,6 +988,7 @@
 				9A35306A1EFCFECE006CE3A2 /* FilterCell.m in Sources */,
 				9ADBC6AA1EFA485E000E60D2 /* BWPushViewController.m in Sources */,
 				9A81BE321EF8EE5500899E4C /* HotLiveCell.m in Sources */,
+				9A3D4BC91F10A2D400B546E2 /* MineCell.m in Sources */,
 				9A267AFA1F00EAD000BD9B6B /* BWPlayViewController.m in Sources */,
 				9A67331D1F0B7F2F005423F2 /* PushPrepareDecorateView.m in Sources */,
 				9A81BE2F1EF8EB6A00899E4C /* HotViewController.m in Sources */,
