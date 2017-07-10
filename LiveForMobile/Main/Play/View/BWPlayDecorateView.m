@@ -21,6 +21,8 @@
 #define TOP_H (30) // 顶部第一行控件的高
 #define TOP_LEFT_MARGIN  (10) // 顶部第一行控件的左边距
 #define TOP_RIGHT_MARGIN (10) // 顶部第一行控件的右边距
+
+#define MESSAGE_MAX_COUNT (30) // 聊天消息展示的最大条数
  
 const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
@@ -28,7 +30,10 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     CGFloat _width;
     CGFloat _height;
     
+    NSUInteger _unreadMsgCount; // 未读消息个数
+    
     BOOL _isBulletOn; // 是否开启了弹幕效果
+    BOOL _isAutoScrollToBottom; // 是否允许消息列表自动滚动到最底部
 }
 @property (nonatomic, strong) UITapGestureRecognizer *tapForScreen; // 点击手势
 @property (nonatomic, strong) UIPanGestureRecognizer *panForMove;  // 平移手势
@@ -45,9 +50,9 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 @property (nonatomic, strong) UIView *chatInputView;
 @property (nonatomic, strong) UITextField *chatInputTextField;
 
-
 // 用来放置除关闭按钮以外的其他控件
 @property (nonatomic, strong) UIView *decorateView;
+
 
 // 加在decorateView上的控件
 // 在线观看人数
@@ -59,6 +64,7 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 // 消息列表
 @property (nonatomic, strong) UITableView *messageTableView;
 @property (nonatomic, strong) NSMutableArray *messageArr;
+@property (nonatomic, strong) UIButton *unreadButton;  // 未读消息个数按钮
 // 底部功能按钮
 @property (nonatomic, strong) UIButton *chatButton;
 @property (nonatomic, strong) UIButton *pmButton;        // 私信按钮 (Private Message)
@@ -69,11 +75,16 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
 // 礼物展示
 @property (nonatomic, strong) UIImageView *animationImageView;
+@property (nonatomic, strong) NSMutableArray <GiftModel *>*giftAnimationArr;
 
 @property (nonatomic, strong) CAEmitterLayer *praiseEmitterLayer; // 点赞效果 (粒子动画)
 
 @property (nonatomic, strong) PresentView *giftOneView;
 @property (nonatomic, strong) NSMutableArray *giftOneArr;
+
+
+#warning testing
+@property (nonatomic, strong) NSTimer *testTimer;
 
 @end
 
@@ -107,6 +118,7 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.testTimer invalidate];
 }
 
 
@@ -116,7 +128,9 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 - (void)initializeParameters {
     _width = WIDTH;
     _height = HEIGHT;
+    _unreadMsgCount = 0;
     _isBulletOn = NO;
+    _isAutoScrollToBottom = YES;
     
     // 注册键盘高度变化的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
@@ -159,6 +173,8 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     
     // 3. 消息列表
     [self.decorateView addSubview:self.messageTableView];
+    [self.decorateView addSubview:self.unreadButton];
+    self.unreadButton.hidden = YES;
     
     // 4. 底部的功能按钮(6个)
     CGFloat button_bottomMargin = 15;
@@ -304,6 +320,53 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     // 滚动到最后一行
     NSIndexPath *footIndexPath = [NSIndexPath indexPathForRow:self.messageArr.count - 1 inSection:0];
     [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    
+    self.testTimer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(receivedMessage) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.testTimer forMode:NSRunLoopCommonModes];
+}
+
+
+#warning testing
+// 收到新消息
+- (void)receivedMessage {
+    int random = arc4random() % 4;
+    if (random == 0) {
+        [self.messageArr addObject:@"关注你了，哈哈😄!"];
+    } else if (random == 1) {
+        [self.messageArr addObject:@"23"];
+    } else {
+        [self.messageArr addObject:@"12"];
+    }
+    _unreadMsgCount += 1;
+    
+    NSUInteger count = self.messageArr.count;
+    if (count > MESSAGE_MAX_COUNT) {
+        NSUInteger delta = count - MESSAGE_MAX_COUNT;
+        [self.messageArr removeObjectsInRange:NSMakeRange(0, delta)];
+//        NSLog(@"移除消息: 0~%ld", delta - 1);
+    }
+    
+    [self reloadMessageAndScrollToBottom];
+}
+
+- (void)reloadMessageAndScrollToBottom {
+    if (_isAutoScrollToBottom) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.messageTableView reloadData];
+            // 滚动到最后一行
+            NSIndexPath *footIndexPath = [NSIndexPath indexPathForRow:self.messageArr.count - 1 inSection:0];
+            [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+//        });
+        
+        _unreadMsgCount = 0;
+        self.unreadButton.hidden = YES;
+    } else {
+        if (_unreadMsgCount == 0) {
+            return;
+        }
+        self.unreadButton.hidden = NO;
+        [self.unreadButton setTitle:[NSString stringWithFormat:@"新消息%ld条", _unreadMsgCount] forState:UIControlStateNormal];
+    }
 }
 
 
@@ -311,24 +374,8 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
 // 显示礼物
 - (void)shwoGift:(GiftModel *)gift {
-    BWPlistHelper *plistHelper = [[BWPlistHelper alloc] initWithPropertyListFileName:@"GiftResource.plist"];
-    NSArray *images = [plistHelper imagesWithGiftId:gift.giftId];
-    if (images.count == 0) {
-        return;
-    }
-    CGRect frame = self.animationImageView.frame;
-    frame.origin.x = [plistHelper imageXWithGiftId:gift.giftId] * WIDTH_SCALE;
-    frame.origin.y = [plistHelper imageYWithGiftId:gift.giftId] * HEIGHT_SCALE;
-    frame.size.width = [plistHelper imageWWithGiftId:gift.giftId] * WIDTH_SCALE;
-    frame.size.height = [plistHelper imageHWithGiftId:gift.giftId] * HEIGHT_SCALE;
-    self.animationImageView.frame = frame;
-    
-    self.animationImageView.animationImages = images;
-    self.animationImageView.animationDuration = [plistHelper durationWithGiftId:gift.giftId];
-    self.animationImageView.animationRepeatCount = 1;
-    
-    [self.animationImageView startAnimating];
-    
+    [self.giftAnimationArr addObject:gift];
+    [self giftAnimationStart:gift];
     
     // 粒子发射器实现
     //    [self.decorateView.layer addSublayer:self.praiseEmitterLayer];
@@ -339,6 +386,55 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     NSArray *models = @[gift, gift, gift, gift];
     self.giftOneArr = [NSMutableArray arrayWithArray:models];
     [self.giftOneView insertPresentMessages:self.giftOneArr showShakeAnimation:YES];
+}
+
+/** 播放礼物动画 */
+- (void)giftAnimationStart:(GiftModel *)gift {
+    // 播放礼物动画
+    // 1. 先判断是否正在播放动画
+    if (self.animationImageView.isAnimating) {
+        return;
+    }
+    // 2. 获取礼物信息
+    BWPlistHelper *plistHelper = [[BWPlistHelper alloc] initWithPropertyListFileName:@"GiftResource.plist"];
+    NSArray *images = [plistHelper imagesWithGiftId:gift.giftId];
+    if (images.count == 0) {
+        return;
+    }
+    // 3. 调整动画UIImageView的frame
+    CGRect frame = self.animationImageView.frame;
+    frame.origin.x = [plistHelper imageXWithGiftId:gift.giftId] * WIDTH_SCALE;
+    frame.origin.y = [plistHelper imageYWithGiftId:gift.giftId] * HEIGHT_SCALE;
+    frame.size.width = [plistHelper imageWWithGiftId:gift.giftId] * WIDTH_SCALE;
+    frame.size.height = [plistHelper imageHWithGiftId:gift.giftId] * HEIGHT_SCALE;
+    self.animationImageView.frame = frame;
+    // 4. 动画时长
+    NSTimeInterval duration = [plistHelper durationWithGiftId:gift.giftId];
+    self.animationImageView.animationImages = images;
+    self.animationImageView.animationDuration = duration;
+    self.animationImageView.animationRepeatCount = 1;
+    // 5. 开始动画
+    [self.animationImageView startAnimating];
+//    NSLog(@"开始播放[%@]礼物动画", gift.giftName);
+    // 6. 动画播放完成后，清除动画
+    [self performSelector:@selector(giftAnimationCompleted:) withObject:nil afterDelay:duration + 0.1];
+}
+
+/** 完成礼物动画 */
+- (void)giftAnimationCompleted:(id)object {
+    // 1. 停止动画
+    [self.animationImageView stopAnimating];
+    // 2. 数组中移除已播放的动画
+    [self.giftAnimationArr removeObjectAtIndex:0];
+    // 3. 开始播放下一个动画
+    NSUInteger count = self.giftAnimationArr.count;
+    if (count == 0) {
+        [_animationImageView removeFromSuperview];
+        _animationImageView = nil;
+        return;
+    }
+    GiftModel *gift = self.giftAnimationArr.firstObject;
+    [self giftAnimationStart:gift];
 }
 
 
@@ -399,6 +495,14 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
         [self.delegate clickShare:button];
     }
 }
+
+// 查看最新消息，滚动到最底部
+- (void)readNewMessage:(UIButton *)sender {
+    sender.hidden = YES;
+    _isAutoScrollToBottom = YES;
+    [self reloadMessageAndScrollToBottom];
+}
+
 
 // MARK: UIGestureRecognizer Event
 
@@ -490,7 +594,7 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 }
 
 
-#pragma mark - UICollectionViewDataSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.messageArr.count;
@@ -520,6 +624,20 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if (scrollView == self.messageTableView) {
         [self endEditing:YES];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView == self.messageTableView) {
+        CGFloat offsetY = scrollView.contentOffset.y;
+        CGFloat maxOffsetY = scrollView.contentSize.height - scrollView.frame.size.height;
+        CGFloat diff = 0.5;
+        if (offsetY > 0 && (offsetY + diff >= maxOffsetY || offsetY - diff >= maxOffsetY )) { // 用户滑动到了最底部，打开自动滚动
+            _isAutoScrollToBottom = YES;
+        } else { // 用户向上滑动查看消息时，关闭自动滚动
+            _isAutoScrollToBottom = NO;
+        }
+        [self reloadMessageAndScrollToBottom];
     }
 }
 
@@ -662,11 +780,34 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     return _messageTableView;
 }
 
+- (UIButton *)unreadButton {
+    if (!_unreadButton) {
+        CGFloat w = 85;
+        CGFloat h = 23;
+        CGFloat x = CGRectGetMinX(self.messageTableView.frame) + 20;
+        CGFloat y = CGRectGetMaxY(self.messageTableView.frame) - h;
+        _unreadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _unreadButton.frame = CGRectMake(x, y, w, h);
+        _unreadButton.backgroundColor = [UIColor whiteColor];
+        _unreadButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        [_unreadButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_unreadButton addTarget:self action:@selector(readNewMessage:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _unreadButton;
+}
+
 - (NSMutableArray *)messageArr {
     if (!_messageArr) {
         _messageArr = [NSMutableArray array];
     }
     return _messageArr;
+}
+
+- (NSMutableArray *)giftAnimationArr {
+    if (!_giftAnimationArr) {
+        _giftAnimationArr = [NSMutableArray array];
+    }
+    return _giftAnimationArr;
 }
 
 - (NSMutableArray *)giftOneArr {
@@ -677,7 +818,8 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 }
 
 
-// MARK: 点赞动画效果实现
+#pragma mark - 点赞动画效果实现
+
 // 1. 粒子发射器实现
 - (CAEmitterLayer *)praiseEmitterLayer {
     if (!_praiseEmitterLayer) {
@@ -716,15 +858,34 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
 // 2. UIView Animation实现
 - (void)praiseAnimation {
-    // 随机生成一个0～7的数，以便下面拼接图片名
-    int imageNum = round(random() % 8);
-    NSString *imageName = [NSString stringWithFormat:@"play_gift"];
-    if (imageNum > 5) {
-        imageName = @"play_gift";
-    } else if (imageNum > 2) {
-        imageName = @"play_pm";
-    } else {
-        imageName = @"play_video_record";
+    // 随机生成一个数字，以便下面拼接图片名
+    int imageIndex1 = (arc4random() % 8) + 1;
+    int imageIndex2 = (arc4random() % 9) + 1;
+    NSString *imageName = [NSString stringWithFormat:@"parise_%d_%d_45x45_", 1, imageIndex2];
+    if (imageIndex1 == 1) {
+        int imageIndex2 = (arc4random() % 9) + 1;
+       imageName = [NSString stringWithFormat:@"parise_%d_%d_45x45_", imageIndex1, imageIndex2];
+    } else if (imageIndex1 == 2) {
+        int imageIndex2 = (arc4random() % 3) + 1;
+        imageName = [NSString stringWithFormat:@"parise_%d_%d_30x30_", imageIndex1, imageIndex2];
+    } else if (imageIndex1 == 3) {
+        int imageIndex2 = (arc4random() % 6) + 1;
+        imageName = [NSString stringWithFormat:@"parise_%d_%d_45x45_", imageIndex1, imageIndex2];
+    } else if (imageIndex1 == 4) {
+        int imageIndex2 = (arc4random() % 3) + 1;
+        imageName = [NSString stringWithFormat:@"parise_%d_%d_45x45_", imageIndex1, imageIndex2];
+    } else if (imageIndex1 == 5) {
+        int imageIndex2 = (arc4random() % 3) + 1;
+        imageName = [NSString stringWithFormat:@"parise_%d_%d_45x45_", imageIndex1, imageIndex2];
+    } else if (imageIndex1 == 6) {
+        int imageIndex2 = (arc4random() % 1) + 1;
+        imageName = [NSString stringWithFormat:@"parise_%d_%d_45x45_", imageIndex1, imageIndex2];
+    } else if (imageIndex1 == 7) {
+        int imageIndex2 = (arc4random() % 15) + 1;
+        imageName = [NSString stringWithFormat:@"parise_%d_%d_30x30_", imageIndex1, imageIndex2];
+    } else if (imageIndex1 == 8) {
+        int imageIndex2 = (arc4random() % 16) + 1;
+        imageName = [NSString stringWithFormat:@"parise_%d_%d_30x30_", imageIndex1, imageIndex2];
     }
     
     // 1. 生成一个UIImageView
@@ -732,7 +893,7 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     
     // 2. 初始化frame及其他属性
     CGRect frame = self.frame;
-    CGFloat imageViewW = 26;
+    CGFloat imageViewW = 30;
     CGFloat imageViewH = imageViewW;
     CGFloat startX = frame.size.width - 70;
     CGFloat startY = frame.size.height - 70;

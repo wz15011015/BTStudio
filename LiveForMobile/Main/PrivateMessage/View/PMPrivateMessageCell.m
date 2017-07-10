@@ -27,7 +27,7 @@ NSString *const PMPrivateMessageCellID = @"PMPrivateMessageCellIdentifier";
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        UIView *selectedBGV = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        UIView *selectedBGV = [[UIView alloc] init];
         selectedBGV.backgroundColor = RGB(220, 220, 220);
         self.selectedBackgroundView = selectedBGV;
         

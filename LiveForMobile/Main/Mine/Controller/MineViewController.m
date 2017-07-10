@@ -15,7 +15,6 @@
 @property (nonatomic, strong) NSMutableArray *group1Arr;
 @property (nonatomic, strong) NSMutableArray *group2Arr;
 @property (nonatomic, strong) NSMutableArray *group3Arr;
-
 @property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end

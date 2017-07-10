@@ -25,7 +25,7 @@ NSString *const MineCellID = @"MineCellIdentifier";
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        UIView *selectedBGV = [[UIView alloc] initWithFrame:self.contentView.bounds];
+        UIView *selectedBGV = [[UIView alloc] init];
         selectedBGV.backgroundColor = RGB(220, 220, 220);
         self.selectedBackgroundView = selectedBGV;
         
@@ -54,9 +54,9 @@ NSString *const MineCellID = @"MineCellIdentifier";
 
 - (UIImageView *)arrowImageView {
     if (!_arrowImageView) {
-        CGFloat rightMargin = 14 * WIDTH_SCALE;
+        CGFloat rightMargin = 15 * WIDTH_SCALE;
         CGFloat w = 9 * WIDTH_SCALE;
-        CGFloat h = 15 * HEIGHT_SCALE;
+        CGFloat h = 16 * HEIGHT_SCALE;
         CGFloat x = WIDTH - rightMargin - w;
         CGFloat y = (kMineCellH - h) / 2.0;
         _arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];

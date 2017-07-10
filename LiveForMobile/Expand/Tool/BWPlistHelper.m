@@ -65,7 +65,12 @@ NSString *const PlistPrimaryKey = @"Gift";
             
             for (int i = 0; i < nameArr.count; i++) {
                 NSString *imageName = nameArr[i];
+                // 1. 在图片使用完成后，不会直接被释放掉，具体释放时间由系统决定，适用于图片小，常用的图像处理
                 UIImage *image = [UIImage imageNamed:imageName];
+                
+                // 2. 如果要快速释放图片，可以使用[UIImage imageWithContentsOfFile:path]实例化图像
+//                NSString *filePath = [[NSBundle mainBundle] pathForResource:imageName ofType:nil];
+//                UIImage *image = [UIImage imageWithContentsOfFile:filePath];
                 if (image) {
                     [images addObject:image];
                 }

@@ -11,7 +11,7 @@
 #import "GiftCell.h"
 #import "GiftModel.h"
 
-#define CONTENTVIEW_H (216)
+#define CONTENTVIEW_H    (216)
 #define COLLECTIONVIEW_H (164)
 
 const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数

@@ -77,7 +77,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     BWPlayViewController *playVC = [[BWPlayViewController alloc] init];
-    
     playVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:playVC animated:YES];
 }

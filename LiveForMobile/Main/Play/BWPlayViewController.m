@@ -35,7 +35,6 @@
 @property (nonatomic, strong) BWPlayDecorateView *decorateView;
 
 @property (nonatomic, strong) PlayUGCDecorateView *recordUGCView; // 短视频录制界面
-
 @property (nonatomic, strong) SnapShotShareView *snapShotView; // 截屏分享view
 
 @end
@@ -121,10 +120,6 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 }
-
-
-#pragma mark - Override
-
 
 
 #pragma mark - Methods
@@ -288,7 +283,7 @@
     [self.livePlayer snapshot:^(UIImage *snapShotImage) {
         if (!snapShotImage) {
             [[BWHUDHelper sharedInstance] showHUDMessageInKeyWindow:@"截屏失败"];
-//            return;
+            return;
         }
         if (!_snapShotView) {
             self.snapShotView.snapShotImage = snapShotImage;
@@ -304,7 +299,7 @@
 
 // 展示礼物
 - (void)giftView:(BWGiftView *)view sendGift:(GiftModel *)gift { 
-    if ([gift.giftId intValue] == 1) {
+    if ([gift.giftId intValue] == 3) {
         GiftOneModel *model = [GiftOneModel modelWithSender:@"观众1" giftName:@"金话筒" giftImageName:@"goldenMicrophone"];
         [self.decorateView shwoGiftOne:model];
     } else {
@@ -371,7 +366,7 @@
 - (void)userDidTakeScreenshot:(NSNotification *)notification {
     [self.livePlayer snapshot:^(UIImage *snapShotImage) {
         if (!snapShotImage) {
-//            return;
+            return;
         }
         if (!_snapShotView) {
             self.snapShotView.snapShotImage = snapShotImage;
@@ -398,7 +393,6 @@
         } else if (EvtID == PLAY_EVT_PLAY_LOADING) {
             
         }
-        
     });
     
     long long time = [(NSNumber *)[paraDic valueForKey:EVT_TIME] longLongValue];
