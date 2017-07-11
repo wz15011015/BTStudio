@@ -75,13 +75,12 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
 // 礼物展示
 @property (nonatomic, strong) UIImageView *animationImageView;
-@property (nonatomic, strong) NSMutableArray <GiftModel *>*giftAnimationArr;
+@property (nonatomic, strong) NSMutableArray <GiftModel *>*giftCachesArr; // 礼物的缓存数组
 
 @property (nonatomic, strong) CAEmitterLayer *praiseEmitterLayer; // 点赞效果 (粒子动画)
 
 @property (nonatomic, strong) PresentView *giftOneView;
 @property (nonatomic, strong) NSMutableArray *giftOneArr;
-
 
 #warning testing
 @property (nonatomic, strong) NSTimer *testTimer;
@@ -190,19 +189,22 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     // 4.2 私信按钮
     self.pmButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.pmButton.frame = CGRectMake(CGRectGetMaxX(self.chatButton.frame) + button_middleMargin, button_Y, button_W, button_W);
-    [self.pmButton setImage:[UIImage imageNamed:@"play_pm"] forState:UIControlStateNormal];
+    [self.pmButton setImage:[UIImage imageNamed:@"play_pm_normal"] forState:UIControlStateNormal];
+    [self.pmButton setImage:[UIImage imageNamed:@"play_pm_highlighted"] forState:UIControlStateHighlighted];
     [self.pmButton addTarget:self action:@selector(clickPM:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.pmButton];
     // 4.3 点歌按钮
     self.orderSongButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.orderSongButton.frame = CGRectMake(CGRectGetMaxX(self.pmButton.frame) + button_middleMargin, button_Y, button_W, button_W);
-    [self.orderSongButton setImage:[UIImage imageNamed:@"push_chat"] forState:UIControlStateNormal];
+    [self.orderSongButton setImage:[UIImage imageNamed:@"play_music_normal"] forState:UIControlStateNormal];
+    [self.orderSongButton setImage:[UIImage imageNamed:@"play_music_highlighted"] forState:UIControlStateHighlighted];
     [self.orderSongButton addTarget:self action:@selector(clickOrderSong:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.orderSongButton];
     // 4.4 礼物按钮
     self.giftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.giftButton.frame = CGRectMake(CGRectGetMaxX(self.orderSongButton.frame) + button_middleMargin, button_Y, button_W, button_W);
-    [self.giftButton setImage:[UIImage imageNamed:@"play_gift"] forState:UIControlStateNormal];
+    [self.giftButton setImage:[UIImage imageNamed:@"play_gift_normal"] forState:UIControlStateNormal];
+    [self.giftButton setImage:[UIImage imageNamed:@"play_gift_highlighted"] forState:UIControlStateHighlighted];
     [self.giftButton addTarget:self action:@selector(clickGift:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.giftButton];
     // 4.5 录制视频按钮
@@ -351,12 +353,10 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
 - (void)reloadMessageAndScrollToBottom {
     if (_isAutoScrollToBottom) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.messageTableView reloadData];
-            // 滚动到最后一行
-            NSIndexPath *footIndexPath = [NSIndexPath indexPathForRow:self.messageArr.count - 1 inSection:0];
-            [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
-//        });
+        [self.messageTableView reloadData];
+        // 滚动到最后一行
+        NSIndexPath *footIndexPath = [NSIndexPath indexPathForRow:self.messageArr.count - 1 inSection:0];
+        [self.messageTableView scrollToRowAtIndexPath:footIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         
         _unreadMsgCount = 0;
         self.unreadButton.hidden = YES;
@@ -374,8 +374,12 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
 
 // 显示礼物
 - (void)shwoGift:(GiftModel *)gift {
-    [self.giftAnimationArr addObject:gift];
-    [self giftAnimationStart:gift];
+    // 1. 先把礼物存储到缓存数组中
+    [self.giftCachesArr addObject:gift];
+    
+    // 2. 取出第一个礼物进行展示
+    GiftModel *firstGift = self.giftCachesArr.firstObject;
+    [self giftAnimationStart:firstGift];
     
     // 粒子发射器实现
     //    [self.decorateView.layer addSublayer:self.praiseEmitterLayer];
@@ -388,53 +392,53 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     [self.giftOneView insertPresentMessages:self.giftOneArr showShakeAnimation:YES];
 }
 
+
 /** 播放礼物动画 */
 - (void)giftAnimationStart:(GiftModel *)gift {
-    // 播放礼物动画
     // 1. 先判断是否正在播放动画
     if (self.animationImageView.isAnimating) {
         return;
     }
     // 2. 获取礼物信息
     BWPlistHelper *plistHelper = [[BWPlistHelper alloc] initWithPropertyListFileName:@"GiftResource.plist"];
+    // 2.1 礼物图片序列帧
     NSArray *images = [plistHelper imagesWithGiftId:gift.giftId];
     if (images.count == 0) {
         return;
     }
-    // 3. 调整动画UIImageView的frame
-    CGRect frame = self.animationImageView.frame;
-    frame.origin.x = [plistHelper imageXWithGiftId:gift.giftId] * WIDTH_SCALE;
-    frame.origin.y = [plistHelper imageYWithGiftId:gift.giftId] * HEIGHT_SCALE;
-    frame.size.width = [plistHelper imageWWithGiftId:gift.giftId] * WIDTH_SCALE;
-    frame.size.height = [plistHelper imageHWithGiftId:gift.giftId] * HEIGHT_SCALE;
-    self.animationImageView.frame = frame;
-    // 4. 动画时长
+    // 2.2 礼物动画时长
     NSTimeInterval duration = [plistHelper durationWithGiftId:gift.giftId];
+    // 2.3 礼物图片的位置
+    CGFloat x = [plistHelper imageXWithGiftId:gift.giftId] * WIDTH_SCALE;
+    CGFloat y = [plistHelper imageYWithGiftId:gift.giftId] * HEIGHT_SCALE;
+    CGFloat w = [plistHelper imageWWithGiftId:gift.giftId] * WIDTH_SCALE;
+    CGFloat h = [plistHelper imageHWithGiftId:gift.giftId] * HEIGHT_SCALE;
+    // 3. 设置动画属性
+    self.animationImageView.frame = CGRectMake(x, y, w, h);
     self.animationImageView.animationImages = images;
     self.animationImageView.animationDuration = duration;
     self.animationImageView.animationRepeatCount = 1;
-    // 5. 开始动画
+    // 4. 开始动画
     [self.animationImageView startAnimating];
-//    NSLog(@"开始播放[%@]礼物动画", gift.giftName);
-    // 6. 动画播放完成后，清除动画
-    [self performSelector:@selector(giftAnimationCompleted:) withObject:nil afterDelay:duration + 0.1];
+    // 5. 动画播放完成后，清除礼物缓存
+    [self performSelector:@selector(giftAnimationCompleted:) withObject:gift.giftName afterDelay:duration + 0.1];
 }
 
 /** 完成礼物动画 */
 - (void)giftAnimationCompleted:(id)object {
     // 1. 停止动画
     [self.animationImageView stopAnimating];
-    // 2. 数组中移除已播放的动画
-    [self.giftAnimationArr removeObjectAtIndex:0];
-    // 3. 开始播放下一个动画
-    NSUInteger count = self.giftAnimationArr.count;
-    if (count == 0) {
-        [_animationImageView removeFromSuperview];
-        _animationImageView = nil;
+    // 2. 缓存数组中移除已播放的礼物
+    if (self.giftCachesArr.count == 0) {
         return;
     }
-    GiftModel *gift = self.giftAnimationArr.firstObject;
-    [self giftAnimationStart:gift];
+    [self.giftCachesArr removeObjectAtIndex:0];
+    // 3. 开始播放下一个动画 (缓存数组中的第一个)
+    if (self.giftCachesArr.count == 0) {
+        return;
+    }
+    GiftModel *firstGift = self.giftCachesArr.firstObject;
+    [self giftAnimationStart:firstGift];
 }
 
 
@@ -803,11 +807,11 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     return _messageArr;
 }
 
-- (NSMutableArray *)giftAnimationArr {
-    if (!_giftAnimationArr) {
-        _giftAnimationArr = [NSMutableArray array];
+- (NSMutableArray *)giftCachesArr {
+    if (!_giftCachesArr) {
+        _giftCachesArr = [NSMutableArray array];
     }
-    return _giftAnimationArr;
+    return _giftCachesArr;
 }
 
 - (NSMutableArray *)giftOneArr {
@@ -840,7 +844,7 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
             cell.lifetime = arc4random_uniform(4) + 1; // 粒子存活时间
             cell.lifetimeRange = 1.5; // 粒子的生存时间容差
             // 粒子的内容
-            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"play_gift"]];
+            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"play_gift_normal"]];
             cell.contents = (id)image.CGImage;
             cell.name = [NSString stringWithFormat:@"%d", i]; // 粒子的名字
             cell.velocity = arc4random_uniform(100) + 100; // 粒子的运动速率

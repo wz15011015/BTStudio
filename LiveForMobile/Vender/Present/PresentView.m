@@ -99,7 +99,7 @@
     }
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 //    UITouch *touch = touches.anyObject;
 //    CGPoint point = [touch locationInView:self];
 //    for (int index = 0; index < self.showCells.count; index++) {
@@ -111,7 +111,7 @@
 //            break;
 //        }
 //    }
-}
+//}
 
 
 #pragma mark - Private

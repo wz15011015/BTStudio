@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7B2D022328E7B596FA8C2ED5 /* libPods-LiveForMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8531DC410AC75D508CC67ED /* libPods-LiveForMobile.a */; };
 		9A037A2E1F049AE3005F2894 /* PlayUGCDecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A037A2D1F049AE3005F2894 /* PlayUGCDecorateView.m */; };
+		9A17A10E1F14AC1D001EB591 /* WebSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17A10D1F14AC1D001EB591 /* WebSocketManager.m */; };
 		9A1AB8AC1EF8BB860018BD60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1AB8AB1EF8BB860018BD60 /* main.m */; };
 		9A1AB8B51EF8BB860018BD60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A1AB8B31EF8BB860018BD60 /* Main.storyboard */; };
 		9A1AB8B71EF8BB860018BD60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A1AB8B61EF8BB860018BD60 /* Assets.xcassets */; };
@@ -82,6 +83,8 @@
 		64638494758FBBA56AE8D735 /* Pods-LiveForMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveForMobile.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiveForMobile/Pods-LiveForMobile.debug.xcconfig"; sourceTree = "<group>"; };
 		9A037A2C1F049AE3005F2894 /* PlayUGCDecorateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayUGCDecorateView.h; sourceTree = "<group>"; };
 		9A037A2D1F049AE3005F2894 /* PlayUGCDecorateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayUGCDecorateView.m; sourceTree = "<group>"; };
+		9A17A10C1F14AC1D001EB591 /* WebSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketManager.h; sourceTree = "<group>"; };
+		9A17A10D1F14AC1D001EB591 /* WebSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketManager.m; sourceTree = "<group>"; };
 		9A1AB8A71EF8BB860018BD60 /* LiveForMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveForMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A1AB8AB1EF8BB860018BD60 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9A1AB8B41EF8BB860018BD60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -275,6 +278,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		9A17A10B1F14AC1D001EB591 /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				9A17A10C1F14AC1D001EB591 /* WebSocketManager.h */,
+				9A17A10D1F14AC1D001EB591 /* WebSocketManager.m */,
+			);
+			path = WebSocket;
+			sourceTree = "<group>";
+		};
 		9A1AB89E1EF8BB860018BD60 = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +333,7 @@
 		9A1AB8C31EF8BDB50018BD60 /* Expand */ = {
 			isa = PBXGroup;
 			children = (
+				9A17A10B1F14AC1D001EB591 /* WebSocket */,
 				9A6733141F0B6A77005423F2 /* Tool */,
 				9A29D3141F09F40900FC4389 /* Category */,
 				9A1AB8C51EF8BDB50018BD60 /* Const */,
@@ -1018,6 +1031,7 @@
 				9A3D4BB91F10697E00B546E2 /* GiftOneCell.m in Sources */,
 				9AED2E5E1F0E1C5F00BCD05A /* BWPlistHelper.m in Sources */,
 				9AED2E651F0E36A300BCD05A /* FollowViewController.m in Sources */,
+				9A17A10E1F14AC1D001EB591 /* WebSocketManager.m in Sources */,
 				9A267AF21F00AEA500BD9B6B /* AudioEffectCell.m in Sources */,
 				9A81BE281EF8C68E00899E4C /* BWTabBar.m in Sources */,
 				9A267AF51F00B21D00BD9B6B /* AudioEffectModel.m in Sources */,

@@ -161,5 +161,10 @@ static class *_instance; \
 #import "BWHUDHelper.h" // 自定义封装的HUD助手类
 
 
+#pragma mark - API
+
+// MARK: WebSocket地址
+#define kWebSocketURL @"ws://192.168.2.195:28080/ws" // 测试:[ws://192.168.0.196:28080/ws]   正式:[ws://123.206.227.227:28080/ws]
+
 
 #endif /* BWMacro_h */

@@ -53,7 +53,7 @@
     FollowModel *model0 = [[FollowModel alloc] init];
     model0.coverUrl = @"avatar_default";
     model0.title = @"不只能做到，还能做到更好。";
-    model0.imageUrl = @"play_pm";
+    model0.imageUrl = @"play_pm_normal";
     model0.name = @"iPad Pro";
     
     FollowModel *model1 = [[FollowModel alloc] init];
@@ -83,7 +83,7 @@
     FollowModel *model5 = [[FollowModel alloc] init];
     model5.coverUrl = @"avatar_default";
     model5.title = @"引得起火热目光，更经得起水花洗礼！";
-    model5.imageUrl = @"play_gift";
+    model5.imageUrl = @"play_gift_normal";
     model5.name = @"设计";
     
     FollowModel *model6 = [[FollowModel alloc] init];
