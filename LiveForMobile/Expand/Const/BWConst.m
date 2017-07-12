@@ -31,6 +31,11 @@ NSString *const LecloudPublishingPointKey = @"live";
 NSString *const LecloudAppSignSecretKey = @"7XBALF3GB6BIZM1JRSC8";
 
 
+// MARK: 礼物资源包
+
+NSString *const GiftResourceBundleKey = @"GiftResource.bundle";
+
+
 #pragma mark - 基本类型常量
 
 const CGFloat BottomButtonWidth = 35;

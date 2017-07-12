@@ -11,6 +11,8 @@
 			<string>布加迪</string>
 			<key>giftImageName</key>
 			<string>bugatti</string>
+			<key>giftImagePath</key>
+			<string>bugatti</string>
 			<key>giftImageCount</key>
 			<string>68</string>
 			<key>giftImageDuration</key>
@@ -102,6 +104,8 @@
 			<string>巧克力</string>
 			<key>giftImageName</key>
 			<string>ChocoFall</string>
+			<key>giftImagePath</key>
+			<string>ChocoFall</string>
 			<key>giftImageCount</key>
 			<string>32</string>
 			<key>giftImageDuration</key>
@@ -157,6 +161,8 @@
 			<string>花</string>
 			<key>giftImageName</key>
 			<string>gift_animation_31</string>
+			<key>giftImagePath</key>
+			<string>flower</string>
 			<key>giftImageCount</key>
 			<string>22</string>
 			<key>giftImageDuration</key>
@@ -202,6 +208,8 @@
 			<string>爱心</string>
 			<key>giftImageName</key>
 			<string>LoveFalling</string>
+			<key>giftImagePath</key>
+			<string>love</string>
 			<key>giftImageCount</key>
 			<string>16</string>
 			<key>giftImageDuration</key>

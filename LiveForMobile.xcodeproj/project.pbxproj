@@ -76,6 +76,7 @@
 		9AEF0CF51F0F33FA000B3A3D /* FollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF0CF41F0F33FA000B3A3D /* FollowCell.m */; };
 		9AEF0CF81F0F6C3C000B3A3D /* FollowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF0CF71F0F6C3C000B3A3D /* FollowModel.m */; };
 		9AEF0CFB1F0F782C000B3A3D /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF0CFA1F0F782C000B3A3D /* MineViewController.m */; };
+		9AF9B0011F15B30900FFDEE6 /* GiftResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9AF9B0001F15B30900FFDEE6 /* GiftResource.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -204,6 +205,7 @@
 		9AEF0CF71F0F6C3C000B3A3D /* FollowModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowModel.m; sourceTree = "<group>"; };
 		9AEF0CF91F0F782C000B3A3D /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		9AEF0CFA1F0F782C000B3A3D /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		9AF9B0001F15B30900FFDEE6 /* GiftResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GiftResource.bundle; sourceTree = "<group>"; };
 		B8531DC410AC75D508CC67ED /* libPods-LiveForMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LiveForMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -496,6 +498,7 @@
 			children = (
 				9A887C651F0CD5C700D61042 /* Icon.png */,
 				9AED2E5A1F0E186F00BCD05A /* GiftResource.plist */,
+				9AF9B0001F15B30900FFDEE6 /* GiftResource.bundle */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -936,6 +939,7 @@
 				9A887C661F0CD5C700D61042 /* Icon.png in Resources */,
 				9AED2E5B1F0E186F00BCD05A /* GiftResource.plist in Resources */,
 				9A1AB8BA1EF8BB860018BD60 /* LaunchScreen.storyboard in Resources */,
+				9AF9B0011F15B30900FFDEE6 /* GiftResource.bundle in Resources */,
 				9A1AB8B71EF8BB860018BD60 /* Assets.xcassets in Resources */,
 				9A1AB8B51EF8BB860018BD60 /* Main.storyboard in Resources */,
 			);

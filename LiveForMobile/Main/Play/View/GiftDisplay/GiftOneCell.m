@@ -94,7 +94,7 @@
     
     self.senderLabel.text = model.sender;
     self.giftNameLabel.text = model.giftName;
-    self.giftImageView.image = [UIImage imageNamed:model.giftImageName];
+    self.giftImageView.image = [UIImage imageNamed:model.giftImageName]; 
 }
 
 

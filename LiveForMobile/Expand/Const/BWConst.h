@@ -30,6 +30,11 @@ UIKIT_EXTERN NSString *const LecloudAppSignSecretKey;
 UIKIT_EXTERN NSString *const LecloudPublishingPointKey;
 
 
+// MARK: 礼物资源包
+
+UIKIT_EXTERN NSString *const GiftResourceBundleKey;
+
+
 #pragma mark - 基本类型常量
 
 UIKIT_EXTERN const CGFloat BottomButtonWidth; // BWPushDecorateView中底部按钮的宽度
