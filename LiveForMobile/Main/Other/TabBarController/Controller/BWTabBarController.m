@@ -49,6 +49,7 @@
 - (void)setSelectedButtonIndex:(NSUInteger)selectedButtonIndex {
     _selectedButtonIndex = selectedButtonIndex;
     
+    self.selectedIndex = selectedButtonIndex;
     self.customTabBar.selectedButtonIndex = selectedButtonIndex;
 }
 

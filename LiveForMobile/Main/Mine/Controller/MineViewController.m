@@ -8,6 +8,8 @@
 
 #import "MineViewController.h"
 #import "MineCell.h"
+#import "WatchHistoryViewController.h"
+#import "SettingViewController.h"
 
 @interface MineViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -98,11 +100,11 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return kMineCellH;
+        return MINE_CELL_H;
     } else if (indexPath.section == 1) {
-        return kMineCellH;
+        return MINE_CELL_H;
     } else {
-        return kMineCellH;
+        return MINE_CELL_H;
     }
 }
 
@@ -165,6 +167,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 1) {
+            WatchHistoryViewController *watchedVC = [[WatchHistoryViewController alloc] init];
+            watchedVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:watchedVC animated:YES];
+        }
+    } else if (indexPath.section == 2) {
+        if (indexPath.row == 1) {
+            SettingViewController *settingVC = [[SettingViewController alloc] init];
+            settingVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:settingVC animated:YES];
+        }
+    }
 }
 
 

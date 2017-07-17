@@ -10,15 +10,18 @@
 
 @class BWTabBar;
 
+
 @protocol BWTabBarDelegate <NSObject>
 
 @optional
+// 点击了tabBar按钮
 - (void)tabBar:(BWTabBar *)tabBar didSelectedButtonFrom:(NSInteger)from to:(NSInteger)to;
 
 // 点击了中间按钮
 - (void)tabBarDidSelectedMiddleButton:(BWTabBar *)tabBar;
 
 @end
+
 
 /**
  自定义tabBar, 继承自UIView
@@ -32,7 +35,9 @@
  */
 @property (nonatomic, assign) NSUInteger selectedButtonIndex;
 
-
+/**
+ 添加tabBar按钮
+ */
 - (void)addTabBarButtonWithItem:(UITabBarItem *)item;
 
 @end

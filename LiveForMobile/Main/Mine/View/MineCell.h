@@ -11,7 +11,7 @@
 
 UIKIT_EXTERN NSString *const MineCellID;
 
-#define kMineCellH (54 * HEIGHT_SCALE)
+#define MINE_CELL_H (54 * HEIGHT_SCALE)
 
 
 /**

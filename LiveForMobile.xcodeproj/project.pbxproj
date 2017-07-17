@@ -67,6 +67,10 @@
 		9A81BE481EF90D7E00899E4C /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A81BE471EF90D7E00899E4C /* libresolv.tbd */; };
 		9A887C641F0CB05A00D61042 /* SnapShotShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A887C631F0CB05A00D61042 /* SnapShotShareView.m */; };
 		9A887C661F0CD5C700D61042 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A887C651F0CD5C700D61042 /* Icon.png */; };
+		9A9CE45D1F1C4491004086D0 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CE45C1F1C4491004086D0 /* SettingViewController.m */; };
+		9A9CE4601F1C49CA004086D0 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CE45F1F1C49CA004086D0 /* SettingCell.m */; };
+		9A9CE4631F1C624D004086D0 /* WatchHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CE4621F1C624D004086D0 /* WatchHistoryViewController.m */; };
+		9A9CE4661F1C6386004086D0 /* WatchHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CE4651F1C6386004086D0 /* WatchHistoryCell.m */; };
 		9ADBC6AA1EFA485E000E60D2 /* BWPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADBC6A91EFA485E000E60D2 /* BWPushViewController.m */; };
 		9AED2E591F0E096200BCD05A /* GiftModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED2E581F0E096200BCD05A /* GiftModel.m */; };
 		9AED2E5B1F0E186F00BCD05A /* GiftResource.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AED2E5A1F0E186F00BCD05A /* GiftResource.plist */; };
@@ -188,6 +192,14 @@
 		9A887C621F0CB05A00D61042 /* SnapShotShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnapShotShareView.h; sourceTree = "<group>"; };
 		9A887C631F0CB05A00D61042 /* SnapShotShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnapShotShareView.m; sourceTree = "<group>"; };
 		9A887C651F0CD5C700D61042 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		9A9CE45B1F1C4491004086D0 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		9A9CE45C1F1C4491004086D0 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		9A9CE45E1F1C49CA004086D0 /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
+		9A9CE45F1F1C49CA004086D0 /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
+		9A9CE4611F1C624D004086D0 /* WatchHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchHistoryViewController.h; sourceTree = "<group>"; };
+		9A9CE4621F1C624D004086D0 /* WatchHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchHistoryViewController.m; sourceTree = "<group>"; };
+		9A9CE4641F1C6386004086D0 /* WatchHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchHistoryCell.h; sourceTree = "<group>"; };
+		9A9CE4651F1C6386004086D0 /* WatchHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchHistoryCell.m; sourceTree = "<group>"; };
 		9ADBC6A81EFA485E000E60D2 /* BWPushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWPushViewController.h; sourceTree = "<group>"; };
 		9ADBC6A91EFA485E000E60D2 /* BWPushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPushViewController.m; sourceTree = "<group>"; };
 		9AED2E571F0E096200BCD05A /* GiftModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftModel.h; sourceTree = "<group>"; };
@@ -515,6 +527,10 @@
 			children = (
 				9AEF0CF91F0F782C000B3A3D /* MineViewController.h */,
 				9AEF0CFA1F0F782C000B3A3D /* MineViewController.m */,
+				9A9CE4611F1C624D004086D0 /* WatchHistoryViewController.h */,
+				9A9CE4621F1C624D004086D0 /* WatchHistoryViewController.m */,
+				9A9CE45B1F1C4491004086D0 /* SettingViewController.h */,
+				9A9CE45C1F1C4491004086D0 /* SettingViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -531,6 +547,10 @@
 			children = (
 				9A3D4BC71F10A2D400B546E2 /* MineCell.h */,
 				9A3D4BC81F10A2D400B546E2 /* MineCell.m */,
+				9A9CE4641F1C6386004086D0 /* WatchHistoryCell.h */,
+				9A9CE4651F1C6386004086D0 /* WatchHistoryCell.m */,
+				9A9CE45E1F1C49CA004086D0 /* SettingCell.h */,
+				9A9CE45F1F1C49CA004086D0 /* SettingCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1011,6 +1031,7 @@
 				9A81BE2F1EF8EB6A00899E4C /* HotViewController.m in Sources */,
 				9A81BE291EF8C68E00899E4C /* BWTabBarButton.m in Sources */,
 				9A81BE161EF8C00B00899E4C /* BaseNavigationController.m in Sources */,
+				9A9CE45D1F1C4491004086D0 /* SettingViewController.m in Sources */,
 				9A81BDFC1EF8BE4C00899E4C /* AppDelegate.m in Sources */,
 				9A54984A1F021F9A00FA4E06 /* PushPrepareView.m in Sources */,
 				9A3D4BC61F1089CE00B546E2 /* PMPrivateMessageCell.m in Sources */,
@@ -1020,6 +1041,7 @@
 				9A29D30A1F09D77E00FC4389 /* BWPlayDecorateView.m in Sources */,
 				9A887C641F0CB05A00D61042 /* SnapShotShareView.m in Sources */,
 				9A037A2E1F049AE3005F2894 /* PlayUGCDecorateView.m in Sources */,
+				9A9CE4631F1C624D004086D0 /* WatchHistoryViewController.m in Sources */,
 				9A29D31A1F09F41C00FC4389 /* NSData+AES.m in Sources */,
 				9A5498471F021F9400FA4E06 /* BWPushDecorateView.m in Sources */,
 				9A29D3091F09D77E00FC4389 /* BWGiftView.m in Sources */,
@@ -1036,7 +1058,9 @@
 				9AED2E5E1F0E1C5F00BCD05A /* BWPlistHelper.m in Sources */,
 				9AED2E651F0E36A300BCD05A /* FollowViewController.m in Sources */,
 				9A17A10E1F14AC1D001EB591 /* WebSocketManager.m in Sources */,
+				9A9CE4661F1C6386004086D0 /* WatchHistoryCell.m in Sources */,
 				9A267AF21F00AEA500BD9B6B /* AudioEffectCell.m in Sources */,
+				9A9CE4601F1C49CA004086D0 /* SettingCell.m in Sources */,
 				9A81BE281EF8C68E00899E4C /* BWTabBar.m in Sources */,
 				9A267AF51F00B21D00BD9B6B /* AudioEffectModel.m in Sources */,
 				9A81BE2C1EF8D30500899E4C /* HomeViewController.m in Sources */,

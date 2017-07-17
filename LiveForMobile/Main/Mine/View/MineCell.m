@@ -45,7 +45,7 @@ NSString *const MineCellID = @"MineCellIdentifier";
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         CGFloat x = 15 * WIDTH_SCALE;
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, 90, kMineCellH)];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, 90, MINE_CELL_H)];
         _titleLabel.textColor = RGB(96, 96, 96);
         _titleLabel.font = [UIFont systemFontOfSize:15];
     }
@@ -58,7 +58,7 @@ NSString *const MineCellID = @"MineCellIdentifier";
         CGFloat w = 9 * WIDTH_SCALE;
         CGFloat h = 16 * HEIGHT_SCALE;
         CGFloat x = WIDTH - rightMargin - w;
-        CGFloat y = (kMineCellH - h) / 2.0;
+        CGFloat y = (MINE_CELL_H - h) / 2.0;
         _arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];
         _arrowImageView.image = [UIImage imageNamed:@"mine_cell_arrow"];
     }
@@ -70,7 +70,7 @@ NSString *const MineCellID = @"MineCellIdentifier";
         CGFloat x = 15 * WIDTH_SCALE;
         CGFloat w = WIDTH - (2 * x);
         CGFloat h = 1;
-        _separatorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, kMineCellH - h, w, h)];
+        _separatorImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, MINE_CELL_H - h, w, h)];
         _separatorImageView.backgroundColor = RGB(241, 241, 241);
     }
     return _separatorImageView;

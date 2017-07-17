@@ -62,6 +62,18 @@
 }
 
 
+#pragma mark - Setters
+
+- (void)setSelectedButtonIndex:(NSUInteger)selectedButtonIndex {
+    _selectedButtonIndex = selectedButtonIndex;
+    
+    BWTabBarButton *button = self.tabBarButtons[selectedButtonIndex];
+    self.selectedButton.selected = NO;
+    button.selected = YES;
+    self.selectedButton = button;
+}
+
+
 #pragma mark - Override
 
 - (void)layoutSubviews {
