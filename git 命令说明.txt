@@ -50,9 +50,9 @@ c. git push -u origin master    // 推送要上传的文件
 
 二. 如何向一个新分支中上传项目代码？
 1. 在码云网页上切换显示到NewBranch下；
-2. 获取克隆地址：https://git.oschina.net/yasser/FXProject.git（该地址为整个项目仓库的地址）；
-3. 打开终端，cd到桌面或你想存储的目录下，然后命令：git clone https://git.oschina.net/yasser/FXProject.git , 下载开始前，需要输入你码云的账号和密码，输入后回车即可；
-4. 下载完成后进入到已下载在本地的代码文件夹里（即FXProject文件夹里），只保留.git文件，其他无关文件即可删除；
+2. 获取克隆地址：https://git.oschina.net/username/project.git（该地址为整个项目仓库的地址）；
+3. 打开终端，cd到桌面或你想存储的目录下，然后命令：git clone https://git.oschina.net/username/project.git , 下载开始前，需要输入你码云的账号和密码，输入后回车即可；
+4. 下载完成后进入到已下载在本地的代码文件夹里（即project文件夹里），只保留.git文件，其他无关文件即可删除；
 5. 有了.git文件就可以了，即可放到你已经建立好的项目的目录下；
 6. 终端cd进入项目的目录下，先查看当前分支:git branch -a ;
 7. 若当前在主分支master上，则需要切换到你的NewBranch下：git checkout NewBranch ；
