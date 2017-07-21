@@ -1,0 +1,133 @@
+Git命令解释:
+
+00. git 命令 -h        查看git命令帮助
+01. git branch -a     查看当前的远程分支
+02. git branch        查看当前的本地分支
+03. git branch 分支名         创建本地分支
+04. git push origin 分支名    把创建的本地分支推到远程分支 
+05. git branch -d 分支名               删除远程不存在的本地分支
+06. git branch —r -d origin/分支名     删除远程分支
+    git push origin :分支名
+07. git checkout 分支名      切换到分支
+08. git add <path: /User/sierra/Desktop/Projects>    添加新文件 (<path>可以是文件也可以是目录 git不仅能判断出<path>中，修改（不包括已删除）的文件，还能判断出新添的文件，并把它们的信息添加到索引库中。)
+09. git commit -a -m ‘注释’     提交变更到本地分支
+10. git push origin <本地分支名>:<远程分支名>     将本地代码提交到远程分支 (origin其实就是远程的git地址的一个别名)
+11. git pull origin <远程分支名>:<本地分支名>     拉取远程分支代码
+12. git log -p -2         查看提交历史
+13. 从github上clone子分支:
+   13.1  git clone 仓库地址
+   13.2  git checkout -b 分支名 origin/分支名
+   13.3  git pull origin 分支名
+14. git push origin :br-1.0.0     删除远程版本
+15. git remote -v    从执行该命令的结果可以看出来origin其实就是远程的git地址的一个别名。  
+
+
+
+
+Git操作步骤：
+
+一. 码云(中国版的github)怎样上传项目?
+首先,注册码云账号,添加新项目,打开终端:
+步骤如下:
+1. cd 切换到工程目录;
+2. Git全局设置;
+   git config --global user.name "user.name"
+   git config --global user.email "user.email"
+3. git init           // 初始化一个git仓库
+4. touch README.md    // 创建帮助文件
+5. git add README.md  // 添加文件
+6. git commit -m "注释内容”      // 添加注释
+7. git remote add origin https://git.oschina.net/username/cccc.git (你的远程仓库地址)     // 和远程仓库进行关联
+8. git push -u origin master   // 上传仓库到码云
+
+注意:刷新页面后,如果是只上传了README文件,需要执行如下操作:
+a. git add .     // 添加工程目录下所有文件 (add 和 “.” 之间有空格)
+b. git commit -m “添加注释信息"
+c. git push -u origin master    // 推送要上传的文件
+
+最后,刷新码云页面,就可以了.
+
+
+二. 如何向一个新分支中上传项目代码？
+1. 在码云网页上切换显示到NewBranch下；
+2. 获取克隆地址：https://git.oschina.net/yasser/FXProject.git（该地址为整个项目仓库的地址）；
+3. 打开终端，cd到桌面或你想存储的目录下，然后命令：git clone https://git.oschina.net/yasser/FXProject.git , 下载开始前，需要输入你码云的账号和密码，输入后回车即可；
+4. 下载完成后进入到已下载在本地的代码文件夹里（即FXProject文件夹里），只保留.git文件，其他无关文件即可删除；
+5. 有了.git文件就可以了，即可放到你已经建立好的项目的目录下；
+6. 终端cd进入项目的目录下，先查看当前分支:git branch -a ;
+7. 若当前在主分支master上，则需要切换到你的NewBranch下：git checkout NewBranch ；
+8. git add .  ;     // 添加工程目录下所有文件 (add 和 “.” 之间有空格);
+9. git commit -m '添加注释信息' ;
+10. git push origin NewBranch:NewBranch （git push origin <本地分支名>:<远程分支名>，本地分支和远程仓库上的分支一样时，即这样写）；
+11. 回到网页上刷新码云页面即可看到提交的项目代码。
+
+
+
+
+
+
+/********************************************* 添加新文件 *********************************************/
+一、前言
+git add命令主要用于把我们要提交的文件的信息添加到索引库中。当我们使用git commit时，git将依据索引库中的内容来进行文件的提交。
+二、基本
+git add <path>表示 add to index only files created or modified and not those deleted 
+我通常是通过git add <path>的形式把我们<path>添加到索引库中，<path>可以是文件也可以是目录。
+git不仅能判断出<path>中，修改（不包括已删除）的文件，还能判断出新添的文件，并把它们的信息添加到索引库中。
+三、git add -u
+git add -u 表示 add to index only files modified or deleted and not those created 
+git add -u [<path>]: 把<path>中所有tracked文件中被修改过或已删除文件的信息添加到索引库。它不会处理untracted的文件。
+省略<path>表示.,即当前目录。
+四、git add -A
+git add -A: [<path>]表示把<path>中所有tracked文件中被修改过或已删除文件和所有untracted的文件信息添加到索引库。
+省略<path>表示.,即当前目录。
+五、git add -i
+我们可以通过git add -i [<path>]命令查看<path>中被所有修改过或已删除文件但没有提交的文件，
+并通过其revert子命令可以查看<path>中所有untracted的文件，同时进入一个子命令系统。
+比如：
+ git add -i
+           staged     unstaged path
+  1:        +0/-0      nothing branch/t.txt
+  2:        +0/-0      nothing branch/t2.txt
+  3:    unchanged        +1/-0 readme.txt
+
+*** Commands ***
+  1: [s]tatus     2: [u]pdate     3: [r]evert     4: [a]dd untracked
+  5: [p]atch      6: [d]iff       7: [q]uit       8: [h]elp
+What now>
+这里的t.txt和t2.txt表示已经被执行了git add，待提交。即已经添加到索引库中。
+readme.txt表示已经处于tracked下，它被修改了，但是还没有被执行了git add。即还没添加到索引库中。
+5.1、revert子命令
+可以通过git add -i的revert子命令（3: [r]evert）把已经添加到索引库中的文件从索引库中剔除。
+（3: [r]evert）表示通过3或r或revert加回车执行该命令。执行该命令后，git会例出索引库中的文件列表.
+然后通过数字来选择。输入"1"表示git会例出索引库中的文件列表中的第1个文件。
+"1-15"表示git会例出索引库中的文件列表中的第1个文件到第15个文件.回车将执行。
+如果我们不输入任何东西，直接回车，将结束revert子命令，返回git add -i的主命令行。
+5.2、update子命令
+可以通过update子命令（2: [u]pdate）把已经tracked的文件添加到索引库中。其操作和revert子命令类似。
+5.3、add untracked子命令
+通过add untracked子命令（4: [a]dd untracked）可以把还没被git管理的文件添加到索引库中。其操作和revert子命令类似。
+5.4、diff子命令
+可以通过diff子命令（6: [d]iff）可以比较索引库中文件和原版本的差异。其操作和revert子命令类似。
+5.5、status子命令
+status子命令(1: [s]tatus)功能上和git add -i相似
+5.6、quit子命令
+quit子命令（7: [q]uit）用于退出git add -i命令系统
+六、帮助
+我们可以通过git add -h命令来看git add命令的帮助文档。
+ git add -h
+usage: git add [options] [--] <filepattern>...
+
+    -n, --dry-run         dry run
+    -v, --verbose         be verbose
+
+    -i, --interactive     interactive picking
+    -p, --patch           select hunks interactively
+    -e, --edit            edit current diff and apply
+    -f, --force           allow adding otherwise ignored files
+    -u, --update          update tracked files
+    -N, --intent-to-add   record only the fact that the path will be added later
+    -A, --all             add changes from all tracked and untracked files
+    --refresh             don't add, only refresh the index
+    --ignore-errors       just skip files which cannot be added because of errors
+    --ignore-missing      check if - even missing - files are ignored in dry run
+/********************************************* 添加新文件 *********************************************/
