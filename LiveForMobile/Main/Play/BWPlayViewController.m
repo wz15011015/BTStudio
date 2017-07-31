@@ -19,7 +19,23 @@
 #import "GiftModel.h"
 #import "GiftOneModel.h"
 
-#define RTMP_PLAY_URL @"rtmp://20994.mpull.live.lecloud.com/live/leshiTest?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9"
+//#define RTMP_PLAY_URL @"rtmp://20994.mpull.live.lecloud.com/live/leshiTest?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9"
+#define RTMP_PLAY_URL @"https://20994.mpull.live.lecloud.com/live/leshiTest.flv?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9"
+//#define RTMP_PLAY_URL @"https://20994.mpull.live.lecloud.com/live/leshiTest/desc.m3u8?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9"
+
+
+typedef NS_ENUM(NSInteger, ENUM_TYPE_CACHE_STRATEGY) {
+    CACHE_STRATEGY_FAST           = 1,  // 极速
+    CACHE_STRATEGY_SMOOTH         = 2,  // 流畅
+    CACHE_STRATEGY_AUTO           = 3,  // 自动
+};
+
+#define CACHE_TIME_FAST             1.0f
+#define CACHE_TIME_SMOOTH           5.0f
+
+#define CACHE_TIME_AUTO_MIN         5.0f
+#define CACHE_TIME_AUTO_MAX         10.0f
+
 
 @interface BWPlayViewController () <TXLivePlayListener, TXVideoRecordListener, BWPlayDecorateDelegate, PlayUGCDecorateViewDelegate, BWGiftViewDelegate> {
     BOOL _isLivePlay; // 是否为播放直播视频
@@ -63,6 +79,20 @@
     
     // 1.1 拉流配置对象
     self.livePlayerConfig = [[TXLivePlayConfig alloc] init];
+    // 缓存策略
+    ENUM_TYPE_CACHE_STRATEGY cacheStrategy = CACHE_STRATEGY_FAST;
+    if (cacheStrategy == CACHE_STRATEGY_FAST) {
+        self.livePlayerConfig.bAutoAdjustCacheTime = YES;
+        self.livePlayerConfig.minAutoAdjustCacheTime = CACHE_TIME_FAST;
+        self.livePlayerConfig.maxAutoAdjustCacheTime = CACHE_TIME_FAST;
+    } else if (cacheStrategy == CACHE_STRATEGY_SMOOTH) {
+        self.livePlayerConfig.bAutoAdjustCacheTime = NO;
+        self.livePlayerConfig.cacheTime = CACHE_TIME_SMOOTH;
+    } else {
+        self.livePlayerConfig.bAutoAdjustCacheTime = YES;
+        self.livePlayerConfig.minAutoAdjustCacheTime = CACHE_TIME_FAST;
+        self.livePlayerConfig.maxAutoAdjustCacheTime = CACHE_TIME_SMOOTH;
+    }
     
     // 1.2 拉流对象
     self.livePlayer = [[TXLivePlayer alloc] init];

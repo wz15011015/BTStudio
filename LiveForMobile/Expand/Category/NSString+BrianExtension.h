@@ -110,9 +110,9 @@
 #pragma mark - AES加密
 
 // 加密
-- (NSString *)AES256_Encrypt:(NSString *)key;
+- (NSString *)AES256_EncryptWithKey:(NSString *)key;
 
 // 解密
-- (NSString *)AES256_Decrypt:(NSString *)key;
+- (NSString *)AES256_DecryptWithKey:(NSString *)key;
 
 @end

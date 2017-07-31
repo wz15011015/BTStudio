@@ -175,7 +175,9 @@
             [self.navigationController pushViewController:watchedVC animated:YES];
         }
     } else if (indexPath.section == 2) {
-        if (indexPath.row == 1) {
+        if (indexPath.row == 0) {
+            
+        } else if (indexPath.row == 1) {
             SettingViewController *settingVC = [[SettingViewController alloc] init];
             settingVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:settingVC animated:YES];

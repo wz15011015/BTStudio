@@ -296,7 +296,7 @@
 #pragma mark - AES加密
 
 // 加密
-- (NSString *)AES256_Encrypt:(NSString *)key {
+- (NSString *)AES256_EncryptWithKey:(NSString *)key {
     const char *cstr = [self cStringUsingEncoding:NSUTF8StringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:self.length];
     // 对数据进行加密
@@ -315,7 +315,7 @@
 }
 
 // 解密
-- (NSString *)AES256_Decrypt:(NSString *)key {
+- (NSString *)AES256_DecryptWithKey:(NSString *)key {
     // 转换为二进制Data
     NSMutableData *data = [NSMutableData dataWithCapacity:self.length / 2];
     unsigned char whole_byte;
