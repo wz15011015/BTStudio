@@ -133,13 +133,13 @@
     }
     
     
-    self.nameLabel.text = @"统一阿萨姆_奶茶";
-    self.IDLabel.text = [NSString stringWithFormat:@"直播号: %@", @"125320177"];
+    self.nameLabel.text = @"正在直播的_我";
+    self.IDLabel.text = [NSString stringWithFormat:@"直播号: %@", @"125500577"];
     self.avatarImageView.image = [UIImage imageNamed:@"avatar_default"];
     
-    self.stateButton.value = @"12";
+    self.stateButton.value = @"120";
     self.followButton.value = @"30";
-    self.fansButton.value = @"8";
+    self.fansButton.value = @"80";
 }
 
 
