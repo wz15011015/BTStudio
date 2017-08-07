@@ -14,4 +14,9 @@
  */
 @interface BaseViewController : UIViewController
 
+/**
+ 自定义导航栏左侧返回按钮
+ */
+- (void)addLeftBarButtonItem;
+
 @end

@@ -22,6 +22,8 @@
     [super viewDidLoad];
     self.title = @"我看过的";
     
+    [self addLeftBarButtonItem];
+    
     [self.view addSubview:self.tableView];
 }
 

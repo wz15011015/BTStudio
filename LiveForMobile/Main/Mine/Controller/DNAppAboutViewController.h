@@ -8,6 +8,9 @@
 
 #import "BaseViewController.h"
 
+/**
+ 关于大牛直播 控制器
+ */
 @interface DNAppAboutViewController : BaseViewController
 
 @end

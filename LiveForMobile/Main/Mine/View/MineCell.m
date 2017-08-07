@@ -55,12 +55,12 @@ NSString *const MineCellID = @"MineCellIdentifier";
 - (UIImageView *)arrowImageView {
     if (!_arrowImageView) {
         CGFloat rightMargin = 15 * WIDTH_SCALE;
-        CGFloat w = 9 * WIDTH_SCALE;
-        CGFloat h = 16 * HEIGHT_SCALE;
+        CGFloat w = 8 * WIDTH_SCALE;
+        CGFloat h = 15 * HEIGHT_SCALE;
         CGFloat x = WIDTH - rightMargin - w;
         CGFloat y = (MINE_CELL_H - h) / 2.0;
         _arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];
-        _arrowImageView.image = [UIImage imageNamed:@"mine_cell_arrow"];
+        _arrowImageView.image = [UIImage imageNamed:@"arrow_6x11_"];
     }
     return _arrowImageView;
 }

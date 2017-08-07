@@ -8,8 +8,10 @@
 
 #import "MineViewController.h"
 #import "MineCell.h"
+#import "DNAvatarViewController.h"
 #import "WatchHistoryViewController.h"
 #import "SettingViewController.h"
+#import "MineHeaderView.h"
 
 @interface MineViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -18,6 +20,8 @@
 @property (nonatomic, strong) NSMutableArray *group2Arr;
 @property (nonatomic, strong) NSMutableArray *group3Arr;
 @property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong) MineHeaderView *headerView;
 
 @end
 
@@ -66,6 +70,13 @@
     return _dataArr;
 }
 
+- (MineHeaderView *)headerView {
+    if (!_headerView) {
+        _headerView = [[MineHeaderView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, MINE_HEADER_VIEW_H)];
+    }
+    return _headerView;
+}
+
 
 #pragma mark - Life Cycle
 
@@ -79,6 +90,25 @@
     
     // 2. 添加控件
     [self.view addSubview:self.tableView];
+    self.tableView.tableHeaderView = self.headerView;
+    
+    // 3. Block回调
+    BRIAN_WEAK_SELF
+    self.headerView.buttonEventBlock = ^(NSInteger tag) {
+        if (tag == 10) {
+            NSLog(@"查看我的主页");
+        } else if (tag == 11) {
+            DNAvatarViewController *avatarVC = [[DNAvatarViewController alloc] init];
+            avatarVC.avatarImage = [UIImage imageNamed:@"avatar_default"];
+            [weakSelf presentViewController:avatarVC animated:YES completion:nil];
+        } else if (tag == 12) {
+            NSLog(@"点击了 动态 按钮");
+        } else if (tag == 13) {
+            NSLog(@"点击了 关注 按钮");
+        } else if (tag == 14) {
+            NSLog(@"点击了 粉丝 按钮");
+        }
+    };
 }
 
 

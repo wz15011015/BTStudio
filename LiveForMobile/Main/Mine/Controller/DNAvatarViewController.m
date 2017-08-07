@@ -10,14 +10,88 @@
 
 @interface DNAvatarViewController ()
 
+@property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) UIButton *closeButton;
+
 @end
 
 @implementation DNAvatarViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self.view addSubview:self.avatarImageView];
+    [self.view addSubview:self.closeButton];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+}
+
+
+#pragma mark - Getters
+
+- (UIImageView *)avatarImageView {
+    if (!_avatarImageView) {
+        _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT * 0.56)];
+    }
+    return _avatarImageView;
+}
+
+- (UIButton *)closeButton {
+    if (!_closeButton) {
+        CGFloat h = 60 * HEIGHT_SCALE;
+        _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _closeButton.frame = CGRectMake(0, HEIGHT - h, WIDTH, h);
+        [_closeButton setImage:[UIImage imageNamed:@"close_avatarVC_20x20_"] forState:UIControlStateNormal];
+        [_closeButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _closeButton;
+}
+
+
+#pragma mark - Setters
+
+- (void)setAvatarImage:(UIImage *)avatarImage {
+    _avatarImage = avatarImage;
+    
+    CGFloat ratioOfWH = avatarImage.size.width / avatarImage.size.height; // 原图的宽高比
+    UIImage *scaledImage = [self scaleImage:avatarImage scaleToSize:CGSizeMake(WIDTH, WIDTH / ratioOfWH)];
+    self.avatarImageView.image = scaledImage;
+}
+
+
+#pragma mark - Event
+
+- (void)dismissViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - Tool Methods
+
+/**
+ 缩放图片
+ 
+ @param image 原图片
+ @param size 缩放后图片
+ */
+- (UIImage *)scaleImage:(UIImage *)image scaleToSize:(CGSize)size {
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

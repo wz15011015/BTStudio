@@ -112,9 +112,9 @@
     // 2. 设置控制器的属性
     // navigationBar设置
     nav.navigationBar.translucent = NO;
-    nav.navigationBar.tintColor = [UIColor whiteColor];
+//    nav.navigationBar.tintColor = [UIColor whiteColor];
     nav.navigationBar.barTintColor = [UIColor whiteColor];
-    [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : RGB(73, 73, 73)}];
     
     // tabBarItem设置
     nav.tabBarItem.title = title;

@@ -9,6 +9,7 @@
 #import "SettingViewController.h"
 #import "SettingCell.h"
 #import "BWTabBarController.h"
+#import "DNAppAboutViewController.h"
 
 @interface SettingViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -24,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"设置";
+    
+    [self addLeftBarButtonItem];
     
     [self.view addSubview:self.tableView];
 }
@@ -162,6 +165,11 @@
         }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 2) {
+            DNAppAboutViewController *aboutVC = [[DNAppAboutViewController alloc] init];
+            [self.navigationController pushViewController:aboutVC animated:YES];
+        }
     }
 }
 

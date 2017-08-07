@@ -8,6 +8,11 @@
 
 #import "BaseViewController.h"
 
+/**
+ 用户头像更换控制器
+ */
 @interface DNAvatarViewController : BaseViewController
+
+@property (nonatomic, strong) UIImage *avatarImage;
 
 @end
