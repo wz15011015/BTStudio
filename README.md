@@ -13,7 +13,10 @@
 ![image 播放界面1](https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/play_1.png)
 
 播放界面2
-![image 播放界面2](https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/play_2.png)
+
+#### <a id=">播放界面2"></a>播放界面2
+<img src="https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/screenshot/play_2.png" width="360" height="640">
+* 图片2
 
 关注界面
 ![image 关注界面](https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/follow.png)
