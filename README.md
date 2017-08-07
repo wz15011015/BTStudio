@@ -10,7 +10,7 @@
 
 ### Screenshots
 播放界面1
-![image 播放界面1](https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/play_1.png=320x568)
+![image 播放界面1](https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/play_1.png)
 
 播放界面2
 ![image 播放界面2](https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/play_2.png)
