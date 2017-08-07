@@ -14,8 +14,7 @@
 <img src="https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/screenshot/push.png" width="300" height="533">
 
 #### <a id=">播放界面1"></a>播放界面
-<img src="https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/screenshot/play_1.png" width="300" height="533">
-<img src="https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/screenshot/play_2.png" width="300" height="533">
+<img src="https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/screenshot/play_1.png" width="300" height="533"> <img src="https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/screenshot/play_2.png" width="300" height="533">
 
 #### <a id=">关注界面"></a>关注界面
 <img src="https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/screenshot/follow.png" width="300" height="533">
