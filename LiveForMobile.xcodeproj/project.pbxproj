@@ -75,10 +75,10 @@
 		9AD42BA91F380392006F323E /* DNAppAboutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD42BA81F380392006F323E /* DNAppAboutCell.m */; };
 		9AD42BAC1F381782006F323E /* MineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD42BAB1F381782006F323E /* MineHeaderView.m */; };
 		9AD42BAF1F383CFE006F323E /* DNAvatarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD42BAE1F383CFE006F323E /* DNAvatarViewController.m */; };
-		9AD42BB41F384B7D006F323E /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD42BB01F384B7D006F323E /* follow.png */; };
-		9AD42BB51F384B7D006F323E /* mine.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD42BB11F384B7D006F323E /* mine.png */; };
-		9AD42BB61F384B7D006F323E /* play_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD42BB21F384B7D006F323E /* play_1.png */; };
-		9AD42BB71F384B7D006F323E /* play_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD42BB31F384B7D006F323E /* play_2.png */; };
+		9AD42BBD1F385194006F323E /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD42BB91F385194006F323E /* follow.png */; };
+		9AD42BBE1F385194006F323E /* mine.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD42BBA1F385194006F323E /* mine.png */; };
+		9AD42BBF1F385194006F323E /* play_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD42BBB1F385194006F323E /* play_1.png */; };
+		9AD42BC01F385194006F323E /* play_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AD42BBC1F385194006F323E /* play_2.png */; };
 		9ADBC6AA1EFA485E000E60D2 /* BWPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADBC6A91EFA485E000E60D2 /* BWPushViewController.m */; };
 		9AED2E591F0E096200BCD05A /* GiftModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AED2E581F0E096200BCD05A /* GiftModel.m */; };
 		9AED2E5B1F0E186F00BCD05A /* GiftResource.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AED2E5A1F0E186F00BCD05A /* GiftResource.plist */; };
@@ -216,10 +216,10 @@
 		9AD42BAB1F381782006F323E /* MineHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineHeaderView.m; sourceTree = "<group>"; };
 		9AD42BAD1F383CFE006F323E /* DNAvatarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNAvatarViewController.h; sourceTree = "<group>"; };
 		9AD42BAE1F383CFE006F323E /* DNAvatarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNAvatarViewController.m; sourceTree = "<group>"; };
-		9AD42BB01F384B7D006F323E /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = follow.png; sourceTree = "<group>"; };
-		9AD42BB11F384B7D006F323E /* mine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mine.png; sourceTree = "<group>"; };
-		9AD42BB21F384B7D006F323E /* play_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_1.png; sourceTree = "<group>"; };
-		9AD42BB31F384B7D006F323E /* play_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_2.png; sourceTree = "<group>"; };
+		9AD42BB91F385194006F323E /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = follow.png; sourceTree = "<group>"; };
+		9AD42BBA1F385194006F323E /* mine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mine.png; sourceTree = "<group>"; };
+		9AD42BBB1F385194006F323E /* play_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_1.png; sourceTree = "<group>"; };
+		9AD42BBC1F385194006F323E /* play_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_2.png; sourceTree = "<group>"; };
 		9ADBC6A81EFA485E000E60D2 /* BWPushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWPushViewController.h; sourceTree = "<group>"; };
 		9ADBC6A91EFA485E000E60D2 /* BWPushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPushViewController.m; sourceTree = "<group>"; };
 		9AED2E571F0E096200BCD05A /* GiftModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftModel.h; sourceTree = "<group>"; };
@@ -528,10 +528,7 @@
 		9A29D3301F0A1D4F00FC4389 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				9AD42BB01F384B7D006F323E /* follow.png */,
-				9AD42BB11F384B7D006F323E /* mine.png */,
-				9AD42BB21F384B7D006F323E /* play_1.png */,
-				9AD42BB31F384B7D006F323E /* play_2.png */,
+				9AD42BB81F385194006F323E /* screenshot */,
 				9A887C651F0CD5C700D61042 /* Icon.png */,
 				9AED2E5A1F0E186F00BCD05A /* GiftResource.plist */,
 				9AF9B0001F15B30900FFDEE6 /* GiftResource.bundle */,
@@ -882,6 +879,17 @@
 			path = Push;
 			sourceTree = "<group>";
 		};
+		9AD42BB81F385194006F323E /* screenshot */ = {
+			isa = PBXGroup;
+			children = (
+				9AD42BB91F385194006F323E /* follow.png */,
+				9AD42BBA1F385194006F323E /* mine.png */,
+				9AD42BBB1F385194006F323E /* play_1.png */,
+				9AD42BBC1F385194006F323E /* play_2.png */,
+			);
+			path = screenshot;
+			sourceTree = "<group>";
+		};
 		9AED2E5F1F0E368400BCD05A /* Follow */ = {
 			isa = PBXGroup;
 			children = (
@@ -992,10 +1000,10 @@
 				9AED2E5B1F0E186F00BCD05A /* GiftResource.plist in Resources */,
 				9A1AB8BA1EF8BB860018BD60 /* LaunchScreen.storyboard in Resources */,
 				9AF9B0011F15B30900FFDEE6 /* GiftResource.bundle in Resources */,
-				9AD42BB61F384B7D006F323E /* play_1.png in Resources */,
-				9AD42BB51F384B7D006F323E /* mine.png in Resources */,
-				9AD42BB71F384B7D006F323E /* play_2.png in Resources */,
-				9AD42BB41F384B7D006F323E /* follow.png in Resources */,
+				9AD42BBF1F385194006F323E /* play_1.png in Resources */,
+				9AD42BBE1F385194006F323E /* mine.png in Resources */,
+				9AD42BC01F385194006F323E /* play_2.png in Resources */,
+				9AD42BBD1F385194006F323E /* follow.png in Resources */,
 				9A1AB8B71EF8BB860018BD60 /* Assets.xcassets in Resources */,
 				9A1AB8B51EF8BB860018BD60 /* Main.storyboard in Resources */,
 			);
