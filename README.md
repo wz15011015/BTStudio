@@ -1,5 +1,5 @@
 # BTStudio
-![BTStudio logo](https://avatars2.githubusercontent.com/u/12229793?v=3&s=460)
+<img src="https://avatars2.githubusercontent.com/u/12229793?v=3&s=460" width="240" height="240">
 
 ## How To Get Started
 
