@@ -10,6 +10,8 @@
 		7B2D022328E7B596FA8C2ED5 /* libPods-LiveForMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8531DC410AC75D508CC67ED /* libPods-LiveForMobile.a */; };
 		9A037A2E1F049AE3005F2894 /* PlayUGCDecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A037A2D1F049AE3005F2894 /* PlayUGCDecorateView.m */; };
 		9A124F711F394787009E2DD3 /* push.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A124F701F394787009E2DD3 /* push.png */; };
+		9A124F741F394C3B009E2DD3 /* StateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A124F731F394C3B009E2DD3 /* StateViewController.m */; };
+		9A124F771F3952A6009E2DD3 /* PublishStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A124F761F3952A6009E2DD3 /* PublishStateCell.m */; };
 		9A17A10E1F14AC1D001EB591 /* WebSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17A10D1F14AC1D001EB591 /* WebSocketManager.m */; };
 		9A1AB8AC1EF8BB860018BD60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1AB8AB1EF8BB860018BD60 /* main.m */; };
 		9A1AB8B51EF8BB860018BD60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A1AB8B31EF8BB860018BD60 /* Main.storyboard */; };
@@ -98,6 +100,10 @@
 		9A037A2C1F049AE3005F2894 /* PlayUGCDecorateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayUGCDecorateView.h; sourceTree = "<group>"; };
 		9A037A2D1F049AE3005F2894 /* PlayUGCDecorateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayUGCDecorateView.m; sourceTree = "<group>"; };
 		9A124F701F394787009E2DD3 /* push.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = push.png; sourceTree = "<group>"; };
+		9A124F721F394C3B009E2DD3 /* StateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateViewController.h; sourceTree = "<group>"; };
+		9A124F731F394C3B009E2DD3 /* StateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateViewController.m; sourceTree = "<group>"; };
+		9A124F751F3952A6009E2DD3 /* PublishStateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishStateCell.h; sourceTree = "<group>"; };
+		9A124F761F3952A6009E2DD3 /* PublishStateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishStateCell.m; sourceTree = "<group>"; };
 		9A17A10C1F14AC1D001EB591 /* WebSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketManager.h; sourceTree = "<group>"; };
 		9A17A10D1F14AC1D001EB591 /* WebSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketManager.m; sourceTree = "<group>"; };
 		9A1AB8A71EF8BB860018BD60 /* LiveForMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveForMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -552,6 +558,8 @@
 				9AEF0CFA1F0F782C000B3A3D /* MineViewController.m */,
 				9AD42BAD1F383CFE006F323E /* DNAvatarViewController.h */,
 				9AD42BAE1F383CFE006F323E /* DNAvatarViewController.m */,
+				9A124F721F394C3B009E2DD3 /* StateViewController.h */,
+				9A124F731F394C3B009E2DD3 /* StateViewController.m */,
 				9A9CE4611F1C624D004086D0 /* WatchHistoryViewController.h */,
 				9A9CE4621F1C624D004086D0 /* WatchHistoryViewController.m */,
 				9A9CE45B1F1C4491004086D0 /* SettingViewController.h */,
@@ -576,6 +584,8 @@
 				9AD42BAB1F381782006F323E /* MineHeaderView.m */,
 				9A3D4BC71F10A2D400B546E2 /* MineCell.h */,
 				9A3D4BC81F10A2D400B546E2 /* MineCell.m */,
+				9A124F751F3952A6009E2DD3 /* PublishStateCell.h */,
+				9A124F761F3952A6009E2DD3 /* PublishStateCell.m */,
 				9A9CE4641F1C6386004086D0 /* WatchHistoryCell.h */,
 				9A9CE4651F1C6386004086D0 /* WatchHistoryCell.m */,
 				9A9CE45E1F1C49CA004086D0 /* SettingCell.h */,
@@ -1091,9 +1101,11 @@
 				9A29D30A1F09D77E00FC4389 /* BWPlayDecorateView.m in Sources */,
 				9A887C641F0CB05A00D61042 /* SnapShotShareView.m in Sources */,
 				9A037A2E1F049AE3005F2894 /* PlayUGCDecorateView.m in Sources */,
+				9A124F741F394C3B009E2DD3 /* StateViewController.m in Sources */,
 				9A9CE4631F1C624D004086D0 /* WatchHistoryViewController.m in Sources */,
 				9A29D31A1F09F41C00FC4389 /* NSData+AES.m in Sources */,
 				9A5498471F021F9400FA4E06 /* BWPushDecorateView.m in Sources */,
+				9A124F771F3952A6009E2DD3 /* PublishStateCell.m in Sources */,
 				9A29D3091F09D77E00FC4389 /* BWGiftView.m in Sources */,
 				9A81BE271EF8C68E00899E4C /* BWBadgeButton.m in Sources */,
 				9A3D4BBC1F106D5100B546E2 /* GiftOneModel.m in Sources */,

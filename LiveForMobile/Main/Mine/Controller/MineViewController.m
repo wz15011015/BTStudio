@@ -9,6 +9,7 @@
 #import "MineViewController.h"
 #import "MineCell.h"
 #import "DNAvatarViewController.h"
+#import "StateViewController.h"
 #import "WatchHistoryViewController.h"
 #import "SettingViewController.h"
 #import "MineHeaderView.h"
@@ -99,10 +100,14 @@
             NSLog(@"查看我的主页");
         } else if (tag == 11) {
             DNAvatarViewController *avatarVC = [[DNAvatarViewController alloc] init];
-            avatarVC.avatarImage = [UIImage imageNamed:@"avatar_default"];
+            avatarVC.avatarImage = [UIImage imageNamed:@"user_avatar_default"];
             [weakSelf presentViewController:avatarVC animated:YES completion:nil];
+            
         } else if (tag == 12) {
-            NSLog(@"点击了 动态 按钮");
+            StateViewController *stateVC = [[StateViewController alloc] init];
+            stateVC.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:stateVC animated:YES];
+            
         } else if (tag == 13) {
             NSLog(@"点击了 关注 按钮");
         } else if (tag == 14) {

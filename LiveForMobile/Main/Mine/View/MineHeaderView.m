@@ -135,7 +135,7 @@
     
     self.nameLabel.text = @"正在直播的_我";
     self.IDLabel.text = [NSString stringWithFormat:@"直播号: %@", @"125500577"];
-    self.avatarImageView.image = [UIImage imageNamed:@"avatar_default"];
+    self.avatarImageView.image = [UIImage imageNamed:@"user_avatar_default"];
     
     self.stateButton.value = @"120";
     self.followButton.value = @"30";

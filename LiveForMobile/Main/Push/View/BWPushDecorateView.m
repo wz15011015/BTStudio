@@ -556,7 +556,7 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     
     
     // 测试数据
-    self.anchorAvatarImageView.image = [UIImage imageNamed:@"avatar_default"];
+    self.anchorAvatarImageView.image = [UIImage imageNamed:@"user_avatar_default"];
     self.anchorNameLabel.text = @"高姿态的🛴，走了...";
     self.anchorIDLabel.text = [NSString stringWithFormat:@"ID:%@", @"11000007"];
     self.audienceCountLabel.text = [NSString stringWithFormat:@"%@人", @"1100"];
