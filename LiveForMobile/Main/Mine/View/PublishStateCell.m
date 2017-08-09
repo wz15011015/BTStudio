@@ -49,7 +49,7 @@ NSString *const PublishStateCellID = @"PublishStateCellIdentifier";
         UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
         effectView.frame = _avatarImageView.bounds;
         effectView.backgroundColor = RGB(70, 58, 84);
-        effectView.alpha = 0.78;
+        effectView.alpha = 0.75;
         [_avatarImageView addSubview:effectView];
     }
     return _avatarImageView;

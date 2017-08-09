@@ -12,6 +12,10 @@
 		9A124F711F394787009E2DD3 /* push.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A124F701F394787009E2DD3 /* push.png */; };
 		9A124F741F394C3B009E2DD3 /* StateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A124F731F394C3B009E2DD3 /* StateViewController.m */; };
 		9A124F771F3952A6009E2DD3 /* PublishStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A124F761F3952A6009E2DD3 /* PublishStateCell.m */; };
+		9A124F7A1F39854E009E2DD3 /* BWGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A124F791F39854E009E2DD3 /* BWGameView.m */; };
+		9A124F811F398A48009E2DD3 /* styles.css in Resources */ = {isa = PBXBuildFile; fileRef = 9A124F7E1F398A48009E2DD3 /* styles.css */; };
+		9A124F821F398A48009E2DD3 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 9A124F7F1F398A48009E2DD3 /* index.html */; };
+		9A124F831F398A48009E2DD3 /* index2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9A124F801F398A48009E2DD3 /* index2.html */; };
 		9A17A10E1F14AC1D001EB591 /* WebSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17A10D1F14AC1D001EB591 /* WebSocketManager.m */; };
 		9A1AB8AC1EF8BB860018BD60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1AB8AB1EF8BB860018BD60 /* main.m */; };
 		9A1AB8B51EF8BB860018BD60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A1AB8B31EF8BB860018BD60 /* Main.storyboard */; };
@@ -104,6 +108,11 @@
 		9A124F731F394C3B009E2DD3 /* StateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StateViewController.m; sourceTree = "<group>"; };
 		9A124F751F3952A6009E2DD3 /* PublishStateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishStateCell.h; sourceTree = "<group>"; };
 		9A124F761F3952A6009E2DD3 /* PublishStateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishStateCell.m; sourceTree = "<group>"; };
+		9A124F781F39854E009E2DD3 /* BWGameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWGameView.h; sourceTree = "<group>"; };
+		9A124F791F39854E009E2DD3 /* BWGameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWGameView.m; sourceTree = "<group>"; };
+		9A124F7E1F398A48009E2DD3 /* styles.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styles.css; sourceTree = "<group>"; };
+		9A124F7F1F398A48009E2DD3 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		9A124F801F398A48009E2DD3 /* index2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index2.html; sourceTree = "<group>"; };
 		9A17A10C1F14AC1D001EB591 /* WebSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketManager.h; sourceTree = "<group>"; };
 		9A17A10D1F14AC1D001EB591 /* WebSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketManager.m; sourceTree = "<group>"; };
 		9A1AB8A71EF8BB860018BD60 /* LiveForMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveForMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -320,6 +329,32 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		9A124F7B1F398A48009E2DD3 /* pure-css3-elephant-animation */ = {
+			isa = PBXGroup;
+			children = (
+				9A124F7C1F398A48009E2DD3 /* pure-css3-elephant-animation */,
+			);
+			path = "pure-css3-elephant-animation";
+			sourceTree = "<group>";
+		};
+		9A124F7C1F398A48009E2DD3 /* pure-css3-elephant-animation */ = {
+			isa = PBXGroup;
+			children = (
+				9A124F7D1F398A48009E2DD3 /* css */,
+				9A124F7F1F398A48009E2DD3 /* index.html */,
+				9A124F801F398A48009E2DD3 /* index2.html */,
+			);
+			path = "pure-css3-elephant-animation";
+			sourceTree = "<group>";
+		};
+		9A124F7D1F398A48009E2DD3 /* css */ = {
+			isa = PBXGroup;
+			children = (
+				9A124F7E1F398A48009E2DD3 /* styles.css */,
+			);
+			path = css;
+			sourceTree = "<group>";
+		};
 		9A17A10B1F14AC1D001EB591 /* WebSocket */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,6 +544,8 @@
 				9A29D3051F09D77E00FC4389 /* PrivateMessageView.m */,
 				9A29D3061F09D77E00FC4389 /* ShareCell.h */,
 				9A29D3071F09D77E00FC4389 /* ShareCell.m */,
+				9A124F781F39854E009E2DD3 /* BWGameView.h */,
+				9A124F791F39854E009E2DD3 /* BWGameView.m */,
 				9A3D4BB61F10691E00B546E2 /* GiftDisplay */,
 			);
 			path = View;
@@ -536,6 +573,7 @@
 		9A29D3301F0A1D4F00FC4389 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				9A124F7B1F398A48009E2DD3 /* pure-css3-elephant-animation */,
 				9AD42BB81F385194006F323E /* screenshot */,
 				9A887C651F0CD5C700D61042 /* Icon.png */,
 				9AED2E5A1F0E186F00BCD05A /* GiftResource.plist */,
@@ -1009,15 +1047,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A124F831F398A48009E2DD3 /* index2.html in Resources */,
 				9A887C661F0CD5C700D61042 /* Icon.png in Resources */,
 				9AED2E5B1F0E186F00BCD05A /* GiftResource.plist in Resources */,
 				9A1AB8BA1EF8BB860018BD60 /* LaunchScreen.storyboard in Resources */,
+				9A124F821F398A48009E2DD3 /* index.html in Resources */,
 				9A124F711F394787009E2DD3 /* push.png in Resources */,
 				9AF9B0011F15B30900FFDEE6 /* GiftResource.bundle in Resources */,
 				9AD42BBF1F385194006F323E /* play_1.png in Resources */,
 				9AD42BBE1F385194006F323E /* mine.png in Resources */,
 				9AD42BC01F385194006F323E /* play_2.png in Resources */,
 				9AD42BBD1F385194006F323E /* follow.png in Resources */,
+				9A124F811F398A48009E2DD3 /* styles.css in Resources */,
 				9A1AB8B71EF8BB860018BD60 /* Assets.xcassets in Resources */,
 				9A1AB8B51EF8BB860018BD60 /* Main.storyboard in Resources */,
 			);
@@ -1107,6 +1148,7 @@
 				9A5498471F021F9400FA4E06 /* BWPushDecorateView.m in Sources */,
 				9A124F771F3952A6009E2DD3 /* PublishStateCell.m in Sources */,
 				9A29D3091F09D77E00FC4389 /* BWGiftView.m in Sources */,
+				9A124F7A1F39854E009E2DD3 /* BWGameView.m in Sources */,
 				9A81BE271EF8C68E00899E4C /* BWBadgeButton.m in Sources */,
 				9A3D4BBC1F106D5100B546E2 /* GiftOneModel.m in Sources */,
 				9A81BE131EF8BFBA00899E4C /* BaseViewController.m in Sources */,

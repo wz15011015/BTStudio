@@ -121,9 +121,7 @@
  显示在view上
  */
 - (void)showToView:(UIView *)view {
-    [view addSubview:self];
-    
-    [self addSubViews]; 
+    [view addSubview:self]; 
 }
 
 /**

@@ -16,6 +16,9 @@
 #import "PrivateMessageView.h"
 #import "BWPlayShareView.h"
 #import "SnapShotShareView.h"
+
+#import "BWGameView.h"
+
 #import "GiftModel.h"
 #import "GiftOneModel.h"
 
@@ -231,6 +234,10 @@ typedef NS_ENUM(NSInteger, ENUM_TYPE_CACHE_STRATEGY) {
 // 向主播点歌
 - (void)clickOrderSong:(UIButton *)sender {
     NSLog(@"向主播点歌");
+    
+    BWGameView *gameView = [[BWGameView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    gameView.parentViewController = self;
+    [gameView showToView:self.view];
 }
 
 // 私信主播

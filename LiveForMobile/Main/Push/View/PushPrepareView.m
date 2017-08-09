@@ -188,9 +188,7 @@
  */
 - (void)showToView:(UIView *)view {
     [view addSubview:self];
-//    [self showOut:self duration:0.6];
-    
-    [self addSubViews];
+//    [self showOut:self duration:0.6]; 
     
 //    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState animations:^{
 //        self.backgroundColor = [UIColor clearColor];
