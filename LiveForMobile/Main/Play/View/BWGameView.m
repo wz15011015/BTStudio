@@ -12,9 +12,10 @@
 
 #import "ShareModel.h"
 
-#define kHomeURL @"http://www.cocoachina.com"
+#define kHomeURL @"http://192.168.1.112:63343/saima/index.html"
 
-#define CONTENTVIEW_H (216)
+#define CONTENTVIEW_H (316)
+//#define CONTENTVIEW_H (216)
 
 NSString *const WKWebViewLoadingKey = @"loading";
 NSString *const WKWebViewTitleKey = @"title";
@@ -29,6 +30,8 @@ NSString *const WKWebViewProgressKey = @"estimatedProgress";
 
 @property (nonatomic, strong) UIView *blankView; // 空白view
 @property (nonatomic, strong) UIView *contentView;
+
+@property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) WKWebView *wkWebView;
 
 @property (nonatomic, weak) UIImageView *imageView1;
@@ -80,26 +83,31 @@ NSString *const WKWebViewProgressKey = @"estimatedProgress";
 - (void)addSubViews {
     [self addSubview:self.blankView];
     [self addSubview:self.contentView];
-//    [self.contentView addSubview:self.wkWebView];
-    
-    CGFloat x = 0;
-    CGFloat w = 28;
-    CGFloat y = 20;
-    for (int i = 0; i < 3; i++) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, w)];
-        y += 40;
-        if (!i) {
-            imageView.image = [UIImage imageNamed:@"gift_biaobaihuayu"];
-            self.imageView1 = imageView;
-        } else if (1 == i) {
-            imageView.image = [UIImage imageNamed:@"gift_biaobaihuayu"];
-            self.imageView2 = imageView;
-        } else {
-            imageView.image = [UIImage imageNamed:@"gift_biaobaihuayu"];
-            self.imageView3 = imageView;
-        }
-        [self.contentView addSubview:imageView];
+    if (IS_IOS8) {
+        [self.contentView addSubview:self.webView];
+    } else {
+        [self.contentView addSubview:self.wkWebView];
     }
+    
+    
+//    CGFloat x = 0;
+//    CGFloat w = 28;
+//    CGFloat y = 20;
+//    for (int i = 0; i < 3; i++) {
+//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, w)];
+//        y += 40;
+//        if (!i) {
+//            imageView.image = [UIImage imageNamed:@"gift_biaobaihuayu"];
+//            self.imageView1 = imageView;
+//        } else if (1 == i) {
+//            imageView.image = [UIImage imageNamed:@"gift_biaobaihuayu"];
+//            self.imageView2 = imageView;
+//        } else {
+//            imageView.image = [UIImage imageNamed:@"gift_biaobaihuayu"];
+//            self.imageView3 = imageView;
+//        }
+//        [self.contentView addSubview:imageView];
+//    }
     
     // 动画效果
     [UIView beginAnimations:nil context:nil];
@@ -130,18 +138,23 @@ NSString *const WKWebViewProgressKey = @"estimatedProgress";
 //    [self test];
     
     // 加载数据
-//    NSURL *url = [NSURL URLWithString:kHomeURL];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    [self.wkWebView loadRequest:request];
+    NSURL *url = [NSURL URLWithString:kHomeURL];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    if (IS_IOS8) {
+        [self.webView loadRequest:request];
+    } else {
+        [self.wkWebView loadRequest:request];
+    }
     
 //    NSString *path = [[NSBundle mainBundle] pathForResource:@"index2" ofType:@"html"];
 //    NSURL *url = [NSURL fileURLWithPath:path];
 //    NSURLRequest *request = [NSURLRequest requestWithURL:url];
 //    [self.wkWebView loadRequest:request];
     
-    _timerCount = 0;
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updatePosition) userInfo:nil repeats:YES];
-    NSLog(@"开始!!!!!!!!!!!!!!!");
+    
+//    _timerCount = 0;
+//    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(updatePosition) userInfo:nil repeats:YES];
+//    NSLog(@"开始!!!!!!!!!!!!!!!");
 }
 
 /**
@@ -371,7 +384,7 @@ NSString *const WKWebViewProgressKey = @"estimatedProgress";
 }
 
 
-#pragma mark - WKUIDelegate
+#pragma mark - WKUIDelegate (针对于web界面的三种提示框（警告框、确认框、输入框）分别对应三种代理方法)
 
 // alert 警告框
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
@@ -398,6 +411,7 @@ NSString *const WKWebViewProgressKey = @"estimatedProgress";
     NSLog(@"confirm message:%@", message);
 }
 
+// 输入框
 - (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * __nullable result))completionHandler {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"输入框" message:@"调用输入框" preferredStyle:UIAlertControllerStyleAlert];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -412,7 +426,7 @@ NSString *const WKWebViewProgressKey = @"estimatedProgress";
 
 
 #pragma mark - WKScriptMessageHandler
-
+// 这个协议中包含一个必须实现的方法，这个方法是提高App与web端交互的关键，它可以直接将接收到的JS脚本转为OC或Swift对象。（当然，在UIWebView也可以通过“曲线救国”的方式与web进行交互，著名的Cordova框架就是这种机制）
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     // 这里可以通过name处理多组交互
     if ([message.name isEqualToString:@"senderModel"]) {
@@ -466,7 +480,7 @@ NSString *const WKWebViewProgressKey = @"estimatedProgress";
         _wkWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, _width, CONTENTVIEW_H - 26) configuration:config];
         _wkWebView.navigationDelegate = self;
         _wkWebView.UIDelegate = self;
-        _wkWebView.allowsBackForwardNavigationGestures = YES;
+//        _wkWebView.allowsBackForwardNavigationGestures = YES;
         
         // 3. 添加KVO监听
 //        [_wkWebView addObserver:self forKeyPath:WKWebViewLoadingKey options:NSKeyValueObservingOptionNew context:nil];
@@ -474,6 +488,13 @@ NSString *const WKWebViewProgressKey = @"estimatedProgress";
 //        [_wkWebView addObserver:self forKeyPath:WKWebViewProgressKey options:NSKeyValueObservingOptionNew context:nil];
     }
     return _wkWebView;
+}
+
+- (UIWebView *)webView {
+    if (!_webView) {
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, _width, CONTENTVIEW_H - 26)];
+    }
+    return _webView;
 }
 
 

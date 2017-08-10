@@ -13,9 +13,6 @@
 		9A124F741F394C3B009E2DD3 /* StateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A124F731F394C3B009E2DD3 /* StateViewController.m */; };
 		9A124F771F3952A6009E2DD3 /* PublishStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A124F761F3952A6009E2DD3 /* PublishStateCell.m */; };
 		9A124F7A1F39854E009E2DD3 /* BWGameView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A124F791F39854E009E2DD3 /* BWGameView.m */; };
-		9A124F811F398A48009E2DD3 /* styles.css in Resources */ = {isa = PBXBuildFile; fileRef = 9A124F7E1F398A48009E2DD3 /* styles.css */; };
-		9A124F821F398A48009E2DD3 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 9A124F7F1F398A48009E2DD3 /* index.html */; };
-		9A124F831F398A48009E2DD3 /* index2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9A124F801F398A48009E2DD3 /* index2.html */; };
 		9A17A10E1F14AC1D001EB591 /* WebSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A17A10D1F14AC1D001EB591 /* WebSocketManager.m */; };
 		9A1AB8AC1EF8BB860018BD60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A1AB8AB1EF8BB860018BD60 /* main.m */; };
 		9A1AB8B51EF8BB860018BD60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A1AB8B31EF8BB860018BD60 /* Main.storyboard */; };
@@ -37,6 +34,9 @@
 		9A29D31A1F09F41C00FC4389 /* NSData+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A29D3191F09F41C00FC4389 /* NSData+AES.m */; };
 		9A3530671EFCDD85006CE3A2 /* FilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3530661EFCDD85006CE3A2 /* FilterModel.m */; };
 		9A35306A1EFCFECE006CE3A2 /* FilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3530691EFCFECE006CE3A2 /* FilterCell.m */; };
+		9A39F4E21F3BEA830004A53A /* MineFollowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A39F4E01F3BEA830004A53A /* MineFollowViewController.m */; };
+		9A39F4E31F3BEA830004A53A /* MineFollowViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A39F4E11F3BEA830004A53A /* MineFollowViewController.xib */; };
+		9A39F4E61F3BEDCE0004A53A /* MineFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A39F4E51F3BEDCE0004A53A /* MineFollowCell.m */; };
 		9A3D4BB41F1068A000B546E2 /* PresentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BB11F1068A000B546E2 /* PresentView.m */; };
 		9A3D4BB51F1068A000B546E2 /* PresentViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BB31F1068A000B546E2 /* PresentViewCell.m */; };
 		9A3D4BB91F10697E00B546E2 /* GiftOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BB81F10697E00B546E2 /* GiftOneCell.m */; };
@@ -110,9 +110,6 @@
 		9A124F761F3952A6009E2DD3 /* PublishStateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishStateCell.m; sourceTree = "<group>"; };
 		9A124F781F39854E009E2DD3 /* BWGameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWGameView.h; sourceTree = "<group>"; };
 		9A124F791F39854E009E2DD3 /* BWGameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWGameView.m; sourceTree = "<group>"; };
-		9A124F7E1F398A48009E2DD3 /* styles.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styles.css; sourceTree = "<group>"; };
-		9A124F7F1F398A48009E2DD3 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		9A124F801F398A48009E2DD3 /* index2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index2.html; sourceTree = "<group>"; };
 		9A17A10C1F14AC1D001EB591 /* WebSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocketManager.h; sourceTree = "<group>"; };
 		9A17A10D1F14AC1D001EB591 /* WebSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocketManager.m; sourceTree = "<group>"; };
 		9A1AB8A71EF8BB860018BD60 /* LiveForMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveForMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +150,11 @@
 		9A3530661EFCDD85006CE3A2 /* FilterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterModel.m; sourceTree = "<group>"; };
 		9A3530681EFCFECE006CE3A2 /* FilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCell.h; sourceTree = "<group>"; };
 		9A3530691EFCFECE006CE3A2 /* FilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCell.m; sourceTree = "<group>"; };
+		9A39F4DF1F3BEA830004A53A /* MineFollowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineFollowViewController.h; sourceTree = "<group>"; };
+		9A39F4E01F3BEA830004A53A /* MineFollowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineFollowViewController.m; sourceTree = "<group>"; };
+		9A39F4E11F3BEA830004A53A /* MineFollowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineFollowViewController.xib; sourceTree = "<group>"; };
+		9A39F4E41F3BEDCE0004A53A /* MineFollowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineFollowCell.h; sourceTree = "<group>"; };
+		9A39F4E51F3BEDCE0004A53A /* MineFollowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineFollowCell.m; sourceTree = "<group>"; };
 		9A3D4BAF1F1068A000B546E2 /* PresentModelAble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentModelAble.h; sourceTree = "<group>"; };
 		9A3D4BB01F1068A000B546E2 /* PresentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentView.h; sourceTree = "<group>"; };
 		9A3D4BB11F1068A000B546E2 /* PresentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentView.m; sourceTree = "<group>"; };
@@ -327,32 +329,6 @@
 				9A887C631F0CB05A00D61042 /* SnapShotShareView.m */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		9A124F7B1F398A48009E2DD3 /* pure-css3-elephant-animation */ = {
-			isa = PBXGroup;
-			children = (
-				9A124F7C1F398A48009E2DD3 /* pure-css3-elephant-animation */,
-			);
-			path = "pure-css3-elephant-animation";
-			sourceTree = "<group>";
-		};
-		9A124F7C1F398A48009E2DD3 /* pure-css3-elephant-animation */ = {
-			isa = PBXGroup;
-			children = (
-				9A124F7D1F398A48009E2DD3 /* css */,
-				9A124F7F1F398A48009E2DD3 /* index.html */,
-				9A124F801F398A48009E2DD3 /* index2.html */,
-			);
-			path = "pure-css3-elephant-animation";
-			sourceTree = "<group>";
-		};
-		9A124F7D1F398A48009E2DD3 /* css */ = {
-			isa = PBXGroup;
-			children = (
-				9A124F7E1F398A48009E2DD3 /* styles.css */,
-			);
-			path = css;
 			sourceTree = "<group>";
 		};
 		9A17A10B1F14AC1D001EB591 /* WebSocket */ = {
@@ -573,7 +549,6 @@
 		9A29D3301F0A1D4F00FC4389 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				9A124F7B1F398A48009E2DD3 /* pure-css3-elephant-animation */,
 				9AD42BB81F385194006F323E /* screenshot */,
 				9A887C651F0CD5C700D61042 /* Icon.png */,
 				9AED2E5A1F0E186F00BCD05A /* GiftResource.plist */,
@@ -598,6 +573,9 @@
 				9AD42BAE1F383CFE006F323E /* DNAvatarViewController.m */,
 				9A124F721F394C3B009E2DD3 /* StateViewController.h */,
 				9A124F731F394C3B009E2DD3 /* StateViewController.m */,
+				9A39F4DF1F3BEA830004A53A /* MineFollowViewController.h */,
+				9A39F4E01F3BEA830004A53A /* MineFollowViewController.m */,
+				9A39F4E11F3BEA830004A53A /* MineFollowViewController.xib */,
 				9A9CE4611F1C624D004086D0 /* WatchHistoryViewController.h */,
 				9A9CE4621F1C624D004086D0 /* WatchHistoryViewController.m */,
 				9A9CE45B1F1C4491004086D0 /* SettingViewController.h */,
@@ -624,6 +602,8 @@
 				9A3D4BC81F10A2D400B546E2 /* MineCell.m */,
 				9A124F751F3952A6009E2DD3 /* PublishStateCell.h */,
 				9A124F761F3952A6009E2DD3 /* PublishStateCell.m */,
+				9A39F4E41F3BEDCE0004A53A /* MineFollowCell.h */,
+				9A39F4E51F3BEDCE0004A53A /* MineFollowCell.m */,
 				9A9CE4641F1C6386004086D0 /* WatchHistoryCell.h */,
 				9A9CE4651F1C6386004086D0 /* WatchHistoryCell.m */,
 				9A9CE45E1F1C49CA004086D0 /* SettingCell.h */,
@@ -1047,18 +1027,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A124F831F398A48009E2DD3 /* index2.html in Resources */,
 				9A887C661F0CD5C700D61042 /* Icon.png in Resources */,
 				9AED2E5B1F0E186F00BCD05A /* GiftResource.plist in Resources */,
 				9A1AB8BA1EF8BB860018BD60 /* LaunchScreen.storyboard in Resources */,
-				9A124F821F398A48009E2DD3 /* index.html in Resources */,
 				9A124F711F394787009E2DD3 /* push.png in Resources */,
 				9AF9B0011F15B30900FFDEE6 /* GiftResource.bundle in Resources */,
 				9AD42BBF1F385194006F323E /* play_1.png in Resources */,
 				9AD42BBE1F385194006F323E /* mine.png in Resources */,
+				9A39F4E31F3BEA830004A53A /* MineFollowViewController.xib in Resources */,
 				9AD42BC01F385194006F323E /* play_2.png in Resources */,
 				9AD42BBD1F385194006F323E /* follow.png in Resources */,
-				9A124F811F398A48009E2DD3 /* styles.css in Resources */,
 				9A1AB8B71EF8BB860018BD60 /* Assets.xcassets in Resources */,
 				9A1AB8B51EF8BB860018BD60 /* Main.storyboard in Resources */,
 			);
@@ -1153,6 +1131,7 @@
 				9A3D4BBC1F106D5100B546E2 /* GiftOneModel.m in Sources */,
 				9A81BE131EF8BFBA00899E4C /* BaseViewController.m in Sources */,
 				9A3530671EFCDD85006CE3A2 /* FilterModel.m in Sources */,
+				9A39F4E61F3BEDCE0004A53A /* MineFollowCell.m in Sources */,
 				9A6733171F0B6AF6005423F2 /* BWHUDHelper.m in Sources */,
 				9A29D3081F09D77E00FC4389 /* AudienceCell.m in Sources */,
 				9A29D3171F09F40900FC4389 /* NSString+BrianExtension.m in Sources */,
@@ -1167,6 +1146,7 @@
 				9A267AF21F00AEA500BD9B6B /* AudioEffectCell.m in Sources */,
 				9A9CE4601F1C49CA004086D0 /* SettingCell.m in Sources */,
 				9AD42BA61F37FA58006F323E /* DNAppAboutViewController.m in Sources */,
+				9A39F4E21F3BEA830004A53A /* MineFollowViewController.m in Sources */,
 				9A81BE281EF8C68E00899E4C /* BWTabBar.m in Sources */,
 				9A267AF51F00B21D00BD9B6B /* AudioEffectModel.m in Sources */,
 				9A81BE2C1EF8D30500899E4C /* HomeViewController.m in Sources */,
