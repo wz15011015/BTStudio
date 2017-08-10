@@ -100,7 +100,8 @@
     // 2. 截屏/重新录制按钮
     self.screenshotButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.screenshotButton.frame = CGRectMake(button_margin, button_Y1, button_W1, button_W1);
-    [self.screenshotButton setImage:[UIImage imageNamed:@"play_screenshot"] forState:UIControlStateNormal];
+    [self.screenshotButton setImage:[UIImage imageNamed:@"live_button_tailor_40x40_"] forState:UIControlStateNormal];
+    [self.screenshotButton setImage:[UIImage imageNamed:@"live_button_tailor_pressed_40x40_"] forState:UIControlStateHighlighted];
     [self.screenshotButton addTarget:self action:@selector(screenshotEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.screenshotButton];
     // 3. 录制按钮
@@ -116,8 +117,8 @@
     // 4. 关闭按钮
     self.closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.closeButton.frame = CGRectMake(_width - button_margin - button_W1, button_Y1, button_W1, button_W1);
-    [self.closeButton setImage:[UIImage imageNamed:@"push_close"] forState:UIControlStateNormal];
-    [self.closeButton setImage:[UIImage imageNamed:@"push_close_highlighted"] forState:UIControlStateHighlighted];
+    [self.closeButton setImage:[UIImage imageNamed:@"live_button_close_40x40_"] forState:UIControlStateNormal];
+    [self.closeButton setImage:[UIImage imageNamed:@"live_button_close_pressed_40x40_"] forState:UIControlStateHighlighted];
     [self.closeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.closeButton];
 }
@@ -230,7 +231,8 @@
         
         [self removeGestureRecognizer:self.tap];
         self.timerLabel.hidden = NO;
-        [self.screenshotButton setImage:[UIImage imageNamed:@"play_resetRecord"] forState:UIControlStateNormal];
+        [self.screenshotButton setImage:[UIImage imageNamed:@"live_button_reRecord_40x40_"] forState:UIControlStateNormal];
+        [self.screenshotButton setImage:[UIImage imageNamed:@"live_button_reRecord_press_40x40_"] forState:UIControlStateHighlighted];
         
         [self startBreatheLight];
         
@@ -246,7 +248,8 @@
         
         [self addGestureRecognizer:self.tap];
         self.timerLabel.hidden = YES;
-        [self.screenshotButton setImage:[UIImage imageNamed:@"play_screenshot"] forState:UIControlStateNormal];
+        [self.screenshotButton setImage:[UIImage imageNamed:@"live_button_tailor_40x40_"] forState:UIControlStateNormal];
+        [self.screenshotButton setImage:[UIImage imageNamed:@"live_button_tailor_pressed_40x40_"] forState:UIControlStateHighlighted];
         
         [self stopBreatheLight];
     }

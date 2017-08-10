@@ -183,7 +183,9 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     // 4.1 聊天按钮
     self.chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.chatButton.frame = CGRectMake(button_middleMargin, button_Y, button_W, button_W);
-    [self.chatButton setImage:[UIImage imageNamed:@"push_chat"] forState:UIControlStateNormal];
+//    [self.chatButton setImage:[UIImage imageNamed:@"push_chat"] forState:UIControlStateNormal];
+    [self.chatButton setImage:[UIImage imageNamed:@"live_button_comment_40x40_"] forState:UIControlStateNormal];
+    [self.chatButton setImage:[UIImage imageNamed:@"live_button_comment_pressed_40x40_"] forState:UIControlStateHighlighted];
     [self.chatButton addTarget:self action:@selector(clickChat:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.chatButton];
     // 4.2 私信按钮
@@ -196,8 +198,10 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     // 4.3 点歌按钮
     self.orderSongButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.orderSongButton.frame = CGRectMake(CGRectGetMaxX(self.pmButton.frame) + button_middleMargin, button_Y, button_W, button_W);
-    [self.orderSongButton setImage:[UIImage imageNamed:@"play_music_normal"] forState:UIControlStateNormal];
-    [self.orderSongButton setImage:[UIImage imageNamed:@"play_music_highlighted"] forState:UIControlStateHighlighted];
+//    [self.orderSongButton setImage:[UIImage imageNamed:@"play_music_normal"] forState:UIControlStateNormal];
+//    [self.orderSongButton setImage:[UIImage imageNamed:@"play_music_highlighted"] forState:UIControlStateHighlighted];
+    [self.orderSongButton setImage:[UIImage imageNamed:@"live_button_play_40x40_"] forState:UIControlStateNormal];
+    [self.orderSongButton setImage:[UIImage imageNamed:@"live_button_play_pressed_40x40_"] forState:UIControlStateHighlighted];
     [self.orderSongButton addTarget:self action:@selector(clickOrderSong:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.orderSongButton];
     // 4.4 礼物按钮
@@ -210,15 +214,21 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     // 4.5 录制视频按钮
     self.cameraButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.cameraButton.frame = CGRectMake(CGRectGetMaxX(self.giftButton.frame) + button_middleMargin, button_Y, button_W, button_W);
-    [self.cameraButton setImage:[UIImage imageNamed:@"play_video_record"] forState:UIControlStateNormal];
-    [self.cameraButton setImage:[UIImage imageNamed:@"play_video_record_highlighted"] forState:UIControlStateHighlighted];
+//    [self.cameraButton setImage:[UIImage imageNamed:@"play_video_record"] forState:UIControlStateNormal];
+//    [self.cameraButton setImage:[UIImage imageNamed:@"play_video_record_highlighted"] forState:UIControlStateHighlighted];
+    
+    [self.cameraButton setImage:[UIImage imageNamed:@"live_button_record_40x40_"] forState:UIControlStateNormal];
+    [self.cameraButton setImage:[UIImage imageNamed:@"live_button_record_pressed_40x40_"] forState:UIControlStateHighlighted];
+    
     [self.cameraButton addTarget:self action:@selector(clickCamera:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.cameraButton];
     // 4.6 分享按钮
     self.shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.shareButton.frame = CGRectMake(CGRectGetMaxX(self.cameraButton.frame) + button_middleMargin, button_Y, button_W, button_W);
-    [self.shareButton setImage:[UIImage imageNamed:@"play_share"] forState:UIControlStateNormal];
-    [self.shareButton setImage:[UIImage imageNamed:@"play_share_highlighted"] forState:UIControlStateHighlighted];
+//    [self.shareButton setImage:[UIImage imageNamed:@"play_share"] forState:UIControlStateNormal];
+//    [self.shareButton setImage:[UIImage imageNamed:@"play_share_highlighted"] forState:UIControlStateHighlighted];
+    [self.shareButton setImage:[UIImage imageNamed:@"live_button_share_40x40_"] forState:UIControlStateNormal];
+    [self.shareButton setImage:[UIImage imageNamed:@"live_button_share_pressed_40x40_"] forState:UIControlStateHighlighted];
     [self.shareButton addTarget:self action:@selector(clickShare:) forControlEvents:UIControlEventTouchUpInside];
     [self.decorateView addSubview:self.shareButton];
     
@@ -227,8 +237,10 @@ const NSUInteger ButtonCountOfPlay = 7; // 底部的功能按钮个数
     // 1. 关闭按钮
     self.closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.closeButton.frame = CGRectMake(_width - button_middleMargin - button_W, button_Y, button_W, button_W);
-    [self.closeButton setImage:[UIImage imageNamed:@"push_close"] forState:UIControlStateNormal];
-    [self.closeButton setImage:[UIImage imageNamed:@"push_close_highlighted"] forState:UIControlStateHighlighted];
+//    [self.closeButton setImage:[UIImage imageNamed:@"push_close"] forState:UIControlStateNormal];
+//    [self.closeButton setImage:[UIImage imageNamed:@"push_close_highlighted"] forState:UIControlStateHighlighted];
+    [self.closeButton setImage:[UIImage imageNamed:@"live_button_close_40x40_"] forState:UIControlStateNormal];
+    [self.closeButton setImage:[UIImage imageNamed:@"live_button_close_pressed_40x40_"] forState:UIControlStateHighlighted];
     [self.closeButton addTarget:self action:@selector(closePlay) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.closeButton];
     

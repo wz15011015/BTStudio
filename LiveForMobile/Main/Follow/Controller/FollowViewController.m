@@ -63,9 +63,9 @@
     model1.name = @"iMac";
     
     FollowModel *model2 = [[FollowModel alloc] init];
-    model2.coverUrl = @"avatar_default";
+    model2.coverUrl = @"avatar_default2";
     model2.title = @"每一天，都可以更好。";
-    model2.imageUrl = @"avatar_default";
+    model2.imageUrl = @"avatar_default2";
     model2.name = @"🍎WATCH";
     
     FollowModel *model3 = [[FollowModel alloc] init];
@@ -75,9 +75,9 @@
     model3.name = @"A10 Fusion 芯片";
     
     FollowModel *model4 = [[FollowModel alloc] init];
-    model4.coverUrl = @"avatar_default";
+    model4.coverUrl = @"avatar_default2";
     model4.title = @"两个镜头，一拍，即合。";
-    model4.imageUrl = @"avatar_default";
+    model4.imageUrl = @"avatar_default2";
     model4.name = @"iPhone 7 Plus 摄像头";
     
     FollowModel *model5 = [[FollowModel alloc] init];

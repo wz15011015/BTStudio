@@ -103,7 +103,7 @@ NSString *const PMPrivateMessageCellID = @"PMPrivateMessageCellIdentifier";
 - (void)setModel:(NSString *)model {
     _model = model;
     
-    self.iconImageView.image = [UIImage imageNamed:@"avatar_default"];
+    self.iconImageView.image = [UIImage imageNamed:@"Icon"];
     self.timeLabel.text = @"09:10";
     self.titleLabel.text = @"官方客服";
     self.contentLabel.text = @"签到成功，累计签到10天，今日获得40经验值";

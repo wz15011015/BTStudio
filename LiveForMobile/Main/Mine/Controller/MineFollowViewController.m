@@ -30,7 +30,7 @@
                               @"gender"  : @"2",
                               @"intro"   : @"模特 2012环球国际模特大赛最佳上镜奖"
                               }];
-        [_dataArr addObject:@{@"img_url" : @"user_avatar_default",
+        [_dataArr addObject:@{@"img_url" : @"avatar_default2",
                               @"rank"    : @"1",
                               @"name"    : @"l a n 爷",
                               @"gender"  : @"1",

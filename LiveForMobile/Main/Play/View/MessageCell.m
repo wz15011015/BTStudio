@@ -55,7 +55,7 @@ NSString *const MessageCellID = @"MessageCellIdentifier";
     if (!_rankImageView) {
         CGFloat y = (MESSAGE_CELL_MIN_H - RANK_IMAGEVIEW_H) / 2.0;
         _rankImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, y, RANK_IMAGEVIEW_W, RANK_IMAGEVIEW_H)];
-        _rankImageView.image = [UIImage imageNamed:@"rank_1"];
+        _rankImageView.image = [UIImage imageNamed:@"level_1_29x15_"];
     }
     return _rankImageView;
 }
@@ -73,7 +73,7 @@ NSString *const MessageCellID = @"MessageCellIdentifier";
             self.messageLabel.textColor = [UIColor redColor];
         } else {
             self.rankImageView.hidden = NO;
-            self.rankImageView.image = [UIImage imageNamed:@"rank_21"];
+            self.rankImageView.image = [UIImage imageNamed:@"level_21_29x15_"];
             self.messageLabel.text = [NSString stringWithFormat:@"        我: %@", message];
             self.messageLabel.textColor = [UIColor whiteColor];
         }
@@ -83,17 +83,17 @@ NSString *const MessageCellID = @"MessageCellIdentifier";
         
         int random = arc4random() % 10;
         if (random > 8) {
-            self.rankImageView.image = [UIImage imageNamed:@"rank_21"];
+            self.rankImageView.image = [UIImage imageNamed:@"level_21_29x15_"];
             self.messageLabel.text = [NSString stringWithFormat:@"        山姆大叔: 来捧场了！"];
             self.messageLabel.textColor = [UIColor whiteColor];
         } else if (random > 6) {
-            self.rankImageView.image = [UIImage imageNamed:@"rank_21"];
+            self.rankImageView.image = [UIImage imageNamed:@"level_21_29x15_"];
             self.messageLabel.text = [NSString stringWithFormat:@"        ⚔️剑锋⚔️ 来捧场了！"];
         } else if (random > 4) {
-            self.rankImageView.image = [UIImage imageNamed:@"rank_2"];
+            self.rankImageView.image = [UIImage imageNamed:@"level_2_29x15_"];
             self.messageLabel.text = [NSString stringWithFormat:@"        💎💎💎💎💎 入座了！"];
         } else {
-            self.rankImageView.image = [UIImage imageNamed:@"rank_1"];
+            self.rankImageView.image = [UIImage imageNamed:@"level_1_29x15_"];
             self.messageLabel.text = [NSString stringWithFormat:@"        我随我愿666 进场了！"];
         }
     }
