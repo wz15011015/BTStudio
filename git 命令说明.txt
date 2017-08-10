@@ -19,7 +19,13 @@ Git命令解释:
    13.2  git checkout -b 分支名 origin/分支名
    13.3  git pull origin 分支名
 14. git push origin :br-1.0.0     删除远程版本
-15. git remote -v    从执行该命令的结果可以看出来origin其实就是远程的git地址的一个别名。  
+15. git remote -v    从执行该命令的结果可以看出来origin其实就是远程的git地址的一个别名。  
+16. git reset        版本回退
+    git log --pretty=oneline    (查看提交历史,输出格式为: commit值 提交信息)
+    git reset --hard le7fac4    (le7fac4为commit值)
+17. git reflog       git reflog是Git提供给我们记录命令历史，commit和reset都在被记录之列。
+
+
 
 
 
