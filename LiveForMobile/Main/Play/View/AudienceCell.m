@@ -53,10 +53,15 @@ NSString *const AudienceCellID = @"AudienceCellIdentifier";
         CGFloat x = CGRectGetMaxX(self.avatarImageView.frame) - w + 2;
         CGFloat y = CGRectGetMaxY(self.avatarImageView.frame) - w;
         _rankImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, w)];
-        _rankImageView.backgroundColor = RGB(23, 231, 178);
         
-        _rankImageView.layer.masksToBounds = YES;
-        _rankImageView.layer.cornerRadius = w / 2.0;
+        int random = arc4random() % 3;
+        if (random == 0) {
+            _rankImageView.image = [UIImage imageNamed:@"tuhao_1_14x14_"];
+        } else if (random == 1) {
+            _rankImageView.image = [UIImage imageNamed:@"tuhao_2_14x14_"];
+        } else {
+            _rankImageView.image = [UIImage imageNamed:@"tuhao_3_14x14_"];
+        }
     }
     return _rankImageView;
 }

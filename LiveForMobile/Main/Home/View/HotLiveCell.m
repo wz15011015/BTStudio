@@ -73,11 +73,6 @@ NSString *const HotLiveCellID = @"HotLiveCellIdentifier";
         CGFloat x = CGRectGetMaxX(self.avatarImageView.frame) - w;
         CGFloat y = CGRectGetMaxY(self.avatarImageView.frame) - w;
         _rankImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, w)];
-//        _rankImageView.image = [UIImage imageNamed:@"avatar_default"];
-        _rankImageView.backgroundColor = RGB(253, 153, 0);
-        
-        _rankImageView.layer.cornerRadius = w / 2.0;
-        _rankImageView.layer.masksToBounds = YES;
     }
     return _rankImageView;
 }
@@ -194,6 +189,15 @@ NSString *const HotLiveCellID = @"HotLiveCellIdentifier";
     self.coverImageView.clipsToBounds = YES;
     
     self.titleLabel.text = @"相守不易，且行且珍惜！";
+    
+    int random = arc4random() % 3;
+    if (random == 0) {
+        self.rankImageView.image = [UIImage imageNamed:@"tuhao_1_14x14_"];
+    } else if (random == 1) {
+        self.rankImageView.image = [UIImage imageNamed:@"tuhao_2_14x14_"];
+    } else {
+        self.rankImageView.image = [UIImage imageNamed:@"tuhao_3_14x14_"];
+    }
     
     
     // 2. 调整控件位置
