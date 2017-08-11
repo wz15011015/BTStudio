@@ -1,24 +1,36 @@
 //
-//  MineFollowViewController.m
+//  MineFansViewController.m
 //  LiveForMobile
 //
-//  Created by  Sierra on 2017/8/10.
+//  Created by  Sierra on 2017/8/11.
 //  Copyright © 2017年 BaiFuTak. All rights reserved.
 //
 
-#import "MineFollowViewController.h"
-#import "MineFollowCell.h"
+#import "MineFansViewController.h"
+#import "MineFansCell.h"
 
-@interface MineFollowViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface MineFansViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 
 @end
 
-@implementation MineFollowViewController
+@implementation MineFansViewController
 
 #pragma mark - Getters
+
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT - 64)];
+        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        [_tableView registerClass:[MineFansCell class] forCellReuseIdentifier:MineFansCellID];
+    }
+    return _tableView;
+}
 
 - (NSMutableArray *)dataArr {
     if (!_dataArr) {
@@ -26,27 +38,27 @@
         
         NSDictionary *dic1 = @{@"img_url" : @"avatar_default",
                                @"rank"    : @"0",
-                               @"name"    : @"哦哦妹",
+                               @"name"    : @"☕️小咖啡",
                                @"gender"  : @"2",
-                               @"intro"   : @"模特 2012环球国际模特大赛最佳上镜奖"
+                               @"intro"   : @"🌱微博: queer小咖咖"
                                };
-        NSDictionary *dic2 = @{@"img_url" : @"avatar_default2",
+        NSDictionary *dic2 = @{@"img_url" : @"avatar_default",
                                @"rank"    : @"1",
-                               @"name"    : @"l a n 爷",
-                               @"gender"  : @"1",
-                               @"intro"   : @"我是一只小鸭子"
+                               @"name"    : @"🍄小蘑菇来了",
+                               @"gender"  : @"2",
+                               @"intro"   : @"努力做更好的自己🍄"
                                };
         NSDictionary *dic3 = @{@"img_url" : @"avatar_default",
                                @"rank"    : @"2",
-                               @"name"    : @"Quess 柒柒",
+                               @"name"    : @"小星丫丫",
                                @"gender"  : @"2",
-                               @"intro"   : @"上善若水 邻家少女与您每晚相约!"
+                               @"intro"   : @"周一到周五每晚八点半左右直播,周六休息"
                                };
         NSDictionary *dic4 = @{@"img_url" : @"avatar_default",
                                @"rank"    : @"3",
-                               @"name"    : @"胡豆豆儿 豆..豆.豆..豆.豆...豆",
+                               @"name"    : @"晓儿宝宝",
                                @"gender"  : @"2",
-                               @"intro"   : @"上善若水 邻家少女与您每晚相约! 就让一切随它吧! 随它吧!"
+                               @"intro"   : @"❤️直播时间: 每天下午3-6 7-9"
                                };
         [_dataArr addObject:dic1];
         [_dataArr addObject:dic2];
@@ -63,6 +75,22 @@
         [_dataArr addObject:dic2];
         [_dataArr addObject:dic1];
         [_dataArr addObject:dic4];
+        [_dataArr addObject:dic4];
+        [_dataArr addObject:dic2];
+        
+        [_dataArr addObject:dic1];
+        [_dataArr addObject:dic3];
+        [_dataArr addObject:dic2];
+        [_dataArr addObject:dic1];
+        [_dataArr addObject:dic2];
+        [_dataArr addObject:dic3];
+        [_dataArr addObject:dic4];
+        [_dataArr addObject:dic2];
+        [_dataArr addObject:dic1];
+        [_dataArr addObject:dic4];
+        [_dataArr addObject:dic4];
+        [_dataArr addObject:dic2];
+        
         [_dataArr addObject:dic4];
         [_dataArr addObject:dic2];
     }
@@ -74,30 +102,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我的关注";
+    self.title = @"我的粉丝";
     
     [self addLeftBarButtonItem];
     
-    // 添加控件
-    [self.tableView registerClass:[MineFollowCell class] forCellReuseIdentifier:MineFollowCellID];
     [self.view addSubview:self.tableView];
 }
 
 
-#pragma mark - UITableViewDelegate & UITableViewDataSource
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArr.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return MINE_FOLLOW_CELL_H;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MineFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:MineFollowCellID forIndexPath:indexPath];
+    MineFansCell *cell = [tableView dequeueReusableCellWithIdentifier:MineFansCellID forIndexPath:indexPath];
     cell.valueDic = self.dataArr[indexPath.row];
     return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return MINE_FANS_CELL_H;
 }
 
 

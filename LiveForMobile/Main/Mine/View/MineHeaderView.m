@@ -138,8 +138,8 @@
     self.avatarImageView.image = [UIImage imageNamed:@"user_avatar_default"];
     
     self.stateButton.value = @"120";
-    self.followButton.value = @"30";
-    self.fansButton.value = @"80";
+    self.followButton.value = @"16";
+    self.fansButton.value = @"30";
 }
 
 

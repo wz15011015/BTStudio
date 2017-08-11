@@ -45,7 +45,7 @@ NSString *const PrivateMessageCellID = @"PrivateMessageCellIdentifier";
         CGFloat y = 8;
         CGFloat w = PRIVATEMESSAGE_CELL_H - (2 * y);
         _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, w)];
-        _iconImageView.image = [UIImage imageNamed:@"filter_icon_original"];
+        _iconImageView.image = [UIImage imageNamed:@"Icon"];
     }
     return _iconImageView;
 }

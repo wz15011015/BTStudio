@@ -11,6 +11,7 @@
 #import "DNAvatarViewController.h"
 #import "StateViewController.h"
 #import "MineFollowViewController.h"
+#import "MineFansViewController.h"
 #import "WatchHistoryViewController.h"
 #import "SettingViewController.h"
 #import "MineHeaderView.h"
@@ -115,7 +116,9 @@
             [weakSelf.navigationController pushViewController:mineFollowVC animated:YES];
             
         } else if (tag == 14) {
-            NSLog(@"点击了 粉丝 按钮");
+            MineFansViewController *mineFansVC = [[MineFansViewController alloc] init];
+            mineFansVC.hidesBottomBarWhenPushed = YES;
+            [weakSelf.navigationController pushViewController:mineFansVC animated:YES];
         }
     };
 }

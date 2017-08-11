@@ -47,6 +47,8 @@
 		9A5498471F021F9400FA4E06 /* BWPushDecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498461F021F9400FA4E06 /* BWPushDecorateView.m */; };
 		9A54984A1F021F9A00FA4E06 /* PushPrepareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498491F021F9A00FA4E06 /* PushPrepareView.m */; };
 		9A54984D1F02257800FA4E06 /* ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A54984C1F02257800FA4E06 /* ShareModel.m */; };
+		9A606D6E1F3D3C1A00BF19C3 /* MineFansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A606D6D1F3D3C1A00BF19C3 /* MineFansViewController.m */; };
+		9A606D711F3D3E0300BF19C3 /* MineFansCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A606D701F3D3E0300BF19C3 /* MineFansCell.m */; };
 		9A6733171F0B6AF6005423F2 /* BWHUDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6733161F0B6AF6005423F2 /* BWHUDHelper.m */; };
 		9A67331D1F0B7F2F005423F2 /* PushPrepareDecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A67331C1F0B7F2F005423F2 /* PushPrepareDecorateView.m */; };
 		9A81BDFC1EF8BE4C00899E4C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A81BDFB1EF8BE4C00899E4C /* AppDelegate.m */; };
@@ -176,6 +178,10 @@
 		9A5498491F021F9A00FA4E06 /* PushPrepareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushPrepareView.m; sourceTree = "<group>"; };
 		9A54984B1F02257800FA4E06 /* ShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareModel.h; sourceTree = "<group>"; };
 		9A54984C1F02257800FA4E06 /* ShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareModel.m; sourceTree = "<group>"; };
+		9A606D6C1F3D3C1A00BF19C3 /* MineFansViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineFansViewController.h; sourceTree = "<group>"; };
+		9A606D6D1F3D3C1A00BF19C3 /* MineFansViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineFansViewController.m; sourceTree = "<group>"; };
+		9A606D6F1F3D3E0300BF19C3 /* MineFansCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineFansCell.h; sourceTree = "<group>"; };
+		9A606D701F3D3E0300BF19C3 /* MineFansCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineFansCell.m; sourceTree = "<group>"; };
 		9A6733151F0B6AF6005423F2 /* BWHUDHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWHUDHelper.h; sourceTree = "<group>"; };
 		9A6733161F0B6AF6005423F2 /* BWHUDHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHUDHelper.m; sourceTree = "<group>"; };
 		9A67331B1F0B7F2F005423F2 /* PushPrepareDecorateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushPrepareDecorateView.h; sourceTree = "<group>"; };
@@ -576,6 +582,8 @@
 				9A39F4DF1F3BEA830004A53A /* MineFollowViewController.h */,
 				9A39F4E01F3BEA830004A53A /* MineFollowViewController.m */,
 				9A39F4E11F3BEA830004A53A /* MineFollowViewController.xib */,
+				9A606D6C1F3D3C1A00BF19C3 /* MineFansViewController.h */,
+				9A606D6D1F3D3C1A00BF19C3 /* MineFansViewController.m */,
 				9A9CE4611F1C624D004086D0 /* WatchHistoryViewController.h */,
 				9A9CE4621F1C624D004086D0 /* WatchHistoryViewController.m */,
 				9A9CE45B1F1C4491004086D0 /* SettingViewController.h */,
@@ -604,6 +612,8 @@
 				9A124F761F3952A6009E2DD3 /* PublishStateCell.m */,
 				9A39F4E41F3BEDCE0004A53A /* MineFollowCell.h */,
 				9A39F4E51F3BEDCE0004A53A /* MineFollowCell.m */,
+				9A606D6F1F3D3E0300BF19C3 /* MineFansCell.h */,
+				9A606D701F3D3E0300BF19C3 /* MineFansCell.m */,
 				9A9CE4641F1C6386004086D0 /* WatchHistoryCell.h */,
 				9A9CE4651F1C6386004086D0 /* WatchHistoryCell.m */,
 				9A9CE45E1F1C49CA004086D0 /* SettingCell.h */,
@@ -1118,6 +1128,7 @@
 				9A54984D1F02257800FA4E06 /* ShareModel.m in Sources */,
 				9A29D30B1F09D77E00FC4389 /* BWPlayShareView.m in Sources */,
 				9A29D30A1F09D77E00FC4389 /* BWPlayDecorateView.m in Sources */,
+				9A606D711F3D3E0300BF19C3 /* MineFansCell.m in Sources */,
 				9A887C641F0CB05A00D61042 /* SnapShotShareView.m in Sources */,
 				9A037A2E1F049AE3005F2894 /* PlayUGCDecorateView.m in Sources */,
 				9A124F741F394C3B009E2DD3 /* StateViewController.m in Sources */,
@@ -1150,6 +1161,7 @@
 				9A81BE281EF8C68E00899E4C /* BWTabBar.m in Sources */,
 				9A267AF51F00B21D00BD9B6B /* AudioEffectModel.m in Sources */,
 				9A81BE2C1EF8D30500899E4C /* HomeViewController.m in Sources */,
+				9A606D6E1F3D3C1A00BF19C3 /* MineFansViewController.m in Sources */,
 				9A29D3101F09D77E00FC4389 /* ShareCell.m in Sources */,
 				9AED2E591F0E096200BCD05A /* GiftModel.m in Sources */,
 				9A81BE201EF8C64800899E4C /* BWTabBarController.m in Sources */,
