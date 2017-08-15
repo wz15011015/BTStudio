@@ -13,6 +13,7 @@
 #import "MineFollowViewController.h"
 #import "MineFansViewController.h"
 #import "WatchHistoryViewController.h"
+#import "MineMVViewController.h"
 #import "SettingViewController.h"
 #import "MineHeaderView.h"
 
@@ -211,10 +212,18 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
-        if (indexPath.row == 1) {
+        if (indexPath.row == 0) {
+            
+        } else if (indexPath.row == 1) {
             WatchHistoryViewController *watchedVC = [[WatchHistoryViewController alloc] init];
             watchedVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:watchedVC animated:YES];
+        } else if (indexPath.row == 2) {
+            MineMVViewController *mvVC = [[MineMVViewController alloc] init];
+            mvVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:mvVC animated:YES]; 
+        } else if (indexPath.row == 3) {
+            
         }
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {

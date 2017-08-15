@@ -14,13 +14,11 @@ NSString *const WatchHistoryCellID = @"WatchHistoryCellIdentifier";
 @interface WatchHistoryCell ()
 
 @property (nonatomic, strong) UIImageView *avatarImageView; // 头像
-
+@property (nonatomic, strong) UIImageView *rank;
 @property (nonatomic, strong) UILabel *nameLabel;
-
+@property (nonatomic, strong) UIImageView *gender;
 @property (nonatomic, strong) UILabel *titleLabel;
-
 @property (nonatomic, strong) UILabel *timeLabel;
-
 @property (nonatomic, strong) UIImageView *separatorLine;
 
 @end
@@ -44,7 +42,9 @@ NSString *const WatchHistoryCellID = @"WatchHistoryCellIdentifier";
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.contentView addSubview:self.avatarImageView];
+        [self.contentView addSubview:self.rank];
         [self.contentView addSubview:self.nameLabel];
+        [self.contentView addSubview:self.gender];
         [self.contentView addSubview:self.titleLabel];
         [self.contentView addSubview:self.timeLabel];
         [self.contentView addSubview:self.separatorLine];
@@ -69,6 +69,25 @@ NSString *const WatchHistoryCellID = @"WatchHistoryCellIdentifier";
     return _avatarImageView;
 }
 
+- (UIImageView *)rank {
+    if (!_rank) {
+        CGFloat w = 14 * WIDTH_SCALE;
+        CGFloat x = CGRectGetMaxX(self.avatarImageView.frame) - w * 0.8;
+        CGFloat y = CGRectGetMaxY(self.avatarImageView.frame) - w;
+        _rank = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, w)];
+        
+        NSInteger rank = arc4random() % 3;
+        if (rank == 0) {
+            _rank.image = [UIImage imageNamed:@"tuhao_1_14x14_"];
+        } else if (rank == 1) {
+            _rank.image = [UIImage imageNamed:@"tuhao_2_14x14_"];
+        } else {
+            _rank.image = [UIImage imageNamed:@"tuhao_3_14x14_"];
+        }
+    }
+    return _rank;
+}
+
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
         CGFloat x = CGRectGetMaxX(self.avatarImageView.frame) + (14 * WIDTH_SCALE);
@@ -77,8 +96,30 @@ NSString *const WatchHistoryCellID = @"WatchHistoryCellIdentifier";
         _nameLabel.font = [UIFont systemFontOfSize:15];
         
         _nameLabel.text = @"凌凌漆";
+        
+        CGSize size = [_nameLabel.text boundingRectWithSize:CGSizeMake(WIDTH / 2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : _nameLabel.font} context:nil].size;
+        CGRect frame = _nameLabel.frame;
+        frame.size.width = size.width;
+        _nameLabel.frame = frame;
     }
     return _nameLabel;
+}
+
+- (UIImageView *)gender {
+    if (!_gender) {
+        CGFloat h = 18 * HEIGHT_SCALE;
+        CGFloat x = CGRectGetMaxX(self.nameLabel.frame) + (6 * WIDTH_SCALE);
+        CGFloat y = CGRectGetMinY(self.nameLabel.frame);
+        _gender = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, h, h)];
+        
+        NSInteger gender = arc4random() % 2;
+        if (gender == 0) {
+            _gender.image = [UIImage imageNamed:@"man_16x16_"];
+        } else {
+            _gender.image = [UIImage imageNamed:@"woman_14x14_"];
+        }
+    }
+    return _gender;
 }
 
 - (UILabel *)titleLabel {

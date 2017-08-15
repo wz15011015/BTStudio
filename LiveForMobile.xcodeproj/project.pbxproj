@@ -44,6 +44,7 @@
 		9A3D4BC31F10870D00B546E2 /* PrivateMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BC21F10870D00B546E2 /* PrivateMessageViewController.m */; };
 		9A3D4BC61F1089CE00B546E2 /* PMPrivateMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BC51F1089CE00B546E2 /* PMPrivateMessageCell.m */; };
 		9A3D4BC91F10A2D400B546E2 /* MineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3D4BC81F10A2D400B546E2 /* MineCell.m */; };
+		9A414D6C1F428D4300C3C119 /* MineMVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A414D6B1F428D4300C3C119 /* MineMVViewController.m */; };
 		9A5498471F021F9400FA4E06 /* BWPushDecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498461F021F9400FA4E06 /* BWPushDecorateView.m */; };
 		9A54984A1F021F9A00FA4E06 /* PushPrepareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498491F021F9A00FA4E06 /* PushPrepareView.m */; };
 		9A54984D1F02257800FA4E06 /* ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A54984C1F02257800FA4E06 /* ShareModel.m */; };
@@ -172,6 +173,8 @@
 		9A3D4BC51F1089CE00B546E2 /* PMPrivateMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPrivateMessageCell.m; sourceTree = "<group>"; };
 		9A3D4BC71F10A2D400B546E2 /* MineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineCell.h; sourceTree = "<group>"; };
 		9A3D4BC81F10A2D400B546E2 /* MineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineCell.m; sourceTree = "<group>"; };
+		9A414D6A1F428D4300C3C119 /* MineMVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineMVViewController.h; sourceTree = "<group>"; };
+		9A414D6B1F428D4300C3C119 /* MineMVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineMVViewController.m; sourceTree = "<group>"; };
 		9A5498451F021F9400FA4E06 /* BWPushDecorateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWPushDecorateView.h; sourceTree = "<group>"; };
 		9A5498461F021F9400FA4E06 /* BWPushDecorateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWPushDecorateView.m; sourceTree = "<group>"; };
 		9A5498481F021F9A00FA4E06 /* PushPrepareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushPrepareView.h; sourceTree = "<group>"; };
@@ -586,6 +589,8 @@
 				9A606D6D1F3D3C1A00BF19C3 /* MineFansViewController.m */,
 				9A9CE4611F1C624D004086D0 /* WatchHistoryViewController.h */,
 				9A9CE4621F1C624D004086D0 /* WatchHistoryViewController.m */,
+				9A414D6A1F428D4300C3C119 /* MineMVViewController.h */,
+				9A414D6B1F428D4300C3C119 /* MineMVViewController.m */,
 				9A9CE45B1F1C4491004086D0 /* SettingViewController.h */,
 				9A9CE45C1F1C4491004086D0 /* SettingViewController.m */,
 				9AD42BA41F37FA58006F323E /* DNAppAboutViewController.h */,
@@ -1119,6 +1124,7 @@
 				9A81BE2F1EF8EB6A00899E4C /* HotViewController.m in Sources */,
 				9A81BE291EF8C68E00899E4C /* BWTabBarButton.m in Sources */,
 				9A81BE161EF8C00B00899E4C /* BaseNavigationController.m in Sources */,
+				9A414D6C1F428D4300C3C119 /* MineMVViewController.m in Sources */,
 				9A9CE45D1F1C4491004086D0 /* SettingViewController.m in Sources */,
 				9A81BDFC1EF8BE4C00899E4C /* AppDelegate.m in Sources */,
 				9A54984A1F021F9A00FA4E06 /* PushPrepareView.m in Sources */,

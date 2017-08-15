@@ -10,9 +10,9 @@
 #import "BWBadgeButton.h"
 
 // 按钮的默认文字颜色
-#define BWTabBarButtonTitleColor [UIColor colorWithRed:38 / 255.0 green:38 / 255.0 blue:38 / 255.0 alpha:1.0]
+#define BWTabBarButtonTitleColor [UIColor colorWithRed:103 / 255.0 green:103 / 255.0 blue:103 / 255.0 alpha:1.0]
 // 按钮的选中文字颜色
-#define BWTabBarButtonTitleSelectedColor [UIColor colorWithRed:6 / 255.0 green:139 / 255.0 blue:243 / 255.0 alpha:1.0]
+#define BWTabBarButtonTitleSelectedColor [UIColor colorWithRed:239 / 255.0 green:80 / 255.0 blue:145 / 255.0 alpha:1.0]
 
 const CGFloat BWTabBarButtonImageRatio = 0.7;
 

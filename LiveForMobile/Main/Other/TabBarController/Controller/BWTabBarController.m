@@ -117,9 +117,7 @@
     [nav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : RGB(73, 73, 73)}];
     
     // tabBarItem设置
-    nav.tabBarItem.title = title;
-    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14], NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateNormal]; // 设置文字字体和颜色
-    [nav.tabBarItem setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14], NSForegroundColorAttributeName : [UIColor whiteColor]} forState:UIControlStateSelected]; // 设置选中的文字字体和颜色
+    nav.tabBarItem.title = title; 
     nav.tabBarItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]; // 设置图标
     nav.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]; // 设置选中的图标
     

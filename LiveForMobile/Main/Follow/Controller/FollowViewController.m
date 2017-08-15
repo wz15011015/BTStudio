@@ -31,6 +31,7 @@
     _pageNum = 1;
     
     // 1. 添加控件
+    [self addRightBarButtonItem];
     [self.view addSubview:self.collectionView];
     // 上下拉刷新
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -44,6 +45,10 @@
     
     // 2. 加载数据
     [self loadData];
+}
+
+- (void)addRightBarButtonItem {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"tab_attention_xiangji_21x18_"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(publishEvent)];
 }
 
 
@@ -119,6 +124,24 @@
     }
     
     [self.collectionView reloadData];
+}
+
+
+#pragma mark - Events
+
+- (void)publishEvent {
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertC addAction:[UIAlertAction actionWithTitle:@"小视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    [alertC addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    [alertC addAction:[UIAlertAction actionWithTitle:@"本地上传图片或视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }]];
+    [alertC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertC animated:YES completion:nil];
 }
 
 
