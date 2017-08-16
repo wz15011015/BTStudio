@@ -13,4 +13,6 @@
  */
 @interface BWPlayViewController : BaseViewController
 
+@property (nonatomic, copy) NSString *rtmpURL; // 拉流地址
+
 @end

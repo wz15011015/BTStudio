@@ -66,6 +66,8 @@
 }
 
 
+#pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的MV";

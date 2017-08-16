@@ -10,10 +10,13 @@
 #import "HotLiveCell.h"
 #import "BWPlayViewController.h"
 
-@interface HotViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface HotViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataArr;
+
+#warning 调试代码
+@property (nonatomic, strong) UIAlertAction *sureAction;
 
 @end
 
@@ -71,14 +74,63 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HotLiveCell *cell = [tableView dequeueReusableCellWithIdentifier:HotLiveCellID forIndexPath:indexPath];
-    cell.value = @"test";
+    cell.indexPath = indexPath;
+    cell.value = self.dataArr[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BWPlayViewController *playVC = [[BWPlayViewController alloc] init];
-    playVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:playVC animated:YES];
+#warning 调试代码
+    if (indexPath.row == 1) {
+        BWPlayViewController *playVC = [[BWPlayViewController alloc] init];
+        playVC.rtmpURL = @"http://8988.liveplay.myqcloud.com/live/8988_9770b129394_fe2809bb1b2bf4751b28.flv";
+        playVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:playVC animated:YES];
+        
+    } else if (indexPath.row == 2) {
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"请输入拉流地址" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [alertC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.delegate = self;
+            textField.returnKeyType = UIReturnKeyGo;
+            NSLog(@"请输入拉流地址");
+        }];
+        self.sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            UITextField *textField = alertC.textFields.firstObject;
+            NSString *rtmpURL = textField.text;
+            if (rtmpURL.length == 0 || [rtmpURL isEqualToString:@""]) {
+                return;
+            }
+            
+            BWPlayViewController *playVC = [[BWPlayViewController alloc] init];
+            playVC.rtmpURL = rtmpURL;
+            playVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:playVC animated:YES];
+        }];
+        self.sureAction.enabled = NO;
+        [alertC addAction:self.sureAction];
+        [alertC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertC animated:YES completion:nil];
+#warning 调试代码
+    } else {
+        BWPlayViewController *playVC = [[BWPlayViewController alloc] init];
+        playVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:playVC animated:YES];
+    }
+}
+
+
+#warning 调试代码
+
+#pragma mark - UITextFieldDelegate 
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField.text.length > 0) {
+        self.sureAction.enabled = YES;
+    } else {
+        self.sureAction.enabled = NO;
+    }
+    return YES;
 }
 
 

@@ -171,6 +171,10 @@ NSString *const HotLiveCellID = @"HotLiveCellIdentifier";
 
 #pragma mark - Setters
 
+- (void)setIndexPath:(NSIndexPath *)indexPath {
+    _indexPath = indexPath;
+}
+
 - (void)setValue:(NSString *)value {
     _value = value;
     

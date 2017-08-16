@@ -46,7 +46,6 @@ typedef NS_ENUM(NSInteger, ENUM_TYPE_CACHE_STRATEGY) {
     TX_Enum_PlayType _playType;
 }
 
-@property (nonatomic, copy) NSString *rtmpURL; // 拉流地址
 @property (nonatomic, strong) TXLivePlayConfig *livePlayerConfig;
 @property (nonatomic, strong) TXLivePlayer *livePlayer;
 
@@ -78,7 +77,9 @@ typedef NS_ENUM(NSInteger, ENUM_TYPE_CACHE_STRATEGY) {
     // 1.0 初始化参数
     _isLivePlay = YES;
     _isResetVideoRecord = NO;
-    self.rtmpURL = RTMP_PLAY_URL;
+    if (!self.rtmpURL) {
+        self.rtmpURL = RTMP_PLAY_URL;
+    }
     
     // 1.1 拉流配置对象
     self.livePlayerConfig = [[TXLivePlayConfig alloc] init];

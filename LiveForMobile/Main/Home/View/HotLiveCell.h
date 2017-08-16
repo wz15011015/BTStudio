@@ -18,6 +18,8 @@ UIKIT_EXTERN NSString *const HotLiveCellID;
  */
 @interface HotLiveCell : UITableViewCell
 
+@property (nonatomic, strong) NSIndexPath *indexPath;
+
 @property (nonatomic, copy) NSString *value;
 
 @end

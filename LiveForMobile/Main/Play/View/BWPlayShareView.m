@@ -175,7 +175,7 @@
 //        [[BWHUDHelper sharedInstance] showHUDMessageInKeyWindow:@"微博 分享了主播"];
 //    }
     
-    NSArray *itemsArr = @[[NSURL URLWithString:@"http://115.159.35.193:8080/WebPage/"]];
+    NSArray *itemsArr = @[[NSURL URLWithString:@"https://20994.mpull.live.lecloud.com/live/leshiTest/desc.m3u8?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9"]];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:itemsArr applicationActivities:nil];
     activityViewController.excludedActivityTypes = @[UIActivityTypeMessage, UIActivityTypeMail, UIActivityTypeAddToReadingList];
     [self.parentViewController presentViewController:activityViewController animated:YES completion:nil];
