@@ -14,6 +14,7 @@
 #import "MineFansViewController.h"
 #import "WatchHistoryViewController.h"
 #import "MineMVViewController.h"
+#import "DNAccountViewController.h"
 #import "SettingViewController.h"
 #import "MineHeaderView.h"
 
@@ -214,21 +215,28 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 1) { // 我看过的
             WatchHistoryViewController *watchedVC = [[WatchHistoryViewController alloc] init];
             watchedVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:watchedVC animated:YES];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 2) { // 我的MV
             MineMVViewController *mvVC = [[MineMVViewController alloc] init];
             mvVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:mvVC animated:YES]; 
         } else if (indexPath.row == 3) {
             
         }
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) { // 账户
+            DNAccountViewController *accountVC = [[DNAccountViewController alloc] init];
+            accountVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:accountVC animated:YES];
+        }
+        
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 1) { // 设置
             SettingViewController *settingVC = [[SettingViewController alloc] init];
             settingVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:settingVC animated:YES];

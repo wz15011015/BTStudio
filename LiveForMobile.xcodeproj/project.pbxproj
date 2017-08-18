@@ -18,6 +18,8 @@
 		9A1AB8B51EF8BB860018BD60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A1AB8B31EF8BB860018BD60 /* Main.storyboard */; };
 		9A1AB8B71EF8BB860018BD60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A1AB8B61EF8BB860018BD60 /* Assets.xcassets */; };
 		9A1AB8BA1EF8BB860018BD60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A1AB8B81EF8BB860018BD60 /* LaunchScreen.storyboard */; };
+		9A219C1E1F46E16C00B47686 /* DNAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A219C1D1F46E16C00B47686 /* DNAccountViewController.m */; };
+		9A219C211F46E29000B47686 /* DNAccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A219C201F46E29000B47686 /* DNAccountCell.m */; };
 		9A267AF21F00AEA500BD9B6B /* AudioEffectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A267AF11F00AEA500BD9B6B /* AudioEffectCell.m */; };
 		9A267AF51F00B21D00BD9B6B /* AudioEffectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A267AF41F00B21D00BD9B6B /* AudioEffectModel.m */; };
 		9A267AFA1F00EAD000BD9B6B /* BWPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A267AF91F00EAD000BD9B6B /* BWPlayViewController.m */; };
@@ -121,6 +123,10 @@
 		9A1AB8B61EF8BB860018BD60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A1AB8B91EF8BB860018BD60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A1AB8BB1EF8BB860018BD60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A219C1C1F46E16C00B47686 /* DNAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNAccountViewController.h; sourceTree = "<group>"; };
+		9A219C1D1F46E16C00B47686 /* DNAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNAccountViewController.m; sourceTree = "<group>"; };
+		9A219C1F1F46E29000B47686 /* DNAccountCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNAccountCell.h; sourceTree = "<group>"; };
+		9A219C201F46E29000B47686 /* DNAccountCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNAccountCell.m; sourceTree = "<group>"; };
 		9A267AF01F00AEA500BD9B6B /* AudioEffectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioEffectCell.h; sourceTree = "<group>"; };
 		9A267AF11F00AEA500BD9B6B /* AudioEffectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioEffectCell.m; sourceTree = "<group>"; };
 		9A267AF31F00B21D00BD9B6B /* AudioEffectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioEffectModel.h; sourceTree = "<group>"; };
@@ -591,6 +597,8 @@
 				9A9CE4621F1C624D004086D0 /* WatchHistoryViewController.m */,
 				9A414D6A1F428D4300C3C119 /* MineMVViewController.h */,
 				9A414D6B1F428D4300C3C119 /* MineMVViewController.m */,
+				9A219C1C1F46E16C00B47686 /* DNAccountViewController.h */,
+				9A219C1D1F46E16C00B47686 /* DNAccountViewController.m */,
 				9A9CE45B1F1C4491004086D0 /* SettingViewController.h */,
 				9A9CE45C1F1C4491004086D0 /* SettingViewController.m */,
 				9AD42BA41F37FA58006F323E /* DNAppAboutViewController.h */,
@@ -621,6 +629,8 @@
 				9A606D701F3D3E0300BF19C3 /* MineFansCell.m */,
 				9A9CE4641F1C6386004086D0 /* WatchHistoryCell.h */,
 				9A9CE4651F1C6386004086D0 /* WatchHistoryCell.m */,
+				9A219C1F1F46E29000B47686 /* DNAccountCell.h */,
+				9A219C201F46E29000B47686 /* DNAccountCell.m */,
 				9A9CE45E1F1C49CA004086D0 /* SettingCell.h */,
 				9A9CE45F1F1C49CA004086D0 /* SettingCell.m */,
 				9AD42BA71F380392006F323E /* DNAppAboutCell.h */,
@@ -1139,9 +1149,11 @@
 				9A037A2E1F049AE3005F2894 /* PlayUGCDecorateView.m in Sources */,
 				9A124F741F394C3B009E2DD3 /* StateViewController.m in Sources */,
 				9A9CE4631F1C624D004086D0 /* WatchHistoryViewController.m in Sources */,
+				9A219C211F46E29000B47686 /* DNAccountCell.m in Sources */,
 				9A29D31A1F09F41C00FC4389 /* NSData+AES.m in Sources */,
 				9A5498471F021F9400FA4E06 /* BWPushDecorateView.m in Sources */,
 				9A124F771F3952A6009E2DD3 /* PublishStateCell.m in Sources */,
+				9A219C1E1F46E16C00B47686 /* DNAccountViewController.m in Sources */,
 				9A29D3091F09D77E00FC4389 /* BWGiftView.m in Sources */,
 				9A124F7A1F39854E009E2DD3 /* BWGameView.m in Sources */,
 				9A81BE271EF8C68E00899E4C /* BWBadgeButton.m in Sources */,
