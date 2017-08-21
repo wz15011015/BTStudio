@@ -35,10 +35,9 @@ NSString *const AudienceCellID = @"AudienceCellIdentifier";
 #pragma mark - Getters
 
 - (UIImageView *)avatarImageView {
-    if (!_avatarImageView) {
-        CGFloat x = 4;
+    if (!_avatarImageView) { 
         CGFloat w = AUDIENCE_CELL_H;
-        _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, w, w)];
+        _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, w, w)];
         _avatarImageView.image = [UIImage imageNamed:@"avatar_default"];
         
         _avatarImageView.layer.masksToBounds = YES;
@@ -49,7 +48,7 @@ NSString *const AudienceCellID = @"AudienceCellIdentifier";
 
 - (UIImageView *)rankImageView {
     if (!_rankImageView) {
-        CGFloat w = 11;
+        CGFloat w = 14 * WIDTH_SCALE;
         CGFloat x = CGRectGetMaxX(self.avatarImageView.frame) - w + 2;
         CGFloat y = CGRectGetMaxY(self.avatarImageView.frame) - w;
         _rankImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, w)];

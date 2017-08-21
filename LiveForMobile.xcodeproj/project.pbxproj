@@ -83,6 +83,7 @@
 		9A9CE4601F1C49CA004086D0 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CE45F1F1C49CA004086D0 /* SettingCell.m */; };
 		9A9CE4631F1C624D004086D0 /* WatchHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CE4621F1C624D004086D0 /* WatchHistoryViewController.m */; };
 		9A9CE4661F1C6386004086D0 /* WatchHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9CE4651F1C6386004086D0 /* WatchHistoryCell.m */; };
+		9ACAA5851F4AE33D00E1EA9C /* LiveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ACAA5841F4AE33C00E1EA9C /* LiveListModel.m */; };
 		9AD42BA61F37FA58006F323E /* DNAppAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD42BA51F37FA58006F323E /* DNAppAboutViewController.m */; };
 		9AD42BA91F380392006F323E /* DNAppAboutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD42BA81F380392006F323E /* DNAppAboutCell.m */; };
 		9AD42BAC1F381782006F323E /* MineHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AD42BAB1F381782006F323E /* MineHeaderView.m */; };
@@ -242,6 +243,8 @@
 		9A9CE4621F1C624D004086D0 /* WatchHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchHistoryViewController.m; sourceTree = "<group>"; };
 		9A9CE4641F1C6386004086D0 /* WatchHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchHistoryCell.h; sourceTree = "<group>"; };
 		9A9CE4651F1C6386004086D0 /* WatchHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchHistoryCell.m; sourceTree = "<group>"; };
+		9ACAA5831F4AE33C00E1EA9C /* LiveListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveListModel.h; sourceTree = "<group>"; };
+		9ACAA5841F4AE33C00E1EA9C /* LiveListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveListModel.m; sourceTree = "<group>"; };
 		9AD42BA41F37FA58006F323E /* DNAppAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNAppAboutViewController.h; sourceTree = "<group>"; };
 		9AD42BA51F37FA58006F323E /* DNAppAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DNAppAboutViewController.m; sourceTree = "<group>"; };
 		9AD42BA71F380392006F323E /* DNAppAboutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DNAppAboutCell.h; sourceTree = "<group>"; };
@@ -575,6 +578,8 @@
 		9A29D3311F0A1DAE00FC4389 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9ACAA5831F4AE33C00E1EA9C /* LiveListModel.h */,
+				9ACAA5841F4AE33C00E1EA9C /* LiveListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1160,6 +1165,7 @@
 				9A3D4BBC1F106D5100B546E2 /* GiftOneModel.m in Sources */,
 				9A81BE131EF8BFBA00899E4C /* BaseViewController.m in Sources */,
 				9A3530671EFCDD85006CE3A2 /* FilterModel.m in Sources */,
+				9ACAA5851F4AE33D00E1EA9C /* LiveListModel.m in Sources */,
 				9A39F4E61F3BEDCE0004A53A /* MineFollowCell.m in Sources */,
 				9A6733171F0B6AF6005423F2 /* BWHUDHelper.m in Sources */,
 				9A29D3081F09D77E00FC4389 /* AudienceCell.m in Sources */,

@@ -9,6 +9,7 @@
 #import "HotViewController.h"
 #import "HotLiveCell.h"
 #import "BWPlayViewController.h"
+#import "LiveListModel.h"
 
 @interface HotViewController () <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -41,11 +42,11 @@
     if (!_dataArr) {
         _dataArr = [NSMutableArray array];
         
-        [_dataArr addObject:@"1"];
-        [_dataArr addObject:@"1"];
-        [_dataArr addObject:@"1"];
-        [_dataArr addObject:@"1"];
-        [_dataArr addObject:@"1"];
+//        [_dataArr addObject:@"1"];
+//        [_dataArr addObject:@"1"];
+//        [_dataArr addObject:@"1"];
+//        [_dataArr addObject:@"1"];
+//        [_dataArr addObject:@"1"];
     }
     return _dataArr;
 }
@@ -59,6 +60,37 @@
     
     // 1. 添加控件
     [self.view addSubview:self.tableView];
+    
+    [self loadData];
+}
+
+
+#pragma mark - Load Data
+- (void)loadData {
+    LiveListModel *model0 = [[LiveListModel alloc] init];
+    model0.list_user_head = @"http://img2.inke.cn/MTQ5NzA5MTU4MTQ4MSM1MjMjanBn.jpg";
+    model0.list_user_name = @"丫头👧";
+    model0.list_pic = @"http://img2.inke.cn/MTQ5NzA5MTU4MTQ4MSM1MjMjanBn.jpg";
+    
+    LiveListModel *model1 = [[LiveListModel alloc] init];
+    model1.list_user_head = @"http://img2.inke.cn/MTQ5MzU1NTk2MzUxMCM3NTQjanBn.jpg";
+    model1.list_user_name = @"凡爷是个女子吖";
+    model1.list_pic = @"http://img2.inke.cn/MTQ5MzU1NTk2MzUxMCM3NTQjanBn.jpg";
+    
+    LiveListModel *model2 = [[LiveListModel alloc] init];
+    model2.list_user_head = @"http://img2.inke.cn/MTUwMzE0NjUzMjY5NSM1MDEjanBn.jpg";
+    model2.list_user_name = @"小🎱";
+    model2.list_pic = @"http://img2.inke.cn/MTUwMzE0NjUzMjY5NSM1MDEjanBn.jpg";
+    
+    LiveListModel *model3 = [[LiveListModel alloc] init];
+    model3.list_user_head = @"http://img2.inke.cn/MTUwMTc1MDk1MTc3MCM1OTQjanBn.jpg";
+    model3.list_user_name = @"我是模特小怪兽电台🎤";
+    model3.list_pic = @"http://img2.inke.cn/MTUwMTc1MDk1MTc3MCM1OTQjanBn.jpg";
+    
+    [self.dataArr addObject:model0];
+    [self.dataArr addObject:model1];
+    [self.dataArr addObject:model2];
+    [self.dataArr addObject:model3];
 }
 
 
@@ -75,7 +107,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HotLiveCell *cell = [tableView dequeueReusableCellWithIdentifier:HotLiveCellID forIndexPath:indexPath];
     cell.indexPath = indexPath;
-    cell.value = self.dataArr[indexPath.row];
+    cell.model = self.dataArr[indexPath.row];
     return cell;
 }
 
@@ -83,7 +115,7 @@
 #warning 调试代码
     if (indexPath.row == 1) {
         BWPlayViewController *playVC = [[BWPlayViewController alloc] init];
-        playVC.rtmpURL = @"http://8988.liveplay.myqcloud.com/live/8988_9770b129394_fe2809bb1b2bf4751b28.flv";
+        playVC.rtmpURL = @"rtmp://pull.inke.cn/live/1503303629325732";
         playVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:playVC animated:YES];
         

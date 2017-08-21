@@ -10,12 +10,6 @@
 #import <UIKit/UIKit.h>
 
 
-#pragma mark - 宏
-
-#define MESSAGE_TABLEVIEW_H (120)        // 直播界面和播放界面消息TableView的高度
-#define MESSAGE_TABLEVIEW_W (WIDTH - 65) // 直播界面和播放界面消息TableView的宽度
-
-
 #pragma mark - 字符串常量
 
 UIKIT_EXTERN NSString *const IsLaunchedAppKey; // 是否启动过App
@@ -36,7 +30,5 @@ UIKIT_EXTERN NSString *const GiftResourceBundleKey;
 
 
 #pragma mark - 基本类型常量
-
-UIKIT_EXTERN const CGFloat BottomButtonWidth; // BWPushDecorateView中底部按钮的宽度
 
 UIKIT_EXTERN const CGFloat ChatInputViewHeight; // 直播界面和播放界面聊天输入框view的高度

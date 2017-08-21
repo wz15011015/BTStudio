@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class LiveListModel;
+
 UIKIT_EXTERN NSString *const HotLiveCellID;
 
 #define HOTLIVECELL_H (540 * HEIGHT_SCALE)
@@ -20,6 +22,6 @@ UIKIT_EXTERN NSString *const HotLiveCellID;
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
-@property (nonatomic, copy) NSString *value;
+@property (nonatomic, strong) LiveListModel *model;
 
 @end

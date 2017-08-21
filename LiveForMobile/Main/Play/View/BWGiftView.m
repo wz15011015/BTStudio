@@ -27,6 +27,7 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray *dataArr;
 
+@property (nonatomic, strong) UIButton *coinButton; // 金币数量按钮
 @property (nonatomic, strong) UIButton *sendButton;
 
 @property (nonatomic, assign) NSUInteger pageCountOfGift; // 礼物的页数
@@ -128,6 +129,7 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
     [self addSubview:self.contentView];
     [self.contentView addSubview:self.collectionView];
     [self.contentView addSubview:self.pageControl];
+    [self.contentView addSubview:self.coinButton];
     [self.contentView addSubview:self.sendButton];
     
     // 动画效果
@@ -175,12 +177,38 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
     }];
 }
 
+// 更新金币数量
+- (void)updateCoinCount:(NSString *)value {
+    UILabel *countLabel = (UILabel *)[self.coinButton viewWithTag:20];
+    UIImageView *arrowImageView = (UIImageView *)[self.coinButton viewWithTag:21];
+    countLabel.text = [NSString stringWithFormat:@"%@", value];
+    
+    CGFloat maxW = WIDTH * 0.3;
+    CGSize size = [countLabel.text boundingRectWithSize:CGSizeMake(maxW, CGRectGetHeight(countLabel.frame)) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: countLabel.font} context:nil].size;
+    CGRect frame = countLabel.frame;
+    frame.size.width = size.width;
+    countLabel.frame = frame;
+    
+    frame = arrowImageView.frame;
+    frame.origin.x = CGRectGetMaxX(countLabel.frame) + 2;
+    arrowImageView.frame = frame;
+    
+    frame = self.coinButton.frame;
+    frame.size.width = CGRectGetMaxX(arrowImageView.frame);
+    self.coinButton.frame = frame;
+}
+
 
 #pragma mark - Event
 
 - (void)pageControlEvent:(UIPageControl *)sender {
     NSInteger currentPage = sender.currentPage;
     [self.collectionView setContentOffset:CGPointMake(currentPage * WIDTH, 0) animated:YES];
+}
+
+// 去充值
+- (void)rechargeEvent {
+    NSLog(@"去充值...");
 }
 
 - (void)sendGiftEvent:(UIButton *)sender {
@@ -296,6 +324,43 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
         _dataArr = [NSMutableArray array];
     }
     return _dataArr;
+}
+
+- (UIButton *)coinButton {
+    if (!_coinButton) {
+        CGFloat w = 54 * WIDTH_SCALE;
+        CGFloat h = 48 * HEIGHT_SCALE;
+        CGFloat x = 10 * WIDTH_SCALE;
+        CGFloat y = CONTENTVIEW_H - h;
+        
+        _coinButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _coinButton.frame = CGRectMake(x, y, w, h);
+        [_coinButton addTarget:self action:@selector(rechargeEvent) forControlEvents:UIControlEventTouchUpInside];
+        
+        h = 24 * HEIGHT_SCALE;
+        y = (CGRectGetHeight(_coinButton.frame) - h) / 2;
+        UIImageView *coinImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, y, h, h)];
+        coinImageView.image = [UIImage imageNamed:@"live_coin"];
+        [_coinButton addSubview:coinImageView];
+        
+        x = CGRectGetMaxX(coinImageView.frame) + 2;
+        UILabel *coinCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 18, h)];
+        coinCountLabel.textColor = RGB(255, 204, 0); 
+        coinCountLabel.font = [UIFont systemFontOfSize:17];
+        coinCountLabel.text = @"0";
+        coinCountLabel.tag = 20;
+        [_coinButton addSubview:coinCountLabel]; 
+        
+        w = 9 * WIDTH_SCALE;
+        h = 18 * HEIGHT_SCALE;
+        x = CGRectGetWidth(_coinButton.frame) - w;
+        y = (CGRectGetHeight(_coinButton.frame) - h) / 2;
+        UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];
+        arrowImageView.image = [UIImage imageNamed:@"present_arrow_7x13_"];
+        arrowImageView.tag = 21;
+        [_coinButton addSubview:arrowImageView];
+    }
+    return _coinButton;
 }
 
 - (UIButton *)sendButton {

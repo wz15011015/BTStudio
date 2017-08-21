@@ -8,6 +8,7 @@
 
 #import "HotLiveCell.h"
 #import "BWMacro.h"
+#import "LiveListModel.h"
 
 NSString *const HotLiveCellID = @"HotLiveCellIdentifier";
 
@@ -175,16 +176,19 @@ NSString *const HotLiveCellID = @"HotLiveCellIdentifier";
     _indexPath = indexPath;
 }
 
-- (void)setValue:(NSString *)value {
-    _value = value;
+- (void)setModel:(LiveListModel *)model {
+    _model = model;
     
     // 1. 数据赋值
     NSString *name = @"高姿态的🛴，走了...";
     NSString *location = @"江苏 苏州";
-    self.nameLabel.text = name;
+    self.nameLabel.text = model.list_user_name;
     self.locationLabel.text = location;
     self.statusLabel.text = @"直播中";
     self.numberLabel.text = [NSString stringWithFormat:@"%@ 在看", @"112345"];
+    
+    [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:model.list_user_head] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:model.list_pic] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
     
     // 图片居中显示
     [self.coverImageView setContentScaleFactor:[[UIScreen mainScreen] scale]];

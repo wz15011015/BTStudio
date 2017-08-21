@@ -163,6 +163,14 @@ static class *_instance; \
 #import "WebSocketManager.h"
 
 
+#pragma mark - UI尺寸相关的宏
+
+#define BOTTOM_BUTTON_WIDTH_IN_PLAY (46 * WIDTH_SCALE) // BWPlayDecorateView中底部按钮的宽度
+#define BOTTOM_BUTTON_WIDTH_IN_PUSH (46 * WIDTH_SCALE) // BWPushDecorateView中底部按钮的宽度
+#define MESSAGE_TABLEVIEW_H (120)        // 直播界面和播放界面消息TableView的高度
+#define MESSAGE_TABLEVIEW_W (WIDTH - 65) // 直播界面和播放界面消息TableView的宽度
+
+
 #pragma mark - API
 
 // MARK: WebSocket地址

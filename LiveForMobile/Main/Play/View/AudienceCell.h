@@ -10,8 +10,8 @@
 
 UIKIT_EXTERN NSString *const AudienceCellID;
 
-#define AUDIENCE_CELL_H (30 - 2)
-#define AUDIENCE_CELL_W (36)
+#define AUDIENCE_CELL_H ((33 * HEIGHT_SCALE) - 1)
+#define AUDIENCE_CELL_W (40 * WIDTH_SCALE)
 
 /**
  观众头像 Cell

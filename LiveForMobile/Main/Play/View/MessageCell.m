@@ -81,13 +81,13 @@ NSString *const MessageCellID = @"MessageCellIdentifier";
         self.rankImageView.hidden = NO;
         self.messageLabel.textColor = [UIColor whiteColor];
         
-        int random = arc4random() % 10;
-        if (random > 8) {
+        int random = arc4random() % 17 + 1;
+        if (random > 15) {
             self.rankImageView.image = [UIImage imageNamed:@"level_21_29x15_"];
             self.messageLabel.text = [NSString stringWithFormat:@"        山姆大叔: 来捧场了！"];
             self.messageLabel.textColor = [UIColor whiteColor];
         } else if (random > 6) {
-            self.rankImageView.image = [UIImage imageNamed:@"level_21_29x15_"];
+            self.rankImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"level_%d_29x15_", random]];
             self.messageLabel.text = [NSString stringWithFormat:@"        ⚔️剑锋⚔️ 来捧场了！"];
         } else if (random > 4) {
             self.rankImageView.image = [UIImage imageNamed:@"level_2_29x15_"];

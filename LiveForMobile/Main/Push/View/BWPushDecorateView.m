@@ -15,10 +15,15 @@
 #import "FilterModel.h"
 #import "AudioEffectModel.h"
 
-#define TOP_Y (25) // 顶部第一行控件的y值
-#define TOP_H (30) // 顶部第一行控件的高
-#define TOP_LEFT_MARGIN  (10) // 顶部第一行控件的左边距
-#define TOP_RIGHT_MARGIN (10) // 顶部第一行控件的右边距
+const NSUInteger CountOfBottomButtonInPush = 6; // 底部的功能按钮个数
+const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
+
+#define LEFT_MARGIN  (11 * WIDTH_SCALE) // 控件的左边距
+#define RIGHT_MARGIN (LEFT_MARGIN) // 控件的右边距
+#define TOP_MARGIN   (25)                // 顶部第一行控件的上边距
+#define TOP_HEIGHT   (33 * HEIGHT_SCALE) // 顶部第一行控件的高
+
+#define ANCHOR_INFO_VIEW_W (143 * WIDTH_SCALE)
 
 #define TOOLBARVIEW_H (170)
 #define TOOLSCROLLVIEW_H (TOOLBARVIEW_H * 0.7)
@@ -27,9 +32,6 @@
 #define MUSICBARVIEW_H (170)
 #define MUSICSCROLLVIEW_H (TOOLBARVIEW_H * 0.7)
 #define MUSICAUDIOEFFECTSCROLLVIEW_H (TOOLBARVIEW_H * 0.3)
-
-const NSUInteger ButtonCount = 6;     // 底部的功能按钮个数
-const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 
 @interface BWPushDecorateView () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource> {
     CGFloat _width;
@@ -53,6 +55,7 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 @property (nonatomic, strong) UILabel *anchorIDLabel;
 // 聊天输入框部分
 @property (nonatomic, strong) UIView *chatInputView;
+@property (nonatomic, strong) UIImageView *chatBackgroundImageView;
 @property (nonatomic, strong) UITextField *chatInputTextField;
 
 // 用来放置除关闭按钮以外的其他控件
@@ -66,6 +69,11 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 // 在线观众列表
 @property (nonatomic, strong) UICollectionView *audienceCollectionView;
 @property (nonatomic, strong) NSMutableArray *audienceArr;
+// 主播金币信息 (coin info)
+@property (nonatomic, strong) UIImageView *coinView;
+@property (nonatomic, strong) UIImageView *coinImageView;
+@property (nonatomic, strong) UIImageView *coinArrowImageView;
+@property (nonatomic, strong) UILabel *coinCountLabel;
 // 消息列表
 @property (nonatomic, strong) UITableView *messageTableView;
 @property (nonatomic, strong) NSMutableArray *messageArr;
@@ -227,32 +235,86 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     
     // 加在decorateView上的控件: 1.观看人数 2.观众列表 3.底部功能按钮(6个) 4.美颜部分 5.音效部分
     // 1. 在线观看人数
-    CGFloat audienceCount_W = 64;
-    CGFloat audienceCount_X = _width - TOP_RIGHT_MARGIN - audienceCount_W;
-    self.audienceCountView = [[UIImageView alloc] initWithFrame:CGRectMake(audienceCount_X, TOP_Y, audienceCount_W, TOP_H)];
+    CGFloat audienceCount_W = 68 * WIDTH_SCALE;
+    CGFloat audienceCount_X = _width - RIGHT_MARGIN - audienceCount_W;
+    self.audienceCountView = [[UIImageView alloc] initWithFrame:CGRectMake(audienceCount_X, TOP_MARGIN, audienceCount_W, TOP_HEIGHT)];
     self.audienceCountView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
-    self.audienceCountView.layer.cornerRadius = TOP_H / 2;
+    self.audienceCountView.layer.cornerRadius = TOP_HEIGHT / 2;
     self.audienceCountView.layer.masksToBounds = YES;
+    self.audienceCountView.userInteractionEnabled = YES;
+    [self.audienceCountView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(checkAudienceCount)]];
     [self.decorateView addSubview:self.audienceCountView];
     
-    self.audienceCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 0, audienceCount_W - 8, TOP_H)];
+    self.audienceCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 0, audienceCount_W - 8, TOP_HEIGHT)];
     self.audienceCountLabel.font = [UIFont systemFontOfSize:12];
     self.audienceCountLabel.textColor = [UIColor whiteColor];
     self.audienceCountLabel.textAlignment = NSTextAlignmentCenter;
     [self.audienceCountView addSubview:self.audienceCountLabel];
     
     // 2. 在线观众列表
+    CGFloat audienceCollectionView_margin = 8 * WIDTH_SCALE;
+    CGFloat audienceCollectionView_W = audienceCount_X - (2 * audienceCollectionView_margin) - ANCHOR_INFO_VIEW_W - LEFT_MARGIN;
+    CGFloat audienceCollectionView_X = LEFT_MARGIN + ANCHOR_INFO_VIEW_W + audienceCollectionView_margin;
+    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    flowLayout.itemSize = CGSizeMake(AUDIENCE_CELL_W, AUDIENCE_CELL_H);
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    flowLayout.minimumLineSpacing = 0;
+    flowLayout.minimumInteritemSpacing = 0;
+    
+    self.audienceCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(audienceCollectionView_X, TOP_MARGIN, audienceCollectionView_W, TOP_HEIGHT) collectionViewLayout:flowLayout];
+    self.audienceCollectionView.backgroundColor = [UIColor clearColor];
+    self.audienceCollectionView.showsHorizontalScrollIndicator = NO;
+    self.audienceCollectionView.dataSource = self;
+    self.audienceCollectionView.delegate = self;
+    self.audienceCollectionView.tag = 204;
+    [self.audienceCollectionView registerClass:[AudienceCell class] forCellWithReuseIdentifier:AudienceCellID];
     [self.decorateView addSubview:self.audienceCollectionView];
     
-    // 3. 消息列表
+    // 3. 主播金币数量 (coin)
+    CGFloat coinView_H = 24 * HEIGHT_SCALE;
+    CGFloat coinView_W = 68 * WIDTH_SCALE;
+    CGFloat coinView_Y = CGRectGetMaxY(self.audienceCountView.frame) + (8 * HEIGHT_SCALE);
+    CGFloat coinView_X = WIDTH - RIGHT_MARGIN - coinView_W;
+    CGFloat coin_margin = 5 * WIDTH_SCALE;
+    CGFloat coin_W = 17 * WIDTH_SCALE;
+    CGFloat coin_arrow_Y = (coinView_H - coin_W) / 2;
+    CGFloat coin_arrow_X = coinView_W - coin_margin - coin_W;
+    CGFloat coin_label_X = coin_W + (2 * coin_margin);
+    CGFloat coin_label_W = coinView_W - (2 * coin_W) - (4 * coin_margin);
+    self.coinView = [[UIImageView alloc] initWithFrame:CGRectMake(coinView_X, coinView_Y, coinView_W, coinView_H)];
+    self.coinView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
+    self.coinView.layer.cornerRadius = coinView_H / 2;
+    self.coinView.layer.masksToBounds = YES;
+    self.coinView.userInteractionEnabled = YES;
+    [self.coinView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(checkCoinCount)]];
+    [self.decorateView addSubview:self.coinView];
+    // 3.1 金币箭头
+    self.coinArrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(coin_arrow_X, coin_arrow_Y, coin_W, coin_W)];
+    self.coinArrowImageView.image = [UIImage imageNamed:@"live_goto_normal_14x14_"];
+    [self.coinView addSubview:self.coinArrowImageView];
+    // 3.2 金币数量Label
+    self.coinCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(coin_label_X, 0, coin_label_W, coinView_H)];
+    self.coinCountLabel.textColor = [UIColor whiteColor];
+    self.coinCountLabel.textAlignment = NSTextAlignmentCenter;
+    self.coinCountLabel.font = [UIFont systemFontOfSize:13];
+    [self.coinView addSubview:self.coinCountLabel];
+    // 3.3 金币图标
+    self.coinImageView = [[UIImageView alloc] initWithFrame:CGRectMake(coin_margin, coin_arrow_Y, coin_W, coin_W)];
+    self.coinImageView.image = [UIImage imageNamed:@"live_coin"];
+    [self.coinView addSubview:self.coinImageView];
+    
+    // 4. 消息列表
     [self.decorateView addSubview:self.messageTableView];
+    
 
     // 1. 底部的功能按钮
     //    CGFloat button_leftMargin = 15;
     CGFloat button_bottomMargin = 15;
-    CGFloat button_W = BottomButtonWidth;
+    CGFloat button_W = BOTTOM_BUTTON_WIDTH_IN_PUSH;
     CGFloat button_Y = _height - button_bottomMargin - button_W;
-    CGFloat button_middleMargin = (_width - (ButtonCount * button_W)) / (ButtonCount + 1);
+    CGFloat button_middleMargin = (_width - (CountOfBottomButtonInPush * button_W)) / (CountOfBottomButtonInPush + 1);
     // 1.1 聊天按钮
     self.chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.chatButton.frame = CGRectMake(button_middleMargin, button_Y, button_W, button_W);
@@ -505,14 +567,16 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     [self.closeButton addTarget:self action:@selector(closePush) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.closeButton];
     // 2. 主播信息
-    CGFloat anchor_W = 125;
-    CGFloat anchor_H = TOP_H;
+    CGFloat anchor_W = ANCHOR_INFO_VIEW_W;
+    CGFloat anchor_H = TOP_HEIGHT;
     CGFloat anchor_label_X = anchor_H + 5;
     CGFloat anchor_label_W = anchor_W - anchor_label_X - (anchor_H / 2);
-    self.anchorInfoView = [[UIImageView alloc] initWithFrame:CGRectMake(TOP_LEFT_MARGIN, TOP_Y, anchor_W, anchor_H)];
+    self.anchorInfoView = [[UIImageView alloc] initWithFrame:CGRectMake(LEFT_MARGIN, TOP_MARGIN, anchor_W, anchor_H)];
     self.anchorInfoView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
     self.anchorInfoView.layer.cornerRadius = anchor_H / 2;
     self.anchorInfoView.layer.masksToBounds = YES;
+    self.anchorInfoView.userInteractionEnabled = YES;
+    [self.anchorInfoView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(checkAnchorInfo)]];
     [self addSubview:self.anchorInfoView];
     // 2.1 主播头像
     self.anchorAvatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, anchor_H, anchor_H)];
@@ -533,26 +597,31 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     [self.anchorInfoView addSubview:self.anchorIDLabel];
     
     // 3. 聊天输入框view
-    CGFloat intput_H = 32;
-    CGFloat intput_margin = 10; 
-    CGFloat intput_textField_X = intput_margin;
-    CGFloat intput_textField_W = WIDTH - (2 * intput_margin);
+    CGFloat input_H = 32;
+    CGFloat input_margin = 10;
+    CGFloat input_textField_X = input_margin;
+    CGFloat input_textField_W = WIDTH - (2 * input_margin);
     self.chatInputView = [[UIView alloc] initWithFrame:CGRectMake(0, _height, _width, ChatInputViewHeight)];
     self.chatInputView.backgroundColor = RGB(241, 241, 244);
     [self addSubview:self.chatInputView];
-    // 3.1 输入框
-    self.chatInputTextField = [[UITextField alloc] initWithFrame:CGRectMake(intput_textField_X, (ChatInputViewHeight - intput_H) / 2, intput_textField_W, intput_H)];
+    // 3.2 输入框背景
+    self.chatBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(input_textField_X, (ChatInputViewHeight - input_H) / 2, input_textField_W, input_H)];
+    self.chatBackgroundImageView.backgroundColor = RGB(233, 233, 233);
+    self.chatBackgroundImageView.layer.borderWidth = 1;
+    self.chatBackgroundImageView.layer.borderColor = RGB(244, 85, 133).CGColor;
+    self.chatBackgroundImageView.layer.masksToBounds = YES;
+    self.chatBackgroundImageView.layer.cornerRadius = input_H / 2;
+    self.chatBackgroundImageView.userInteractionEnabled = YES;
+    [self.chatInputView addSubview:self.chatBackgroundImageView];
+    // 3.3 输入框
+    self.chatInputTextField = [[UITextField alloc] initWithFrame:CGRectMake(input_H / 2, 1, input_textField_W - input_H, input_H - 2)];
     self.chatInputTextField.backgroundColor = RGB(233, 233, 233);
-    self.chatInputTextField.layer.borderWidth = 1;
-    self.chatInputTextField.layer.borderColor = RGB(244, 85, 133).CGColor;
-    self.chatInputTextField.layer.masksToBounds = YES;
-    self.chatInputTextField.layer.cornerRadius = intput_H / 2;
     self.chatInputTextField.delegate = self;
     self.chatInputTextField.returnKeyType = UIReturnKeySend;
     self.chatInputTextField.font = [UIFont systemFontOfSize:15];
-    NSAttributedString *placeholderAttriStr = [[NSAttributedString alloc] initWithString:@"  说点什么吧" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15], NSForegroundColorAttributeName : RGB(180, 180, 180)}];
+    NSAttributedString *placeholderAttriStr = [[NSAttributedString alloc] initWithString:@"说点什么吧" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15], NSForegroundColorAttributeName : RGB(180, 180, 180)}];
     self.chatInputTextField.attributedPlaceholder = placeholderAttriStr;
-    [self.chatInputView addSubview:self.chatInputTextField];
+    [self.chatBackgroundImageView addSubview:self.chatInputTextField];
     
     
     // 测试数据
@@ -797,6 +866,21 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     }];
 }
 
+// 查看主播信息
+- (void)checkAnchorInfo {
+    NSLog(@"查看主播信息");
+}
+
+// 查看在线人数
+- (void)checkAudienceCount {
+    NSLog(@"查看在线人数");
+}
+
+// 查看金币数量
+- (void)checkCoinCount {
+    NSLog(@"查看金币数量");
+}
+
 
 #pragma mark - UICollectionViewDataSource
 
@@ -1034,7 +1118,7 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
         Y = 0;
     } else {
         textFieldY = endKeyboardRect.origin.y - ChatInputViewHeight;
-        Y = 0 - (endKeyboardRect.size.height + ChatInputViewHeight - BottomButtonWidth - 25); 
+        Y = 0 - (endKeyboardRect.size.height + ChatInputViewHeight - BOTTOM_BUTTON_WIDTH_IN_PUSH - 25);
     }
     [UIView animateWithDuration:duration animations:^{
         CGRect frame = self.frame;
@@ -1126,29 +1210,6 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
     return _toolBarView;
 }
 
-- (UICollectionView *)audienceCollectionView {
-    if (!_audienceCollectionView) {
-        CGFloat x = _width / 2;
-        CGFloat w = CGRectGetMinX(self.audienceCountView.frame) - x - 2;
-        
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        flowLayout.itemSize = CGSizeMake(AUDIENCE_CELL_W, AUDIENCE_CELL_H);
-        flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        flowLayout.minimumLineSpacing = 0;
-        flowLayout.minimumInteritemSpacing = 0;
-        
-        _audienceCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(x, TOP_Y, w, TOP_H) collectionViewLayout:flowLayout];
-        _audienceCollectionView.backgroundColor = [UIColor clearColor];
-        _audienceCollectionView.showsHorizontalScrollIndicator = NO;
-        _audienceCollectionView.dataSource = self;
-        _audienceCollectionView.delegate = self;
-        _audienceCollectionView.tag = 204;
-        [_audienceCollectionView registerClass:[AudienceCell class] forCellWithReuseIdentifier:AudienceCellID];
-    }
-    return _audienceCollectionView;
-}
-
 - (NSMutableArray *)audienceArr {
     if (!_audienceArr) {
         _audienceArr = [NSMutableArray array];
@@ -1158,7 +1219,7 @@ const NSUInteger ToolButtonCount = 4; // 工具按钮的个数
 
 - (UITableView *)messageTableView {
     if (!_messageTableView) {
-        CGFloat y = _height - MESSAGE_TABLEVIEW_H - BottomButtonWidth - 25;
+        CGFloat y = _height - MESSAGE_TABLEVIEW_H - BOTTOM_BUTTON_WIDTH_IN_PUSH - 25;
         _messageTableView = [[UITableView alloc] initWithFrame:CGRectMake(15, y, MESSAGE_TABLEVIEW_W, MESSAGE_TABLEVIEW_H)];
         _messageTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         _messageTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
