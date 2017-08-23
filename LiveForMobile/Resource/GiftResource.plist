@@ -6,9 +6,9 @@
 	<array>
 		<dict>
 			<key>giftId</key>
-			<string>0</string>
+			<string>41</string>
 			<key>giftName</key>
-			<string>布加迪</string>
+			<string>布加迪跑车</string>
 			<key>giftImageName</key>
 			<string>bugatti</string>
 			<key>giftImagePath</key>
@@ -99,9 +99,9 @@
 		</dict>
 		<dict>
 			<key>giftId</key>
-			<string>1</string>
+			<string>42</string>
 			<key>giftName</key>
-			<string>巧克力</string>
+			<string>巧克力雨</string>
 			<key>giftImageName</key>
 			<string>ChocoFall</string>
 			<key>giftImagePath</key>
@@ -156,7 +156,7 @@
 		</dict>
 		<dict>
 			<key>giftId</key>
-			<string>2</string>
+			<string>43</string>
 			<key>giftName</key>
 			<string>花</string>
 			<key>giftImageName</key>
@@ -203,9 +203,9 @@
 		</dict>
 		<dict>
 			<key>giftId</key>
-			<string>3</string>
+			<string>44</string>
 			<key>giftName</key>
-			<string>爱心</string>
+			<string>爱心雨</string>
 			<key>giftImageName</key>
 			<string>LoveFalling</string>
 			<key>giftImagePath</key>
@@ -240,6 +240,76 @@
 				<string>LoveFalling_0013.png</string>
 				<string>LoveFalling_0014.png</string>
 				<string>LoveFalling_0015.png</string>
+			</array>
+		</dict>
+		<dict>
+			<key>giftId</key>
+			<string>45</string>
+			<key>giftName</key>
+			<string>流星钻石</string>
+			<key>giftImageName</key>
+			<string>meteor</string>
+			<key>giftImagePath</key>
+			<string>meteor</string>
+			<key>giftImageCount</key>
+			<string>45</string>
+			<key>giftImageDuration</key>
+			<string>3.6</string>
+			<key>giftImageX</key>
+			<string>0</string>
+			<key>giftImageY</key>
+			<string>20</string>
+			<key>giftImageW</key>
+			<string>414</string>
+			<key>giftImageH</key>
+			<string>736</string>
+			<key>images</key>
+			<array>
+				<string>meteor_01.png</string>
+				<string>meteor_02.png</string>
+				<string>meteor_03.png</string>
+				<string>meteor_04.png</string>
+				<string>meteor_05.png</string>
+				<string>meteor_06.png</string>
+				<string>meteor_07.png</string>
+				<string>meteor_08.png</string>
+				<string>meteor_09.png</string>
+				<string>meteor_10.png</string>
+				<string>meteor_11.png</string>
+				<string>meteor_12.png</string>
+				<string>meteor_13.png</string>
+				<string>meteor_14.png</string>
+				<string>meteor_15.png</string>
+				<string>meteor_16.png</string>
+				<string>meteor_17.png</string>
+				<string>meteor_18.png</string>
+				<string>meteor_19.png</string>
+				<string>meteor_20.png</string>
+				<string>meteor_21.png</string>
+				<string>meteor_22.png</string>
+				<string>meteor_23.png</string>
+				<string>meteor_24.png</string>
+				<string>meteor_25.png</string>
+				<string>meteor_26.png</string>
+				<string>meteor_27.png</string>
+				<string>meteor_28.png</string>
+				<string>meteor_29.png</string>
+				<string>meteor_30.png</string>
+				<string>meteor_31.png</string>
+				<string>meteor_32.png</string>
+				<string>meteor_33.png</string>
+				<string>meteor_34.png</string>
+				<string>meteor_35.png</string>
+				<string>meteor_36.png</string>
+				<string>meteor_37.png</string>
+				<string>meteor_38.png</string>
+				<string>meteor_39.png</string>
+				<string>meteor_40.png</string>
+				<string>meteor_41.png</string>
+				<string>meteor_42.png</string>
+				<string>meteor_43.png</string>
+				<string>meteor_44.png</string>
+				<string>meteor_45.png</string>
 			</array>
 		</dict>
 	</array>

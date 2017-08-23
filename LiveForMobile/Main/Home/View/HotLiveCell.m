@@ -40,7 +40,7 @@ NSString *const HotLiveCellID = @"HotLiveCellIdentifier";
         [self.contentView addSubview:self.rankImageView];
         [self.contentView addSubview:self.nameLabel];
         [self.contentView addSubview:self.locationLabel];
-        [self.contentView addSubview:self.locationImageView];
+//        [self.contentView addSubview:self.locationImageView];
         [self.contentView addSubview:self.statusLabel];
         [self.contentView addSubview:self.numberLabel];
         
@@ -180,12 +180,10 @@ NSString *const HotLiveCellID = @"HotLiveCellIdentifier";
     _model = model;
     
     // 1. 数据赋值
-    NSString *name = @"高姿态的🛴，走了...";
-    NSString *location = @"江苏 苏州";
     self.nameLabel.text = model.list_user_name;
-    self.locationLabel.text = location;
-    self.statusLabel.text = @"直播中";
-    self.numberLabel.text = [NSString stringWithFormat:@"%@ 在看", @"112345"];
+    self.locationLabel.text = model.address;
+    self.numberLabel.text = [NSString stringWithFormat:@"%@ 在看", model.audience_num];
+    self.titleLabel.text = model.title;
     
     [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:model.list_user_head] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:model.list_pic] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
@@ -196,12 +194,16 @@ NSString *const HotLiveCellID = @"HotLiveCellIdentifier";
     self.coverImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.coverImageView.clipsToBounds = YES;
     
-    self.titleLabel.text = @"相守不易，且行且珍惜！";
+    if ([model.live_status integerValue] == 1) {
+        self.statusLabel.text = @"直播中";
+    } else {
+        self.statusLabel.text = @" ";
+    }
     
-    int random = arc4random() % 3;
-    if (random == 0) {
+    NSInteger rank = [model.rank integerValue];
+    if (rank == 0) {
         self.rankImageView.image = [UIImage imageNamed:@"tuhao_1_14x14_"];
-    } else if (random == 1) {
+    } else if (rank == 1) {
         self.rankImageView.image = [UIImage imageNamed:@"tuhao_2_14x14_"];
     } else {
         self.rankImageView.image = [UIImage imageNamed:@"tuhao_3_14x14_"];

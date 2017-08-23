@@ -29,4 +29,10 @@
 /** 礼物显示时长 */
 @property (nonatomic, assign) float giftDuration;
 
+/** 礼物价格 */
+@property (nonatomic, copy) NSString *giftPrice;
+
+/** 是否被选中作为发送的礼物 default is NO */
+@property (nonatomic, assign, getter=isSelectedForSend) BOOL selectedForSend;
+
 @end

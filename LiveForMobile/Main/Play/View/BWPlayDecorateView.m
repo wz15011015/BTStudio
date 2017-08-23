@@ -313,10 +313,10 @@ const NSUInteger CountOfBottomButtonInPlay = 7; // 底部的功能按钮个数
     CGFloat anchor_W = ANCHOR_INFO_VIEW_NORMAL_W;
     CGFloat anchor_H = TOP_HEIGHT;
     CGFloat anchor_rank_W = 14 * WIDTH_SCALE;
-    CGFloat anchor_label_X = anchor_H + 6;
-    CGFloat anchor_label_W = anchor_W - anchor_label_X - (anchor_H / 2);
     CGFloat anchor_follow_button_W = 47 * WIDTH_SCALE;
     CGFloat anchor_follow_button_H = 22 * HEIGHT_SCALE;
+    CGFloat anchor_label_X = anchor_H + 6;
+    CGFloat anchor_label_W = anchor_W - anchor_follow_button_W - anchor_label_X - (anchor_H / 2);
     self.anchorInfoView = [[UIImageView alloc] initWithFrame:CGRectMake(LEFT_MARGIN, TOP_MARGIN, anchor_W, anchor_H)];
     self.anchorInfoView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
     self.anchorInfoView.layer.cornerRadius = anchor_H / 2;
@@ -394,16 +394,13 @@ const NSUInteger CountOfBottomButtonInPlay = 7; // 底部的功能按钮个数
     
     
     // 测试数据
-    self.anchorAvatarImageView.image = [UIImage imageNamed:@"avatar_default"];
-    self.anchorRankImageView.image = [UIImage imageNamed:@"tuhao_1_14x14_"];
-//    self.anchorNameLabel.text = @"高姿态的🛴，走了...";
-//    self.anchorIDLabel.text = [NSString stringWithFormat:@"ID:%@", @"11000007"];
+//    self.anchorAvatarImageView.image = [UIImage imageNamed:@"avatar_default"];
+//    self.anchorRankImageView.image = [UIImage imageNamed:@"tuhao_1_14x14_"];
+//    self.anchorNameLabel.text = @"清灵💋💋💋";
+//    self.anchorIDLabel.text = [NSString stringWithFormat:@"@%@", @"120598498"];
+//    self.coinCountLabel.text = @"6";
+//    self.audienceCountLabel.text = [NSString stringWithFormat:@"%@人", @"1100"];
     
-    self.anchorNameLabel.text = @"清灵💋💋💋";
-    self.anchorIDLabel.text = [NSString stringWithFormat:@"@%@", @"120598498"];
-    self.coinCountLabel.text = @"6";
-    
-    self.audienceCountLabel.text = [NSString stringWithFormat:@"%@人", @"1100"];
     [self.audienceArr addObject:@""];
     [self.audienceArr addObject:@""];
     [self.audienceArr addObject:@""];
@@ -622,6 +619,10 @@ const NSUInteger CountOfBottomButtonInPlay = 7; // 底部的功能按钮个数
     CGRect frame = self.anchorInfoView.frame;
     frame.size.width = ANCHOR_INFO_VIEW_FOLLOW_W;
     self.anchorInfoView.frame = frame;
+    
+    frame = self.anchorNameLabel.frame;
+    frame.size.width = CGRectGetWidth(self.anchorInfoView.frame) - CGRectGetMinX(frame) - CGRectGetHeight(self.anchorInfoView.frame) / 2;
+    self.anchorNameLabel.frame = frame;
     
     CGFloat delta = ANCHOR_INFO_VIEW_NORMAL_W - ANCHOR_INFO_VIEW_FOLLOW_W;
     frame = self.audienceCollectionView.frame;
@@ -932,6 +933,27 @@ const NSUInteger CountOfBottomButtonInPlay = 7; // 底部的功能按钮个数
         _giftOneArr = [NSMutableArray array];
     }
     return _giftOneArr;
+}
+
+
+#pragma mark - Setters
+
+- (void)setModel:(LiveListModel *)model {
+    _model = model;
+    
+    [self.anchorAvatarImageView sd_setImageWithURL:[NSURL URLWithString:model.list_user_head] placeholderImage:[UIImage imageNamed:@"avatar_default"]];
+    NSInteger rank = [model.rank integerValue];
+    if (rank == 0) {
+        self.anchorRankImageView.image = [UIImage imageNamed:@"tuhao_1_14x14_"];
+    } else if (rank == 1) {
+        self.anchorRankImageView.image = [UIImage imageNamed:@"tuhao_2_14x14_"];
+    } else {
+        self.anchorRankImageView.image = [UIImage imageNamed:@"tuhao_3_14x14_"];
+    }
+    self.anchorNameLabel.text = model.list_user_name;
+    self.anchorIDLabel.text = [NSString stringWithFormat:@"@%@", @"120598498"];
+    self.coinCountLabel.text = @"6";
+    self.audienceCountLabel.text = [NSString stringWithFormat:@"%@人", model.audience_num];
 }
 
 

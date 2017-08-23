@@ -11,6 +11,7 @@
 
 NSString *const GiftCellID = @"GiftCellIdentifier";
 NSString *const SingleGiftCellID = @"SingleGiftCellIdentifier";
+NSString *const SingleGiftBlankCellID = @"SingleGiftBlankCellIdentifier";
 
 @interface GiftCell () <UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -70,9 +71,13 @@ NSString *const SingleGiftCellID = @"SingleGiftCellIdentifier";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    GiftModel *model = self.dataArr[indexPath.row];
+    model.selectedForSend = !model.selectedForSend;
+    [collectionView reloadData];
+    
+    // Block回调
     if (self.selectGiftBlock) {
-        GiftModel *model = self.dataArr[indexPath.row];
-        self.selectGiftBlock(model);
+        self.selectGiftBlock(model, model.selectedForSend);
     }
 }
 
@@ -97,7 +102,7 @@ NSString *const SingleGiftCellID = @"SingleGiftCellIdentifier";
 @property (nonatomic, strong) UIImageView *iconImageView; // 礼物图标
 @property (nonatomic, strong) UILabel *nameLabel; // 礼物名称
 @property (nonatomic, strong) UILabel *priceLabel; // 礼物价格
-@property (nonatomic, strong) UIImageView *selectedImageView; // 选择时的图标
+@property (nonatomic, strong) UIImageView *selectedImageView; // 选中时的背景view
 
 @end
 
@@ -107,14 +112,12 @@ NSString *const SingleGiftCellID = @"SingleGiftCellIdentifier";
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    if (self) {
+    if (self) {  
         [self.contentView addSubview:self.iconImageView];
         [self.contentView addSubview:self.nameLabel];
         [self.contentView addSubview:self.priceLabel];
-//        [self.contentView addSubview:self.selectedImageView];
-//        self.selectedImageView.hidden = YES;
-        
-        self.selectedBackgroundView = self.selectedImageView;
+        [self.contentView addSubview:self.selectedImageView];
+        self.selectedImageView.hidden = YES;
     }
     return self;
 }
@@ -124,7 +127,7 @@ NSString *const SingleGiftCellID = @"SingleGiftCellIdentifier";
 
 - (UIImageView *)iconImageView {
     if (!_iconImageView) {
-        CGFloat y = 1;
+        CGFloat y = 3;
         CGFloat w = SINGLEGIFT_CELL_W * 0.56;
         CGFloat x = (SINGLEGIFT_CELL_W - w) / 2.0;
         _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, w)];
@@ -160,8 +163,9 @@ NSString *const SingleGiftCellID = @"SingleGiftCellIdentifier";
 - (UIImageView *)selectedImageView {
     if (!_selectedImageView) {
         _selectedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SINGLEGIFT_CELL_W, SINGLEGIFT_CELL_W)];
+        _selectedImageView.backgroundColor = [UIColor clearColor];
         _selectedImageView.layer.borderColor = RGB(245, 29, 93).CGColor;
-        _selectedImageView.layer.borderWidth = 1.2;
+        _selectedImageView.layer.borderWidth = 1.0;
     }
     return _selectedImageView;
 }
@@ -172,20 +176,45 @@ NSString *const SingleGiftCellID = @"SingleGiftCellIdentifier";
 - (void)setModel:(GiftModel *)model {
     _model = model;
     
-    int random = arc4random() % 10;
-    if (random > 7) {
-        self.iconImageView.image = [UIImage imageNamed:@"gift_langmangaobai"];
-        self.nameLabel.text = @"浪漫告白";
-        self.priceLabel.text = [NSString stringWithFormat:@"%@币", @"214"];
-    } else if (random > 4) {
-        self.iconImageView.image = [UIImage imageNamed:@"gift_biaobaihuayu"];
-        self.nameLabel.text = @"表白花语";
-        self.priceLabel.text = [NSString stringWithFormat:@"%@币", @"369"];
+    self.selectedForSend = model.isSelectedForSend;
+
+    self.iconImageView.image = [UIImage imageNamed:model.giftImageName];
+    self.nameLabel.text = model.giftName;
+    self.priceLabel.text = [NSString stringWithFormat:@"%@分", model.giftPrice];
+}
+
+- (void)setSelectedForSend:(BOOL)selectedForSend {
+    _selectedForSend = selectedForSend;
+    
+    if (selectedForSend) {
+        self.nameLabel.textColor = RGB(245, 29, 93);
+        self.priceLabel.textColor = self.nameLabel.textColor;
+        self.selectedImageView.hidden = NO;
     } else {
-        self.iconImageView.image = [UIImage imageNamed:@"gift_lanseyaoji"];
-        self.nameLabel.text = @"爱神蓝色妖姬";
-        self.priceLabel.text = [NSString stringWithFormat:@"%@币", @"19999"];
+        self.nameLabel.textColor = [UIColor whiteColor];
+        self.priceLabel.textColor = RGB(93, 92, 89);
+        self.selectedImageView.hidden = YES;
     }
+}
+
+@end
+
+
+
+/**
+ 单个礼物的空白Cell
+ */
+@interface SingleGiftBlankCell ()
+
+@end
+
+@implementation SingleGiftBlankCell
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+    }
+    return self;
 }
 
 @end

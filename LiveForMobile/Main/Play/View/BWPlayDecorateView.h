@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LiveListModel.h"
 
 @class GiftModel;
 @class GiftOneModel;
@@ -43,6 +44,8 @@
 
 /** view所在的控制器 */
 @property (nonatomic, strong) UIViewController *parentViewController;
+
+@property (nonatomic, strong) LiveListModel *model;
 
 
 /** 显示礼物 */

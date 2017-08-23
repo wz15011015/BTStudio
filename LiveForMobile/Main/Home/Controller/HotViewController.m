@@ -41,12 +41,6 @@
 - (NSMutableArray *)dataArr {
     if (!_dataArr) {
         _dataArr = [NSMutableArray array];
-        
-//        [_dataArr addObject:@"1"];
-//        [_dataArr addObject:@"1"];
-//        [_dataArr addObject:@"1"];
-//        [_dataArr addObject:@"1"];
-//        [_dataArr addObject:@"1"];
     }
     return _dataArr;
 }
@@ -61,6 +55,7 @@
     // 1. 添加控件
     [self.view addSubview:self.tableView];
     
+    // 2. 加载数据
     [self loadData];
 }
 
@@ -68,29 +63,65 @@
 #pragma mark - Load Data
 - (void)loadData {
     LiveListModel *model0 = [[LiveListModel alloc] init];
-    model0.list_user_head = @"http://img2.inke.cn/MTQ5NzA5MTU4MTQ4MSM1MjMjanBn.jpg";
-    model0.list_user_name = @"丫头👧";
-    model0.list_pic = @"http://img2.inke.cn/MTQ5NzA5MTU4MTQ4MSM1MjMjanBn.jpg";
+    model0.list_user_head = @"http://img2.inke.cn/MTUwMjA2NzQxMzMzNCM1MDcjanBn.jpg";
+    model0.list_user_name = @"🍦冰淇淋🍷";
+    model0.list_pic = @"http://img2.inke.cn/MTUwMjA2NzQxMzMzNCM1MDcjanBn.jpg";
+    model0.play_url = @"rtmp://pull99.inke.cn/live/1503466289196679";
+    model0.live_status = @"1";
+    model0.rank = @"2";
+    model0.address = @"江苏 苏州";
+    model0.audience_num = @"1140";
+    model0.title = @"相守不易,且行且珍惜!";
     
     LiveListModel *model1 = [[LiveListModel alloc] init];
     model1.list_user_head = @"http://img2.inke.cn/MTQ5MzU1NTk2MzUxMCM3NTQjanBn.jpg";
     model1.list_user_name = @"凡爷是个女子吖";
     model1.list_pic = @"http://img2.inke.cn/MTQ5MzU1NTk2MzUxMCM3NTQjanBn.jpg";
+    model1.play_url = @"rtmp://pull.inke.cn/live/1503303629325732";
+    model1.live_status = @"1";
+    model1.rank = @"1";
+    model1.address = @"北京 朝阳";
+    model1.audience_num = @"800";
+    model1.title = @"遇见你是我的缘";
     
     LiveListModel *model2 = [[LiveListModel alloc] init];
     model2.list_user_head = @"http://img2.inke.cn/MTUwMzE0NjUzMjY5NSM1MDEjanBn.jpg";
     model2.list_user_name = @"小🎱";
     model2.list_pic = @"http://img2.inke.cn/MTUwMzE0NjUzMjY5NSM1MDEjanBn.jpg";
+    model2.play_url = @"rtmp://pull.inke.cn/live/1503303629325732";
+    model2.live_status = @"1";
+    model2.rank = @"0";
+    model2.address = @"北京 东城";
+    model2.audience_num = @"600";
+    model2.title = @"深情不及久伴,有你们真好❤️";
     
     LiveListModel *model3 = [[LiveListModel alloc] init];
     model3.list_user_head = @"http://img2.inke.cn/MTUwMTc1MDk1MTc3MCM1OTQjanBn.jpg";
     model3.list_user_name = @"我是模特小怪兽电台🎤";
     model3.list_pic = @"http://img2.inke.cn/MTUwMTc1MDk1MTc3MCM1OTQjanBn.jpg";
+    model3.play_url = @"rtmp://pull.inke.cn/live/1503303629325732";
+    model3.live_status = @"1";
+    model3.rank = @"2";
+    model3.address = @"辽宁 沈阳";
+    model3.audience_num = @"500";
+    model3.title = @"从小到大唯一没变的就是: 一直酷爱剪刀手✌️";
+    
+    LiveListModel *model4 = [[LiveListModel alloc] init];
+    model4.list_user_head = @"http://img2.inke.cn/MTUwMTQ4ODQ2NjkzNiMyNDQjanBn.jpg";
+    model4.list_user_name = @"✨思瑜✨唱歌主播努力500w";
+    model4.list_pic = @"http://img2.inke.cn/MTUwMTQ4ODQ2NjkzNiMyNDQjanBn.jpg";
+    model4.play_url = @"rtmp://pull.inke.cn/live/1503364179298020";
+    model4.live_status = @"1";
+    model4.rank = @"2";
+    model4.address = @"吉林 长春";
+    model4.audience_num = @"700";
+    model4.title = @"你猜我到底猜你猜不猜😆";
     
     [self.dataArr addObject:model0];
     [self.dataArr addObject:model1];
     [self.dataArr addObject:model2];
     [self.dataArr addObject:model3];
+    [self.dataArr addObject:model4];
 }
 
 
@@ -112,14 +143,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    LiveListModel *model = self.dataArr[indexPath.row];
+    
 #warning 调试代码
-    if (indexPath.row == 1) {
-        BWPlayViewController *playVC = [[BWPlayViewController alloc] init];
-        playVC.rtmpURL = @"rtmp://pull.inke.cn/live/1503303629325732";
-        playVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:playVC animated:YES];
-        
-    } else if (indexPath.row == 2) {
+    if (indexPath.row == 2) {
         UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"请输入拉流地址" message:nil preferredStyle:UIAlertControllerStyleAlert];
         [alertC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.delegate = self;
@@ -135,6 +162,7 @@
             }
             
             BWPlayViewController *playVC = [[BWPlayViewController alloc] init];
+            playVC.model = model;
             playVC.rtmpURL = rtmpURL;
             playVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:playVC animated:YES];
@@ -144,8 +172,11 @@
         [alertC addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertC animated:YES completion:nil];
 #warning 调试代码
+        
     } else {
         BWPlayViewController *playVC = [[BWPlayViewController alloc] init];
+        playVC.model = model;
+        playVC.rtmpURL = model.play_url;
         playVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:playVC animated:YES];
     }

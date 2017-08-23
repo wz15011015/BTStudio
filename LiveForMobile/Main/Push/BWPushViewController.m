@@ -17,6 +17,7 @@
 
 
 #define RTMP_PUBLISH_URL @"rtmp://20994.mpush.live.lecloud.com/live/leshiTest?&tm=20170627094929&sign=5c9ce4e8d4531606ee3cb16d3bcfe9c7"
+//#define RTMP_PUBLISH_URL @"rtmp://8988.livepush.myqcloud.com/live/8988_daniu_120889?txSecret=133955634f2e99ae60fc&txTime=599E6DF4"
 
 @interface BWPushViewController () <TXLivePushListener, BWPushDecorateDelegate, PushPrepareDecorateViewDelegate, MPMediaPickerControllerDelegate> {
     BOOL _isAvailablePush; // 是否可以直播

@@ -105,23 +105,48 @@ typedef NS_ENUM(NSInteger, ENUM_TYPE_CACHE_STRATEGY) {
     
     // 2. 添加控件
     // 2.0 背景图
-    UIImage *backgroundImage = [UIImage imageNamed:@"avatar_default"];
-    UIImage *clipImage = backgroundImage;
-    if (backgroundImage) {
-        UIImage *gaussBlurImage = [self gaussBlurImage:backgroundImage withGaussNumber:0.4];
-        CGFloat ratioOfWH = backgroundImage.size.width / backgroundImage.size.height; // 原图的宽高比
-        // 缩放为与屏幕等高的图片
-        UIImage *scaleImage = [self scaleImage:gaussBlurImage scaleToSize:CGSizeMake(HEIGHT * ratioOfWH, HEIGHT)];
-        // 缩放后的图片与屏幕等高时，其宽度会比屏幕更宽，因此，需要将其裁剪成屏幕大小
-        clipImage = [self clipImage:scaleImage inRect:CGRectMake((scaleImage.size.width - WIDTH) / 2, 0, WIDTH, HEIGHT)];
-    }
+//    UIImage *backgroundImage = [UIImage imageNamed:@"avatar_default"];
+//    UIImage *clipImage = backgroundImage;
+//    if (backgroundImage) {
+//        UIImage *gaussBlurImage = [self gaussBlurImage:backgroundImage withGaussNumber:0.4];
+//        CGFloat ratioOfWH = backgroundImage.size.width / backgroundImage.size.height; // 原图的宽高比
+//        // 缩放为与屏幕等高的图片
+//        UIImage *scaleImage = [self scaleImage:gaussBlurImage scaleToSize:CGSizeMake(HEIGHT * ratioOfWH, HEIGHT)];
+//        // 缩放后的图片与屏幕等高时，其宽度会比屏幕更宽，因此，需要将其裁剪成屏幕大小
+//        clipImage = [self clipImage:scaleImage inRect:CGRectMake((scaleImage.size.width - WIDTH) / 2, 0, WIDTH, HEIGHT)];
+//    }
+//    UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+//    backgroundImageView.image = clipImage;
+//    //    [backgroundImageView setContentScaleFactor:[[UIScreen mainScreen] scale]];
+//    //    backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+//    //    backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+//    //    backgroundImageView.clipsToBounds = YES;
+//    [self.view addSubview:backgroundImageView];
+    
+    
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    backgroundImageView.image = clipImage;
-    //    [backgroundImageView setContentScaleFactor:[[UIScreen mainScreen] scale]];
-    //    backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    //    backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-    //    backgroundImageView.clipsToBounds = YES;
     [self.view addSubview:backgroundImageView];
+    
+    [backgroundImageView sd_setImageWithURL:[NSURL URLWithString:self.model.list_pic] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        
+        UIImage *backgroundImage = [UIImage imageNamed:@"avatar_default"];
+        if (error) {
+            backgroundImage = [UIImage imageNamed:@"avatar_default"];
+        } else {
+            backgroundImage = image;
+        }
+        
+        UIImage *clipImage = backgroundImage;
+        if (backgroundImage) {
+            UIImage *gaussBlurImage = [self gaussBlurImage:backgroundImage withGaussNumber:0.4];
+            CGFloat ratioOfWH = backgroundImage.size.width / backgroundImage.size.height; // 原图的宽高比
+            // 缩放为与屏幕等高的图片
+            UIImage *scaleImage = [self scaleImage:gaussBlurImage scaleToSize:CGSizeMake(HEIGHT * ratioOfWH, HEIGHT)];
+            // 缩放后的图片与屏幕等高时，其宽度会比屏幕更宽，因此，需要将其裁剪成屏幕大小
+            clipImage = [self clipImage:scaleImage inRect:CGRectMake((scaleImage.size.width - WIDTH) / 2, 0, WIDTH, HEIGHT)];
+        }
+        backgroundImageView.image = clipImage;
+    }];
     
     // 2.1 视频画面的父view
     self.videoParentView = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -133,6 +158,7 @@ typedef NS_ENUM(NSInteger, ENUM_TYPE_CACHE_STRATEGY) {
     self.decorateView = [[BWPlayDecorateView alloc] initWithFrame:self.view.bounds];
     self.decorateView.delegate = self;
     self.decorateView.parentViewController = self;
+    self.decorateView.model = self.model;
     [self.view addSubview:self.decorateView];
     
     
@@ -337,7 +363,7 @@ typedef NS_ENUM(NSInteger, ENUM_TYPE_CACHE_STRATEGY) {
 
 // 展示礼物
 - (void)giftView:(BWGiftView *)view sendGift:(GiftModel *)gift { 
-    if ([gift.giftId intValue] == 3) {
+    if ([gift.giftId intValue] == 0) {
         GiftOneModel *model = [GiftOneModel modelWithSender:@"观众1" giftName:@"金话筒" giftImageName:@"goldenMicrophone"];
         [self.decorateView shwoGiftOne:model];
     } else {

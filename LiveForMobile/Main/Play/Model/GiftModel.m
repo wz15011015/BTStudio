@@ -10,4 +10,11 @@
 
 @implementation GiftModel
 
+- (instancetype)init {
+    if (self = [super init]) {
+        self.selectedForSend = NO;
+    }
+    return self;
+}
+
 @end
