@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A59EEC01F4E77120062EB16 /* Mac_TomCat.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A59EEBF1F4E77120062EB16 /* Mac_TomCat.png */; };
 		9ADEFA7C1F1F013C0011FFA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEFA7B1F1F013C0011FFA2 /* main.m */; };
 		9ADEFA811F1F013C0011FFA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEFA801F1F013C0011FFA2 /* Assets.xcassets */; };
 		9ADEFA841F1F013C0011FFA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEFA821F1F013C0011FFA2 /* Main.storyboard */; };
@@ -588,6 +589,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A59EEBF1F4E77120062EB16 /* Mac_TomCat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mac_TomCat.png; sourceTree = "<group>"; };
 		9ADEFA741F1F013C0011FFA2 /* SyncTomCat-Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SyncTomCat-Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ADEFA7B1F1F013C0011FFA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9ADEFA801F1F013C0011FFA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1186,6 +1188,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A59EEBE1F4E77120062EB16 /* Screenshot */ = {
+			isa = PBXGroup;
+			children = (
+				9A59EEBF1F4E77120062EB16 /* Mac_TomCat.png */,
+			);
+			path = Screenshot;
+			sourceTree = "<group>";
+		};
 		9ADEFA6B1F1F013C0011FFA2 = {
 			isa = PBXGroup;
 			children = (
@@ -1210,6 +1220,7 @@
 				9ADEFA8D1F1F02440011FFA2 /* Expand */,
 				9ADEFA8C1F1F023D0011FFA2 /* Vender */,
 				9ADEFA8B1F1F02330011FFA2 /* Resource */,
+				9A59EEBE1F4E77120062EB16 /* Screenshot */,
 				9ADEFA801F1F013C0011FFA2 /* Assets.xcassets */,
 				9ADEFA821F1F013C0011FFA2 /* Main.storyboard */,
 				9ADEFA851F1F013C0011FFA2 /* Info.plist */,
@@ -2199,6 +2210,7 @@
 				9ADEFE801F1F02F80011FFA2 /* scratch_35.jpg in Resources */,
 				9ADEFD701F1F02F80011FFA2 /* fart_10.jpg in Resources */,
 				9ADEFE501F1F02F80011FFA2 /* pie_11.jpg in Resources */,
+				9A59EEC01F4E77120062EB16 /* Mac_TomCat.png in Resources */,
 				9ADEFD611F1F02F80011FFA2 /* eat_35.jpg in Resources */,
 				9ADEFD751F1F02F80011FFA2 /* fart_15.jpg in Resources */,
 				9ADEFEB51F1F02F80011FFA2 /* stomach_18.jpg in Resources */,
