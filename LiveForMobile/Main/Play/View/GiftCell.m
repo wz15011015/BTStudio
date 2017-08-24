@@ -127,10 +127,12 @@ NSString *const SingleGiftBlankCellID = @"SingleGiftBlankCellIdentifier";
 
 - (UIImageView *)iconImageView {
     if (!_iconImageView) {
-        CGFloat y = 3;
         CGFloat w = SINGLEGIFT_CELL_W * 0.56;
+        CGFloat h = SINGLEGIFT_CELL_H * 0.6;
         CGFloat x = (SINGLEGIFT_CELL_W - w) / 2.0;
-        _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, w)];
+        CGFloat y = SINGLEGIFT_CELL_H * 0.056;
+        y = 0;
+        _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, w, h)];
         _iconImageView.image = [UIImage imageNamed:@"gift_langmangaobai"];
     }
     return _iconImageView;
@@ -138,11 +140,12 @@ NSString *const SingleGiftBlankCellID = @"SingleGiftBlankCellIdentifier";
 
 - (UILabel *)nameLabel {
     if (!_nameLabel) {
-        CGFloat y = CGRectGetMaxY(self.iconImageView.frame) + 2;
-        CGFloat h = 14;
+        CGFloat y = CGRectGetMaxY(self.iconImageView.frame);
+        CGFloat h = 12;
+        h = SINGLEGIFT_CELL_H * 0.2;
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, SINGLEGIFT_CELL_W, h)];
         _nameLabel.textColor = [UIColor whiteColor];
-        _nameLabel.font = [UIFont systemFontOfSize:11];
+        _nameLabel.font = [UIFont systemFontOfSize:10];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _nameLabel;
@@ -150,8 +153,9 @@ NSString *const SingleGiftBlankCellID = @"SingleGiftBlankCellIdentifier";
 
 - (UILabel *)priceLabel {
     if (!_priceLabel) {
-        CGFloat y = CGRectGetMaxY(self.nameLabel.frame);
-        CGFloat h = 12;
+        CGFloat y = CGRectGetMaxY(self.nameLabel.frame) + 1;
+        CGFloat h = 10;
+        h = SINGLEGIFT_CELL_H * 0.127;
         _priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, y, SINGLEGIFT_CELL_W, h)];
         _priceLabel.textColor = RGB(93, 92, 89);
         _priceLabel.font = [UIFont systemFontOfSize:9];
@@ -162,7 +166,7 @@ NSString *const SingleGiftBlankCellID = @"SingleGiftBlankCellIdentifier";
 
 - (UIImageView *)selectedImageView {
     if (!_selectedImageView) {
-        _selectedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SINGLEGIFT_CELL_W, SINGLEGIFT_CELL_W)];
+        _selectedImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SINGLEGIFT_CELL_W, SINGLEGIFT_CELL_H)];
         _selectedImageView.backgroundColor = [UIColor clearColor];
         _selectedImageView.layer.borderColor = RGB(245, 29, 93).CGColor;
         _selectedImageView.layer.borderWidth = 1.0;

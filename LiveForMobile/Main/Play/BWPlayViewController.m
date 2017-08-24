@@ -364,7 +364,9 @@ typedef NS_ENUM(NSInteger, ENUM_TYPE_CACHE_STRATEGY) {
 // 展示礼物
 - (void)giftView:(BWGiftView *)view sendGift:(GiftModel *)gift { 
     if ([gift.giftId intValue] == 0) {
-        GiftOneModel *model = [GiftOneModel modelWithSender:@"观众1" giftName:@"金话筒" giftImageName:@"goldenMicrophone"];
+//        GiftOneModel *model = [GiftOneModel modelWithSender:@"观众1" giftName:@"金话筒" giftImageName:@"goldenMicrophone"];
+        
+        GiftOneModel *model = [GiftOneModel modelWithSender:@"观众1" giftName:gift.giftName giftImageName:gift.giftImageName];
         [self.decorateView shwoGiftOne:model];
     } else {
         [self.decorateView shwoGift:gift];

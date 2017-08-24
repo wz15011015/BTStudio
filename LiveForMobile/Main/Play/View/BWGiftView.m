@@ -128,6 +128,31 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
     model5.giftDuration = 2.9;
     model5.giftPrice = @"10000";
     
+    // 小礼物
+    GiftModel *model6 = [[GiftModel alloc] init];
+    model6.giftId = @"0";
+    model6.giftName = @"浪漫告白";
+    model6.giftImageName = @"gift_langmangaobai";
+    model6.giftImageCount = 0;
+    model6.giftDuration = 0;
+    model6.giftPrice = @"888";
+    
+    GiftModel *model7 = [[GiftModel alloc] init];
+    model7.giftId = @"0";
+    model7.giftName = @"表白花语";
+    model7.giftImageName = @"gift_biaobaihuayu";
+    model7.giftImageCount = 0;
+    model7.giftDuration = 0;
+    model7.giftPrice = @"520";
+    
+    GiftModel *model8 = [[GiftModel alloc] init];
+    model8.giftId = @"0";
+    model8.giftName = @"蓝色妖姬";
+    model8.giftImageName = @"gift_lanseyaoji";
+    model8.giftImageCount = 0;
+    model8.giftDuration = 0;
+    model8.giftPrice = @"1234";
+    
 //    [self.dataArr addObject:model0];
 //    [self.dataArr addObject:model0];
 //    [self.dataArr addObject:model0];
@@ -188,6 +213,9 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
     [self.dataArr addObject:model0];
     [self.dataArr addObject:model4];
     [self.dataArr addObject:model1];
+    [self.dataArr addObject:model6];
+    [self.dataArr addObject:model7];
+    [self.dataArr addObject:model8];
     [self.dataArr2 addObject:model2];
     [self.dataArr3 addObject:model3];
     [self.dataArr4 addObject:model5];
