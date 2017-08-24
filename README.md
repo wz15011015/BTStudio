@@ -13,7 +13,7 @@
 #### <a id=">推流界面"></a>推流界面
 <img src="https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/screenshot/push.png" width="230" height="409">
 
-#### <a id=">播放界面1"></a>播放界面
+#### <a id=">播放界面1"></a>直播界面
 <img src="https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/screenshot/play_1.png" width="230" height="409">   <img src="https://github.com/wz15011015github/BTStudio/blob/LiveBroadcast/LiveForMobile/Resource/screenshot/play_2.png" width="230" height="409">
 
 #### <a id=">关注界面"></a>关注界面
