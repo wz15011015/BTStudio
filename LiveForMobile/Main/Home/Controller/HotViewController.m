@@ -344,7 +344,6 @@
         model.address = address;
         model.audience_num = auidenceNum;
         model.title = intro;
-        
         [self.dataArr addObject:model];
     }
     if (_pageNum == 1) {
