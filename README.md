@@ -73,6 +73,10 @@ TouchID使用小Demo.
 
 移动直播Demo，模仿iOS平台主流直播App界面来搭建，更新中...
 
+### 3. SyncTomCat
+
+利用 Core Bluetooth 框架实现Mac端TomCat与iPhone手机端TomCat同步动作。
+
 
 ## License
 BTStudio is released under the MIT license. See LICENSE for details.
