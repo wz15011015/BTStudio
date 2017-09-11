@@ -58,6 +58,12 @@
 		9A606D711F3D3E0300BF19C3 /* MineFansCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A606D701F3D3E0300BF19C3 /* MineFansCell.m */; };
 		9A6733171F0B6AF6005423F2 /* BWHUDHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6733161F0B6AF6005423F2 /* BWHUDHelper.m */; };
 		9A67331D1F0B7F2F005423F2 /* PushPrepareDecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A67331C1F0B7F2F005423F2 /* PushPrepareDecorateView.m */; };
+		9A6F75201F661E2000761B89 /* MYAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F75191F661E2000761B89 /* MYAnimationManager.m */; };
+		9A6F75211F661E2000761B89 /* MYBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F751B1F661E2000761B89 /* MYBackView.m */; };
+		9A6F75221F661E2000761B89 /* MYContainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F751D1F661E2000761B89 /* MYContainerController.m */; };
+		9A6F75231F661E2000761B89 /* MYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F751F1F661E2000761B89 /* MYNavigationController.m */; };
+		9A6F75261F6620F100761B89 /* PlayPMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F75251F6620F100761B89 /* PlayPMViewController.m */; };
+		9A6F75291F66324500761B89 /* PlayPMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F75281F66324500761B89 /* PlayPMDetailViewController.m */; };
 		9A81BDFC1EF8BE4C00899E4C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A81BDFB1EF8BE4C00899E4C /* AppDelegate.m */; };
 		9A81BE131EF8BFBA00899E4C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A81BE121EF8BFBA00899E4C /* BaseViewController.m */; };
 		9A81BE161EF8C00B00899E4C /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A81BE151EF8C00B00899E4C /* BaseNavigationController.m */; };
@@ -200,6 +206,18 @@
 		9A6733161F0B6AF6005423F2 /* BWHUDHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWHUDHelper.m; sourceTree = "<group>"; };
 		9A67331B1F0B7F2F005423F2 /* PushPrepareDecorateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushPrepareDecorateView.h; sourceTree = "<group>"; };
 		9A67331C1F0B7F2F005423F2 /* PushPrepareDecorateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushPrepareDecorateView.m; sourceTree = "<group>"; };
+		9A6F75181F661E2000761B89 /* MYAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYAnimationManager.h; sourceTree = "<group>"; };
+		9A6F75191F661E2000761B89 /* MYAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYAnimationManager.m; sourceTree = "<group>"; };
+		9A6F751A1F661E2000761B89 /* MYBackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYBackView.h; sourceTree = "<group>"; };
+		9A6F751B1F661E2000761B89 /* MYBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYBackView.m; sourceTree = "<group>"; };
+		9A6F751C1F661E2000761B89 /* MYContainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYContainerController.h; sourceTree = "<group>"; };
+		9A6F751D1F661E2000761B89 /* MYContainerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYContainerController.m; sourceTree = "<group>"; };
+		9A6F751E1F661E2000761B89 /* MYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYNavigationController.h; sourceTree = "<group>"; };
+		9A6F751F1F661E2000761B89 /* MYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYNavigationController.m; sourceTree = "<group>"; };
+		9A6F75241F6620F100761B89 /* PlayPMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayPMViewController.h; sourceTree = "<group>"; };
+		9A6F75251F6620F100761B89 /* PlayPMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayPMViewController.m; sourceTree = "<group>"; };
+		9A6F75271F66324500761B89 /* PlayPMDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayPMDetailViewController.h; sourceTree = "<group>"; };
+		9A6F75281F66324500761B89 /* PlayPMDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayPMDetailViewController.m; sourceTree = "<group>"; };
 		9A81BDFA1EF8BE4C00899E4C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9A81BDFB1EF8BE4C00899E4C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9A81BE111EF8BFBA00899E4C /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -559,6 +577,7 @@
 		9A29D3251F0A1D3700FC4389 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				9A6F75171F661E2000761B89 /* MYNavigationController */,
 				9A3D4BAE1F1068A000B546E2 /* Present */,
 			);
 			path = Vender;
@@ -818,6 +837,21 @@
 			path = Tool;
 			sourceTree = "<group>";
 		};
+		9A6F75171F661E2000761B89 /* MYNavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				9A6F75181F661E2000761B89 /* MYAnimationManager.h */,
+				9A6F75191F661E2000761B89 /* MYAnimationManager.m */,
+				9A6F751A1F661E2000761B89 /* MYBackView.h */,
+				9A6F751B1F661E2000761B89 /* MYBackView.m */,
+				9A6F751C1F661E2000761B89 /* MYContainerController.h */,
+				9A6F751D1F661E2000761B89 /* MYContainerController.m */,
+				9A6F751E1F661E2000761B89 /* MYNavigationController.h */,
+				9A6F751F1F661E2000761B89 /* MYNavigationController.m */,
+			);
+			path = MYNavigationController;
+			sourceTree = "<group>";
+		};
 		9A81BDFD1EF8BF7A00899E4C /* Register */ = {
 			isa = PBXGroup;
 			children = (
@@ -922,6 +956,10 @@
 			children = (
 				9A267AF81F00EAD000BD9B6B /* BWPlayViewController.h */,
 				9A267AF91F00EAD000BD9B6B /* BWPlayViewController.m */,
+				9A6F75241F6620F100761B89 /* PlayPMViewController.h */,
+				9A6F75251F6620F100761B89 /* PlayPMViewController.m */,
+				9A6F75271F66324500761B89 /* PlayPMDetailViewController.h */,
+				9A6F75281F66324500761B89 /* PlayPMDetailViewController.m */,
 				9A267AF71F00EA9A00BD9B6B /* View */,
 				9A267AF61F00EA9700BD9B6B /* Model */,
 			);
@@ -1134,6 +1172,7 @@
 				9AD42BAC1F381782006F323E /* MineHeaderView.m in Sources */,
 				9A81BE321EF8EE5500899E4C /* HotLiveCell.m in Sources */,
 				9A3D4BC91F10A2D400B546E2 /* MineCell.m in Sources */,
+				9A6F75221F661E2000761B89 /* MYContainerController.m in Sources */,
 				9A267AFA1F00EAD000BD9B6B /* BWPlayViewController.m in Sources */,
 				9A67331D1F0B7F2F005423F2 /* PushPrepareDecorateView.m in Sources */,
 				9A81BE2F1EF8EB6A00899E4C /* HotViewController.m in Sources */,
@@ -1151,6 +1190,7 @@
 				9A29D30A1F09D77E00FC4389 /* BWPlayDecorateView.m in Sources */,
 				9A606D711F3D3E0300BF19C3 /* MineFansCell.m in Sources */,
 				9A887C641F0CB05A00D61042 /* SnapShotShareView.m in Sources */,
+				9A6F75201F661E2000761B89 /* MYAnimationManager.m in Sources */,
 				9A037A2E1F049AE3005F2894 /* PlayUGCDecorateView.m in Sources */,
 				9A124F741F394C3B009E2DD3 /* StateViewController.m in Sources */,
 				9A9CE4631F1C624D004086D0 /* WatchHistoryViewController.m in Sources */,
@@ -1164,6 +1204,7 @@
 				9A81BE271EF8C68E00899E4C /* BWBadgeButton.m in Sources */,
 				9A3D4BBC1F106D5100B546E2 /* GiftOneModel.m in Sources */,
 				9A81BE131EF8BFBA00899E4C /* BaseViewController.m in Sources */,
+				9A6F75291F66324500761B89 /* PlayPMDetailViewController.m in Sources */,
 				9A3530671EFCDD85006CE3A2 /* FilterModel.m in Sources */,
 				9ACAA5851F4AE33D00E1EA9C /* LiveListModel.m in Sources */,
 				9A39F4E61F3BEDCE0004A53A /* MineFollowCell.m in Sources */,
@@ -1172,6 +1213,7 @@
 				9A29D3171F09F40900FC4389 /* NSString+BrianExtension.m in Sources */,
 				9AEF0CFB1F0F782C000B3A3D /* MineViewController.m in Sources */,
 				9A29D30E1F09D77E00FC4389 /* PrivateMessageCell.m in Sources */,
+				9A6F75261F6620F100761B89 /* PlayPMViewController.m in Sources */,
 				9A3D4BB91F10697E00B546E2 /* GiftOneCell.m in Sources */,
 				9AED2E5E1F0E1C5F00BCD05A /* BWPlistHelper.m in Sources */,
 				9AED2E651F0E36A300BCD05A /* FollowViewController.m in Sources */,
@@ -1188,11 +1230,13 @@
 				9A606D6E1F3D3C1A00BF19C3 /* MineFansViewController.m in Sources */,
 				9A29D3101F09D77E00FC4389 /* ShareCell.m in Sources */,
 				9AED2E591F0E096200BCD05A /* GiftModel.m in Sources */,
+				9A6F75211F661E2000761B89 /* MYBackView.m in Sources */,
 				9A81BE201EF8C64800899E4C /* BWTabBarController.m in Sources */,
 				9A1AB8AC1EF8BB860018BD60 /* main.m in Sources */,
 				9A81BE1C1EF8C2CF00899E4C /* BWConst.m in Sources */,
 				9A3D4BB41F1068A000B546E2 /* PresentView.m in Sources */,
 				9A81BE191EF8C06500899E4C /* BaseTableViewController.m in Sources */,
+				9A6F75231F661E2000761B89 /* MYNavigationController.m in Sources */,
 				9A29D30C1F09D77E00FC4389 /* GiftCell.m in Sources */,
 				9A29D30D1F09D77E00FC4389 /* MessageCell.m in Sources */,
 				9A3D4BB51F1068A000B546E2 /* PresentViewCell.m in Sources */,

@@ -13,7 +13,9 @@
 #import "BWPlayDecorateView.h"
 #import "PlayUGCDecorateView.h"
 #import "BWGiftView.h"
-#import "PrivateMessageView.h"
+//#import "PrivateMessageView.h"
+#import "MYNavigationController.h"
+#import "PlayPMViewController.h"
 #import "BWPlayShareView.h"
 #import "SnapShotShareView.h"
 
@@ -21,6 +23,7 @@
 
 #import "GiftModel.h"
 #import "GiftOneModel.h"
+
 
 //#define RTMP_PLAY_URL @"rtmp://20994.mpull.live.lecloud.com/live/leshiTest?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9"
 #define RTMP_PLAY_URL @"https://20994.mpull.live.lecloud.com/live/leshiTest.flv?&tm=20170627094926&sign=f190180247eb94c8db6f8b49177e83d9"
@@ -269,8 +272,17 @@ typedef NS_ENUM(NSInteger, ENUM_TYPE_CACHE_STRATEGY) {
 
 // 私信主播
 - (void)clickPrivateMessage:(UIButton *)sender {
-    PrivateMessageView *pmView = [[PrivateMessageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
-    [pmView showToView:self.view];
+//    PrivateMessageView *pmView = [[PrivateMessageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+//    [pmView showToView:self.view];
+    
+    // 压缩的控制器
+    PlayPMViewController *pmVC = [[PlayPMViewController alloc] init];
+    MYNavigationController *pmNav = [[MYNavigationController alloc] initWithShowFrame:CGRectMake(0, HEIGHT - PLAYPM_VIEW_CONTROLLER_H, WIDTH, PLAYPM_VIEW_CONTROLLER_H) ShowStyle:MYPresentedViewShowStyleFromBottomDropStyle root:pmVC callback:nil];
+    pmNav.navigationBar.translucent = NO;
+    pmNav.navigationBar.barTintColor = [UIColor whiteColor];
+    [pmNav.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : RGB(73, 73, 73)}];
+    pmNav.clearBack = YES; // 不显示半透明蒙板
+    [self presentViewController:pmNav animated:YES completion:nil];
 }
 
 // 送主播礼物
