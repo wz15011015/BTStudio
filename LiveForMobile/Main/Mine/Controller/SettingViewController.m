@@ -10,6 +10,7 @@
 #import "SettingCell.h"
 #import "BWTabBarController.h"
 #import "DNAppAboutViewController.h"
+#import "NewFeatureViewController.h"
 
 @interface SettingViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -55,7 +56,7 @@
 
 - (NSArray *)dataArr2 {
     if (!_dataArr2) {
-        _dataArr2 = @[@"截图自动保存", @"清理缓存", @"关于大牛直播"];
+        _dataArr2 = @[@"截图自动保存", @"清理缓存", @"关于大牛直播", @"新功能介绍"];
     }
     return _dataArr2;
 }
@@ -169,6 +170,9 @@
         if (indexPath.row == 2) {
             DNAppAboutViewController *aboutVC = [[DNAppAboutViewController alloc] init];
             [self.navigationController pushViewController:aboutVC animated:YES];
+        } else if (indexPath.row == 3) {
+            NewFeatureViewController *newFeatureVC = [[NewFeatureViewController alloc] init];
+            [self.navigationController pushViewController:newFeatureVC animated:NO];
         }
     }
 }

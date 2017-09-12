@@ -154,6 +154,10 @@ NSString *const SettingCellID = @"SettingCellIdentifier";
                 self.arrowImageView.hidden = NO;
                 self.functionSwitch.hidden = YES;
                 self.selectionStyle = UITableViewCellSelectionStyleDefault;
+            } else if (indexPath.row == 3) {
+                self.arrowImageView.hidden = NO;
+                self.functionSwitch.hidden = YES;
+                self.selectionStyle = UITableViewCellSelectionStyleDefault;
             }
         }
     }

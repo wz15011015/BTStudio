@@ -16,8 +16,11 @@
 #import "PrivateMessageViewController.h"
 #import "MineViewController.h"
 #import "HotViewController.h"
+#import "NearbyViewController.h"
 #import "PushPrepareView.h"
 #import "BWPushViewController.h"
+
+//#import "LiveForMobile-Swift.h"
 
 @interface BWTabBarController () <BWTabBarDelegate>
 
@@ -62,7 +65,7 @@
     [self.tabBar addSubview:self.customTabBar];
     
     // 1. 创建导航控制器  
-    HomeViewController *homeVC = [[HomeViewController alloc] initWithViewControllerClasses:@[[HotViewController class], [BaseViewController class], [BaseViewController class]] andTheirTitles:@[@"热门", @"附近", @"频道"]];
+    HomeViewController *homeVC = [[HomeViewController alloc] initWithViewControllerClasses:@[[HotViewController class], [NearbyViewController class], [BaseViewController class]] andTheirTitles:@[@"热门", @"附近", @"频道"]];
     homeVC.menuHeight = 44;
     homeVC.menuViewStyle = WMMenuViewStyleLine;
     homeVC.titleSizeNormal = 15;

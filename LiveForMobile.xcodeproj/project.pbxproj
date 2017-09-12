@@ -49,6 +49,8 @@
 		9A5498471F021F9400FA4E06 /* BWPushDecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498461F021F9400FA4E06 /* BWPushDecorateView.m */; };
 		9A54984A1F021F9A00FA4E06 /* PushPrepareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5498491F021F9A00FA4E06 /* PushPrepareView.m */; };
 		9A54984D1F02257800FA4E06 /* ShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A54984C1F02257800FA4E06 /* ShareModel.m */; };
+		9A573E8C1F67AC7600ED7D4C /* NewFeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A573E8B1F67AC7600ED7D4C /* NewFeatureViewController.m */; };
+		9A573E901F67B75900ED7D4C /* RubberBandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A573E8F1F67B75900ED7D4C /* RubberBandView.m */; };
 		9A59EEAF1F4E6C630062EB16 /* play_10.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A59EEAD1F4E6C630062EB16 /* play_10.png */; };
 		9A59EEB01F4E6C630062EB16 /* play_11.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A59EEAE1F4E6C630062EB16 /* play_11.png */; };
 		9A59EEB41F4E6CC40062EB16 /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A59EEB11F4E6CC40062EB16 /* follow.png */; };
@@ -64,6 +66,8 @@
 		9A6F75231F661E2000761B89 /* MYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F751F1F661E2000761B89 /* MYNavigationController.m */; };
 		9A6F75261F6620F100761B89 /* PlayPMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F75251F6620F100761B89 /* PlayPMViewController.m */; };
 		9A6F75291F66324500761B89 /* PlayPMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F75281F66324500761B89 /* PlayPMDetailViewController.m */; };
+		9A6F75401F66769600761B89 /* NearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F753F1F66769600761B89 /* NearbyViewController.m */; };
+		9A6F75451F66866500761B89 /* NearbyFoldingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F75441F66866500761B89 /* NearbyFoldingCell.m */; };
 		9A81BDFC1EF8BE4C00899E4C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A81BDFB1EF8BE4C00899E4C /* AppDelegate.m */; };
 		9A81BE131EF8BFBA00899E4C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A81BE121EF8BFBA00899E4C /* BaseViewController.m */; };
 		9A81BE161EF8C00B00899E4C /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A81BE151EF8C00B00899E4C /* BaseNavigationController.m */; };
@@ -193,6 +197,10 @@
 		9A5498491F021F9A00FA4E06 /* PushPrepareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushPrepareView.m; sourceTree = "<group>"; };
 		9A54984B1F02257800FA4E06 /* ShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareModel.h; sourceTree = "<group>"; };
 		9A54984C1F02257800FA4E06 /* ShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareModel.m; sourceTree = "<group>"; };
+		9A573E8A1F67AC7600ED7D4C /* NewFeatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewFeatureViewController.h; sourceTree = "<group>"; };
+		9A573E8B1F67AC7600ED7D4C /* NewFeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewFeatureViewController.m; sourceTree = "<group>"; };
+		9A573E8E1F67B75900ED7D4C /* RubberBandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RubberBandView.h; sourceTree = "<group>"; };
+		9A573E8F1F67B75900ED7D4C /* RubberBandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RubberBandView.m; sourceTree = "<group>"; };
 		9A59EEAD1F4E6C630062EB16 /* play_10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_10.png; sourceTree = "<group>"; };
 		9A59EEAE1F4E6C630062EB16 /* play_11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_11.png; sourceTree = "<group>"; };
 		9A59EEB11F4E6CC40062EB16 /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = follow.png; sourceTree = "<group>"; };
@@ -218,6 +226,10 @@
 		9A6F75251F6620F100761B89 /* PlayPMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayPMViewController.m; sourceTree = "<group>"; };
 		9A6F75271F66324500761B89 /* PlayPMDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayPMDetailViewController.h; sourceTree = "<group>"; };
 		9A6F75281F66324500761B89 /* PlayPMDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayPMDetailViewController.m; sourceTree = "<group>"; };
+		9A6F753E1F66769600761B89 /* NearbyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyViewController.h; sourceTree = "<group>"; };
+		9A6F753F1F66769600761B89 /* NearbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyViewController.m; sourceTree = "<group>"; };
+		9A6F75431F66866500761B89 /* NearbyFoldingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyFoldingCell.h; sourceTree = "<group>"; };
+		9A6F75441F66866500761B89 /* NearbyFoldingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyFoldingCell.m; sourceTree = "<group>"; };
 		9A81BDFA1EF8BE4C00899E4C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9A81BDFB1EF8BE4C00899E4C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9A81BE111EF8BFBA00899E4C /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -480,6 +492,8 @@
 				9A81BE2B1EF8D30500899E4C /* HomeViewController.m */,
 				9A81BE2D1EF8EB6A00899E4C /* HotViewController.h */,
 				9A81BE2E1EF8EB6A00899E4C /* HotViewController.m */,
+				9A6F753E1F66769600761B89 /* NearbyViewController.h */,
+				9A6F753F1F66769600761B89 /* NearbyViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -489,6 +503,8 @@
 			children = (
 				9A81BE301EF8EE5500899E4C /* HotLiveCell.h */,
 				9A81BE311EF8EE5500899E4C /* HotLiveCell.m */,
+				9A6F75431F66866500761B89 /* NearbyFoldingCell.h */,
+				9A6F75441F66866500761B89 /* NearbyFoldingCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -577,6 +593,8 @@
 		9A29D3251F0A1D3700FC4389 /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				9A6F75301F6667A900761B89 /* Frameworks */,
+				9A573E8D1F67B75900ED7D4C /* RubberBandView */,
 				9A6F75171F661E2000761B89 /* MYNavigationController */,
 				9A3D4BAE1F1068A000B546E2 /* Present */,
 			);
@@ -627,6 +645,8 @@
 				9A9CE45C1F1C4491004086D0 /* SettingViewController.m */,
 				9AD42BA41F37FA58006F323E /* DNAppAboutViewController.h */,
 				9AD42BA51F37FA58006F323E /* DNAppAboutViewController.m */,
+				9A573E8A1F67AC7600ED7D4C /* NewFeatureViewController.h */,
+				9A573E8B1F67AC7600ED7D4C /* NewFeatureViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -826,6 +846,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		9A573E8D1F67B75900ED7D4C /* RubberBandView */ = {
+			isa = PBXGroup;
+			children = (
+				9A573E8E1F67B75900ED7D4C /* RubberBandView.h */,
+				9A573E8F1F67B75900ED7D4C /* RubberBandView.m */,
+			);
+			path = RubberBandView;
+			sourceTree = "<group>";
+		};
 		9A6733141F0B6A77005423F2 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
@@ -850,6 +879,13 @@
 				9A6F751F1F661E2000761B89 /* MYNavigationController.m */,
 			);
 			path = MYNavigationController;
+			sourceTree = "<group>";
+		};
+		9A6F75301F6667A900761B89 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 		9A81BDFD1EF8BF7A00899E4C /* Register */ = {
@@ -1063,6 +1099,7 @@
 					9A1AB8A61EF8BB860018BD60 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = Q9DDP5YT6J;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1175,6 +1212,7 @@
 				9A6F75221F661E2000761B89 /* MYContainerController.m in Sources */,
 				9A267AFA1F00EAD000BD9B6B /* BWPlayViewController.m in Sources */,
 				9A67331D1F0B7F2F005423F2 /* PushPrepareDecorateView.m in Sources */,
+				9A573E8C1F67AC7600ED7D4C /* NewFeatureViewController.m in Sources */,
 				9A81BE2F1EF8EB6A00899E4C /* HotViewController.m in Sources */,
 				9A81BE291EF8C68E00899E4C /* BWTabBarButton.m in Sources */,
 				9A81BE161EF8C00B00899E4C /* BaseNavigationController.m in Sources */,
@@ -1202,6 +1240,7 @@
 				9A29D3091F09D77E00FC4389 /* BWGiftView.m in Sources */,
 				9A124F7A1F39854E009E2DD3 /* BWGameView.m in Sources */,
 				9A81BE271EF8C68E00899E4C /* BWBadgeButton.m in Sources */,
+				9A6F75451F66866500761B89 /* NearbyFoldingCell.m in Sources */,
 				9A3D4BBC1F106D5100B546E2 /* GiftOneModel.m in Sources */,
 				9A81BE131EF8BFBA00899E4C /* BaseViewController.m in Sources */,
 				9A6F75291F66324500761B89 /* PlayPMDetailViewController.m in Sources */,
@@ -1224,6 +1263,7 @@
 				9A9CE4601F1C49CA004086D0 /* SettingCell.m in Sources */,
 				9AD42BA61F37FA58006F323E /* DNAppAboutViewController.m in Sources */,
 				9A39F4E21F3BEA830004A53A /* MineFollowViewController.m in Sources */,
+				9A573E901F67B75900ED7D4C /* RubberBandView.m in Sources */,
 				9A81BE281EF8C68E00899E4C /* BWTabBar.m in Sources */,
 				9A267AF51F00B21D00BD9B6B /* AudioEffectModel.m in Sources */,
 				9A81BE2C1EF8D30500899E4C /* HomeViewController.m in Sources */,
@@ -1240,6 +1280,7 @@
 				9A29D30C1F09D77E00FC4389 /* GiftCell.m in Sources */,
 				9A29D30D1F09D77E00FC4389 /* MessageCell.m in Sources */,
 				9A3D4BB51F1068A000B546E2 /* PresentViewCell.m in Sources */,
+				9A6F75401F66769600761B89 /* NearbyViewController.m in Sources */,
 				9A3D4BC31F10870D00B546E2 /* PrivateMessageViewController.m in Sources */,
 				9AEF0CF81F0F6C3C000B3A3D /* FollowModel.m in Sources */,
 			);
@@ -1362,17 +1403,22 @@
 			baseConfigurationReference = 64638494758FBBA56AE8D735 /* Pods-LiveForMobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = Q9DDP5YT6J;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/LiveForMobile/Vender/Frameworks",
 				);
 				INFOPLIST_FILE = LiveForMobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BaiFuTak.LiveForMobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LiveForMobile/Main/Home/View/LiveForMobile-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/TXRTMPSDK.framework";
 			};
 			name = Debug;
@@ -1382,17 +1428,21 @@
 			baseConfigurationReference = 1A6A057CDCD4FB3463CA15FB /* Pods-LiveForMobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = Q9DDP5YT6J;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/LiveForMobile/Vender/Frameworks",
 				);
 				INFOPLIST_FILE = LiveForMobile/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.BaiFuTak.LiveForMobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LiveForMobile/Main/Home/View/LiveForMobile-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/TXRTMPSDK.framework";
 			};
 			name = Release;
