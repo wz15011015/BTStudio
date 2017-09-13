@@ -79,4 +79,4 @@ TouchID使用小Demo.
 
 
 ## License
-BTStudio is released under the [MIT license](https://github.com/wz15011015github/BTStudio/blob/master/License/MITLicense.html). See LICENSE for details.
+BTStudio is released under the [MIT License](https://github.com/wz15011015github/BTStudio/blob/master/License/MITLicense.html). See LICENSE for details.
