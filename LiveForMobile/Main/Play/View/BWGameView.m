@@ -280,9 +280,9 @@ NSString *const WKWebViewProgressKey = @"estimatedProgress";
  */
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     // 1. 主机名
-    NSString *hostName = navigationAction.request.URL.host.lowercaseString;
+//    NSString *hostName = navigationAction.request.URL.host.lowercaseString;
     // 2. 获得协议头（http/https, 可以自定义协议头，根据协议头判断是否要执行跳转）
-    NSString *scheme = navigationAction.request.URL.scheme;
+//    NSString *scheme = navigationAction.request.URL.scheme;
     
     //    if ([scheme isEqualToString:@"itheima"]) {
     //        // decisionHandler 对请求处理回调

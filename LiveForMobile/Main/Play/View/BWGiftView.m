@@ -897,7 +897,7 @@ const NSUInteger CountOfGiftPerPage = 10; // 每页礼物的个数
 
 
 #pragma mark - Public Methods
-
+*/
 /**
  显示在view上
  *//*

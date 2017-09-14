@@ -72,7 +72,7 @@
     if (!_closeButton) {
         CGFloat h = 60 * HEIGHT_SCALE;
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _closeButton.frame = CGRectMake(0, HEIGHT - h - 14.3, WIDTH, h);
+        _closeButton.frame = CGRectMake(0, HEIGHT - h, WIDTH, h);
         [_closeButton setImage:[UIImage imageNamed:@"close_avatarVC_20x20_"] forState:UIControlStateNormal];
         [_closeButton addTarget:self action:@selector(dismissViewController) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -86,8 +86,13 @@
     _avatarImage = avatarImage;
     
     CGFloat ratioOfWH = avatarImage.size.width / avatarImage.size.height; // 原图的宽高比
-    UIImage *scaledImage = [self scaleImage:avatarImage scaleToSize:CGSizeMake(WIDTH, WIDTH / ratioOfWH)];
-    self.avatarImageView.image = scaledImage;
+//    UIImage *scaledImage = [self scaleImage:avatarImage scaleToSize:CGSizeMake(WIDTH, WIDTH / ratioOfWH)];
+//    self.avatarImageView.image = scaledImage;
+    
+    CGRect frame = self.avatarImageView.frame;
+    frame.size.height = frame.size.width / ratioOfWH;
+    self.avatarImageView.frame = frame;
+    self.avatarImageView.image = avatarImage;
 }
 
 
