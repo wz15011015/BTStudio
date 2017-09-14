@@ -10,7 +10,7 @@
 #import "RubberBandView.h"
 
 @interface NewFeatureViewController () <UIScrollViewDelegate> {
-    CGPoint _startPoint; // 开始的触摸点
+    CGPoint _startPoint; // 开始触摸的点
     
     NSUInteger _pageCount; // 页数
     
@@ -81,10 +81,10 @@
             [_scrollView addSubview:imageView];
             
             if (i == _pageCount - 1) {
-                CGFloat w = WIDTH * 0.4;
+                CGFloat w = WIDTH * 0.42;
                 CGFloat x = (WIDTH - w) / 2;
                 CGFloat h = 44;
-                CGFloat y = HEIGHT - 64 - h;
+                CGFloat y = HEIGHT - 50 - h;
                 UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                 button.frame = CGRectMake(x, y, w, h);
                 button.backgroundColor = RGB(91, 157, 255);
@@ -101,18 +101,6 @@
     return _scrollView;
 }
 
-- (UIButton *)closeButton {
-    if (!_closeButton) {
-        CGFloat w = 27;
-        CGFloat x = WIDTH - w;
-        _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _closeButton.frame = CGRectMake(x, 0, w, 25);
-        [_closeButton setImage:[UIImage imageNamed:@"guidepage_close_27x25_"] forState:UIControlStateNormal];
-        [_closeButton addTarget:self action:@selector(closeEvent) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _closeButton;
-}
-
 - (RubberBandView *)pageIndicatorView {
     if (!_pageIndicatorView) {
         CGFloat h = 3;
@@ -121,7 +109,7 @@
         CGFloat maxOffset = _indicatorW + _midMargin;
         
         _pageIndicatorView = [[RubberBandView alloc] initWithFrame:CGRectMake(_indicatorX, y, _indicatorW, h) layerProperty:MakeRBProperty(0, 0, _indicatorW, h, maxOffset)];
-        _pageIndicatorView.fillColor = [UIColor orangeColor];
+        _pageIndicatorView.fillColor = RGB(91, 157, 255);
         _pageIndicatorView.duration = 0.4;
         _pageIndicatorView.startAction = ^{
         }; 
@@ -134,10 +122,23 @@
             imageView.layer.masksToBounds = YES;
             imageView.layer.cornerRadius = h / 2.0;
             imageView.backgroundColor = RGB(248, 248, 248);
+            imageView.tag = 10 + i;
             [self.view addSubview:imageView];
         }
     }
     return _pageIndicatorView;
+}
+
+- (UIButton *)closeButton {
+    if (!_closeButton) {
+        CGFloat w = 27;
+        CGFloat x = WIDTH - w;
+        _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _closeButton.frame = CGRectMake(x, 0, w, 25);
+        [_closeButton setImage:[UIImage imageNamed:@"guidepage_close_27x25_"] forState:UIControlStateNormal];
+        [_closeButton addTarget:self action:@selector(closeEvent) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _closeButton;
 }
 
 
@@ -147,21 +148,24 @@
     [self.navigationController popViewControllerAnimated:NO];
 }
 
+// scrollView的平移手势的事件
 - (void)panEvent:(UIPanGestureRecognizer *)gestureRecognizer {
     CGPoint touchPoint = [gestureRecognizer locationInView:self.view];
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         _startPoint = touchPoint;
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
-//        CGFloat offset = touchPoint.x - _startPoint.x;
-//        [self.pageIndicatorView pullWithOffSet:-offset * 0.5];
+//        CGFloat offsetX = touchPoint.x - _startPoint.x;
+//        [self.pageIndicatorView pullWithOffSet:-offsetX * 0.5];
         
-        CGFloat offsetX = self.scrollView.contentOffset.x;
-        if (offsetX < 0 || offsetX > (_pageCount - 1) * WIDTH) {
+        // scrollView的偏移量
+        CGFloat offsetOfScrollView = self.scrollView.contentOffset.x;
+        if (offsetOfScrollView < 0 || offsetOfScrollView > (_pageCount - 1) * WIDTH) {
             return;
         }
-        CGFloat offset = touchPoint.x - _startPoint.x;
-        if (offset < 0) {
+        // 触摸手势的偏移量
+        CGFloat offsetX = touchPoint.x - _startPoint.x;
+        if (offsetX < 0) {
             [self.pageIndicatorView pullWithOffSet:_indicatorW + _midMargin];
         } else {
             [self.pageIndicatorView pullWithOffSet:-(_indicatorW + _midMargin)];
@@ -175,7 +179,28 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-//    NSInteger index = (NSInteger)(scrollView.contentOffset.x / WIDTH);
+    NSInteger index = (NSInteger)(scrollView.contentOffset.x / WIDTH);
+    if (index == _pageCount - 1) {
+        if (self.pageIndicatorView.hidden == YES) {
+            return;
+        }
+        // 隐藏页面指示view
+        self.pageIndicatorView.hidden = YES;
+        for (int i = 0; i < _pageCount; i++) {
+            UIImageView *lineImageView = (UIImageView *)[self.view viewWithTag:10 + i];
+            lineImageView.hidden = YES;
+        }
+    } else {
+        if (self.pageIndicatorView.hidden == NO) {
+            return;
+        }
+        // 显示页面指示view
+        self.pageIndicatorView.hidden = NO;
+        for (int i = 0; i < _pageCount; i++) {
+            UIImageView *lineImageView = (UIImageView *)[self.view viewWithTag:10 + i];
+            lineImageView.hidden = NO;
+        }
+    }
 }
 
 

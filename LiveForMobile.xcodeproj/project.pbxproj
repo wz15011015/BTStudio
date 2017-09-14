@@ -68,6 +68,8 @@
 		9A6F75291F66324500761B89 /* PlayPMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F75281F66324500761B89 /* PlayPMDetailViewController.m */; };
 		9A6F75401F66769600761B89 /* NearbyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F753F1F66769600761B89 /* NearbyViewController.m */; };
 		9A6F75451F66866500761B89 /* NearbyFoldingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6F75441F66866500761B89 /* NearbyFoldingCell.m */; };
+		9A76883C1F68F92A000A9270 /* AZEmitterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7688391F68F92A000A9270 /* AZEmitterLayer.m */; };
+		9A76883D1F68F92A000A9270 /* AZParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A76883B1F68F92A000A9270 /* AZParticle.m */; };
 		9A81BDFC1EF8BE4C00899E4C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A81BDFB1EF8BE4C00899E4C /* AppDelegate.m */; };
 		9A81BE131EF8BFBA00899E4C /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A81BE121EF8BFBA00899E4C /* BaseViewController.m */; };
 		9A81BE161EF8C00B00899E4C /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A81BE151EF8C00B00899E4C /* BaseNavigationController.m */; };
@@ -230,6 +232,10 @@
 		9A6F753F1F66769600761B89 /* NearbyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyViewController.m; sourceTree = "<group>"; };
 		9A6F75431F66866500761B89 /* NearbyFoldingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyFoldingCell.h; sourceTree = "<group>"; };
 		9A6F75441F66866500761B89 /* NearbyFoldingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyFoldingCell.m; sourceTree = "<group>"; };
+		9A7688381F68F92A000A9270 /* AZEmitterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZEmitterLayer.h; sourceTree = "<group>"; };
+		9A7688391F68F92A000A9270 /* AZEmitterLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZEmitterLayer.m; sourceTree = "<group>"; };
+		9A76883A1F68F92A000A9270 /* AZParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZParticle.h; sourceTree = "<group>"; };
+		9A76883B1F68F92A000A9270 /* AZParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZParticle.m; sourceTree = "<group>"; };
 		9A81BDFA1EF8BE4C00899E4C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9A81BDFB1EF8BE4C00899E4C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9A81BE111EF8BFBA00899E4C /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -594,6 +600,7 @@
 			isa = PBXGroup;
 			children = (
 				9A6F75301F6667A900761B89 /* Frameworks */,
+				9A7688371F68F92A000A9270 /* AZEmitter */,
 				9A573E8D1F67B75900ED7D4C /* RubberBandView */,
 				9A6F75171F661E2000761B89 /* MYNavigationController */,
 				9A3D4BAE1F1068A000B546E2 /* Present */,
@@ -886,6 +893,17 @@
 			children = (
 			);
 			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		9A7688371F68F92A000A9270 /* AZEmitter */ = {
+			isa = PBXGroup;
+			children = (
+				9A7688381F68F92A000A9270 /* AZEmitterLayer.h */,
+				9A7688391F68F92A000A9270 /* AZEmitterLayer.m */,
+				9A76883A1F68F92A000A9270 /* AZParticle.h */,
+				9A76883B1F68F92A000A9270 /* AZParticle.m */,
+			);
+			path = AZEmitter;
 			sourceTree = "<group>";
 		};
 		9A81BDFD1EF8BF7A00899E4C /* Register */ = {
@@ -1217,6 +1235,7 @@
 				9A81BE291EF8C68E00899E4C /* BWTabBarButton.m in Sources */,
 				9A81BE161EF8C00B00899E4C /* BaseNavigationController.m in Sources */,
 				9A414D6C1F428D4300C3C119 /* MineMVViewController.m in Sources */,
+				9A76883C1F68F92A000A9270 /* AZEmitterLayer.m in Sources */,
 				9A9CE45D1F1C4491004086D0 /* SettingViewController.m in Sources */,
 				9A81BDFC1EF8BE4C00899E4C /* AppDelegate.m in Sources */,
 				9A54984A1F021F9A00FA4E06 /* PushPrepareView.m in Sources */,
@@ -1242,6 +1261,7 @@
 				9A81BE271EF8C68E00899E4C /* BWBadgeButton.m in Sources */,
 				9A6F75451F66866500761B89 /* NearbyFoldingCell.m in Sources */,
 				9A3D4BBC1F106D5100B546E2 /* GiftOneModel.m in Sources */,
+				9A76883D1F68F92A000A9270 /* AZParticle.m in Sources */,
 				9A81BE131EF8BFBA00899E4C /* BaseViewController.m in Sources */,
 				9A6F75291F66324500761B89 /* PlayPMDetailViewController.m in Sources */,
 				9A3530671EFCDD85006CE3A2 /* FilterModel.m in Sources */,

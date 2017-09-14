@@ -35,6 +35,9 @@ CopyRBProperty(RubberBandProperty property) {
 
 typedef void(^RBAnimationAction)(void);
 
+/**
+ 橡皮条效果view
+ */
 @interface RubberBandView : UIView
 @property (nonatomic, strong) UIColor *fillColor;
 @property (nonatomic, readonly) CAShapeLayer *drawLayer;

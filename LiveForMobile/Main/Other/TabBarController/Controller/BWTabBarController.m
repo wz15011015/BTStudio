@@ -20,8 +20,6 @@
 #import "PushPrepareView.h"
 #import "BWPushViewController.h"
 
-//#import "LiveForMobile-Swift.h"
-
 @interface BWTabBarController () <BWTabBarDelegate>
 
 @property (nonatomic, strong) BWTabBar *customTabBar;
@@ -76,16 +74,16 @@
 //    homeVC.progressWidth = 40;
 //    homeVC.progressViewIsNaughty = YES;
     
-    BaseNavigationController *homeNav = [self createNavigationControllerWithViewController:homeVC title:@"广场" imageName:@""  selectedImageName:@""];
+    BaseNavigationController *homeNav = [self createNavigationControllerWithViewController:homeVC title:@"广场" imageName:@"" selectedImageName:@""];
     
     FollowViewController *followVC = [[FollowViewController alloc] init];
-    BaseNavigationController *followNav = [self createNavigationControllerWithViewController:followVC title:@"关注" imageName:@""  selectedImageName:@""];
+    BaseNavigationController *followNav = [self createNavigationControllerWithViewController:followVC title:@"关注" imageName:@"" selectedImageName:@""];
     
     PrivateMessageViewController *pmVC = [[PrivateMessageViewController alloc] init];
-    BaseNavigationController *pmNav = [self createNavigationControllerWithViewController:pmVC title:@"私信" imageName:@""  selectedImageName:@""];
+    BaseNavigationController *pmNav = [self createNavigationControllerWithViewController:pmVC title:@"私信" imageName:@"" selectedImageName:@""];
     
     MineViewController *mineVC = [[MineViewController alloc] init];
-    BaseNavigationController *mineNav = [self createNavigationControllerWithViewController:mineVC title:@"我的" imageName:@""  selectedImageName:@""];
+    BaseNavigationController *mineNav = [self createNavigationControllerWithViewController:mineVC title:@"我的" imageName:@"" selectedImageName:@""];
     
     // 2. 添加导航控制器
     self.viewControllers = @[homeNav, followNav, pmNav, mineNav];

@@ -8,12 +8,15 @@
 
 #import "DNAppAboutViewController.h"
 #import "DNAppAboutCell.h"
+#import "AZEmitterLayer.h"
 
-@interface DNAppAboutViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface DNAppAboutViewController () <UITableViewDelegate, UITableViewDataSource, AZEmitterLayerDelegate>
 
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArr;
+
+@property (nonatomic, strong) AZEmitterLayer *emitterLayer;
 
 @end
 
@@ -42,10 +45,10 @@
         CGFloat iconW = 126 * HEIGHT_SCALE;
         CGFloat iconX = (WIDTH - iconW) / 2;
         UIImageView *iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, 24 * HEIGHT_SCALE, iconW, iconW)];
-        iconImageView.layer.masksToBounds = YES;
-        iconImageView.layer.cornerRadius = 21 * WIDTH_SCALE;
-        iconImageView.image = [UIImage imageNamed:@"Icon"];
-        [_headerView addSubview:iconImageView];
+//        iconImageView.layer.masksToBounds = YES;
+//        iconImageView.layer.cornerRadius = 21 * WIDTH_SCALE;
+//        iconImageView.image = [UIImage imageNamed:@"Icon"];
+//        [_headerView addSubview:iconImageView];
         
         CGFloat labelY = CGRectGetMaxY(iconImageView.frame) + (21 * HEIGHT_SCALE);
         UILabel *versionLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, labelY, WIDTH - 30, 18)];
@@ -57,6 +60,16 @@
         NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
         NSString *version = infoDic[@"CFBundleShortVersionString"];
         versionLabel.text = [NSString stringWithFormat:@"V %@", version];
+        
+        // 添加粒子发射器
+        self.emitterLayer = [[AZEmitterLayer alloc] init];
+        self.emitterLayer.bounds = _headerView.bounds;
+        self.emitterLayer.position = CGPointMake(iconImageView.center.x, iconImageView.center.y);
+        self.emitterLayer.beginPoint = CGPointMake(0, 20);
+        self.emitterLayer.ignoredWhite = YES;
+        self.emitterLayer.azDelegate = self;
+        self.emitterLayer.image = [UIImage imageNamed:@"Icon_emitter_3"];
+        [_headerView.layer addSublayer:self.emitterLayer];
     }
     return _headerView;
 }
@@ -69,7 +82,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.backgroundColor = RGB(242, 242, 242);
+        _tableView.backgroundColor = RGB(242, 242, 242); 
         [_tableView registerClass:[DNAppAboutCell class] forCellReuseIdentifier:DNAppAboutCellID];
     }
     return _tableView;
@@ -101,6 +114,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+#pragma mark - AZEmitterLayerDelegate
+
+- (void)onAnimEnd {
+    NSLog(@"粒子合成动画完成");
+    
+    [self.emitterLayer removeFromSuperlayer];
+    
+    CGFloat iconW = 126 * HEIGHT_SCALE;
+    CGFloat iconX = (WIDTH - iconW) / 2;
+    UIImageView *iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, 24 * HEIGHT_SCALE, iconW, iconW)];
+    iconImageView.layer.masksToBounds = YES;
+    iconImageView.layer.cornerRadius = 21 * WIDTH_SCALE;
+    iconImageView.image = [UIImage imageNamed:@"Icon"];
+    [self.headerView addSubview:iconImageView];
 }
 
 
