@@ -24,6 +24,9 @@ Git命令解释:
     git log --pretty=oneline    (查看提交历史,输出格式为: commit值 提交信息)
     git reset --hard le7fac4    (le7fac4为commit值)
 17. git reflog       git reflog是Git提供给我们记录命令历史，commit和reset都在被记录之列。
+18. 撤销本地修改:
+    git status                       查看本地文件状态 (modified:   MyTS/Info.plist)
+    git checkout -- MyTS/Info.plist  把MyTS/Info.plist文件在工作区的修改全部撤销。
 
 
 
