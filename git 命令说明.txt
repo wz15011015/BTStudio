@@ -33,6 +33,10 @@ Git命令解释:
 
 
 
+
+
+
+
 Git操作步骤：
 
 一. 码云(中国版的github)怎样上传项目?
@@ -70,6 +74,35 @@ c. git push -u origin master    // 推送要上传的文件
 10. git push origin NewBranch:NewBranch （git push origin <本地分支名>:<远程分支名>，本地分支和远程仓库上的分支一样时，即这样写）；
 11. 回到网页上刷新码云页面即可看到提交的项目代码。
 
+
+
+
+本地仓库的回退（撤销本地的commit）： git  reset：
+reset命令有3种方式：
+git reset --mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息git 
+reset --soft  HEAD^：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容
+ 
+#回退所有内容到上一个版本  
+git reset HEAD^  
+#回退a.py这个文件的版本到上一个版本  
+git reset HEAD^ a.py  
+#向前回退到第3个版本  
+git reset –-soft HEAD~3  
+#将本地的状态回退到和远程的一样  
+git reset –-hard origin/master  
+#回退到某个版本  
+git reset 057d  
+#回退到上一次提交的状态，按照某一次的commit完全反向的进行一次commit  
+git revert HEAD  
+ 远程仓库回退操作参见http://www.tech126.com/git-reset/
+
+
+当更新代码出现问题的时候（可能由于别人提交的代码和我们提交的代码有冲突，或者管理人员修改了我们的代码之后再提交），我们最为常用的办法是。
+1.确保分支正确，git branch
+2.用git reset 命令恢复到更老的版本
+3.git checkout 和 git rm，确保恢复到了想要的老的版本。rm 的内容可以在合代码的时候得到，有冲突的话会提示。
+4.git fetch   git merge   ；如果是android的话，repo sync ，疑惑repo sync xxx（某一个git库)
 
 
 
