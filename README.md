@@ -1,6 +1,9 @@
 # BTStudio
 <img src="https://avatars2.githubusercontent.com/u/12229793?v=3&s=460" width="240" height="240">
 
+[![BTStudio](https://img.shields.io/badge/Team-BTStudio-brightgreen.svg?style=flat)](https://github.com/wz15011015github/BTStudio "BTStudio name")
+
+![](https://img.shields.io/badge/platform-iOS-red.svg) ![](https://img.shields.io/badge/language-Objective--C-orange.svg) ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
 
 ## How To Get Started
 
