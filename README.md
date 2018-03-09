@@ -1,7 +1,7 @@
 # BTStudio
 <img src="https://avatars2.githubusercontent.com/u/12229793?v=3&s=460" width="240" height="240">
 
-[![BTStudio](https://img.shields.io/badge/Team-BTStudio-brightgreen.svg?style=flat)](https://github.com/wz15011015github/BTStudio "BTStudio name")
+[![BTStudio](https://img.shields.io/badge/Team-BTStudio-brightgreen.svg?style=flat)](https://github.com/wz15011015github/BTStudio "BTStudio")
 
 ![](https://img.shields.io/badge/platform-iOS-red.svg) ![](https://img.shields.io/badge/language-Objective--C-orange.svg) ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
 
@@ -70,11 +70,11 @@ git push -u origin master
 
 ### 1. TouchIDDemo
 
-TouchID使用小Demo.
+TouchID使用Demo.
 
 ### 2. LiveForMobile
 
-移动直播Demo，模仿iOS平台主流直播App界面来搭建，更新中...
+移动直播Demo，模仿iOS平台主流直播App界面来搭建。
 
 ### 3. SyncTomCat
 
