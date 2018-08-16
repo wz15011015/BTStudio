@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06F9FF7321251DC60006FB26 /* TXRTMPSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06F9FF7221251DC60006FB26 /* TXRTMPSDK.framework */; };
 		7B2D022328E7B596FA8C2ED5 /* libPods-LiveForMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8531DC410AC75D508CC67ED /* libPods-LiveForMobile.a */; };
 		9A037A2E1F049AE3005F2894 /* PlayUGCDecorateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A037A2D1F049AE3005F2894 /* PlayUGCDecorateView.m */; };
 		9A124F741F394C3B009E2DD3 /* StateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A124F731F394C3B009E2DD3 /* StateViewController.m */; };
@@ -117,6 +118,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06F9FF7221251DC60006FB26 /* TXRTMPSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TXRTMPSDK.framework; sourceTree = "<group>"; };
 		1A6A057CDCD4FB3463CA15FB /* Pods-LiveForMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveForMobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiveForMobile/Pods-LiveForMobile.release.xcconfig"; sourceTree = "<group>"; };
 		64638494758FBBA56AE8D735 /* Pods-LiveForMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveForMobile.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiveForMobile/Pods-LiveForMobile.debug.xcconfig"; sourceTree = "<group>"; };
 		9A037A2C1F049AE3005F2894 /* PlayUGCDecorateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayUGCDecorateView.h; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				9A81BE3E1EF90D5300899E4C /* CoreMedia.framework in Frameworks */,
 				9A81BE3C1EF90D4D00899E4C /* AVFoundation.framework in Frameworks */,
 				9A81BE3A1EF90D4600899E4C /* CoreTelephony.framework in Frameworks */,
+				06F9FF7321251DC60006FB26 /* TXRTMPSDK.framework in Frameworks */,
 				9A81BE381EF90D4000899E4C /* SystemConfiguration.framework in Frameworks */,
 				9A81BE361EF90D3800899E4C /* VideoToolbox.framework in Frameworks */,
 				9A81BE341EF90CE800899E4C /* TXRTMPSDK.framework in Frameworks */,
@@ -340,6 +343,7 @@
 		2FCA7F33AE1BA8F33A0BCA97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				06F9FF7221251DC60006FB26 /* TXRTMPSDK.framework */,
 				9A81BE471EF90D7E00899E4C /* libresolv.tbd */,
 				9A81BE451EF90D7500899E4C /* libiconv.tbd */,
 				9A81BE431EF90D6E00899E4C /* libz.tbd */,

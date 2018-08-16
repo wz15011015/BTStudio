@@ -159,7 +159,7 @@
     if (!self.livePush) {
         return NO;
     }
-    [self.livePush setVideoQuality:VIDEO_QUALITY_HIGH_DEFINITION];
+//    [self.livePush setVideoQuality:VIDEO_QUALITY_HIGH_DEFINITION];
     if (!_isPreviewing) {
         [self.livePush startPreview:self.videoParentView];
         _isPreviewing = YES;
@@ -205,7 +205,7 @@
         return NO;
     }
     self.livePush.delegate = self;
-    [self.livePush setVideoQuality:VIDEO_QUALITY_HIGH_DEFINITION];
+//    [self.livePush setVideoQuality:VIDEO_QUALITY_HIGH_DEFINITION];
     if (!_isPreviewing) {
         [self.livePush startPreview:self.videoParentView];
         _isPreviewing = YES;

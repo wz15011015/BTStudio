@@ -217,7 +217,7 @@
     
     // 3. 获取主播头像地址
     NSMutableArray *imageURLArr = [NSMutableArray array];
-    NSString *pattern2 = @"<img src=\"([a-zA-Z0-9:/%\\.\?]*)url=url=([a-zA-Z0-9:/%\\.]*).jpg&w";
+    NSString *pattern2 = @"<img src=\"([a-zA-Z0-9:/%\\.\?]*)url=([a-zA-Z0-9:/%\\.]*).jpg&w";
     NSArray *matchResultArr2 = [self matchesInString:tempStr1 withPattern:pattern2 options:NSRegularExpressionDotMatchesLineSeparators];
     if (matchResultArr2.count == 0) {
         NSLog(@"2 未匹配到结果");
@@ -227,7 +227,7 @@
         // 剔除末尾"&w"两个字符
         tempStr = [tempStr substringToIndex:tempStr.length - 2];
         // 截取图片地址
-        NSRange range = [tempStr rangeOfString:@"url=url="];
+        NSRange range = [tempStr rangeOfString:@"url="];
         tempStr = [tempStr substringFromIndex:range.location + range.length];
         // 把字符串中的URL转义字符转成字符
         NSString *imageURL = [tempStr stringByRemovingPercentEncoding];
