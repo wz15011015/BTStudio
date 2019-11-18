@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06A00DD123826704005E242E /* animations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06A00DD023826704005E242E /* animations.plist */; };
+		06A00DE023828DE5005E242E /* BWConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A00DDF23828DE5005E242E /* BWConst.m */; };
 		9A01F8441F1E05F300BA2E57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A01F8431F1E05F300BA2E57 /* main.m */; };
 		9A01F84D1F1E05F300BA2E57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A01F84B1F1E05F300BA2E57 /* Main.storyboard */; };
 		9A01F84F1F1E05F300BA2E57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A01F84E1F1E05F300BA2E57 /* Assets.xcassets */; };
 		9A01F8521F1E05F300BA2E57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A01F8501F1E05F300BA2E57 /* LaunchScreen.storyboard */; };
 		9A01F8661F1E071000BA2E57 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A01F8621F1E071000BA2E57 /* ViewController.m */; };
 		9A01F86A1F1E071600BA2E57 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A01F8691F1E071600BA2E57 /* AppDelegate.m */; };
-		9A59EEBD1F4E76E70062EB16 /* iPhone_TomCat.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A59EEBC1F4E76E70062EB16 /* iPhone_TomCat.png */; };
 		9ADEFA2B1F1EE8AA0011FFA2 /* cymbals_00.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEFA1E1F1EE8AA0011FFA2 /* cymbals_00.jpg */; };
 		9ADEFA2C1F1EE8AA0011FFA2 /* cymbals_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEFA1F1F1EE8AA0011FFA2 /* cymbals_01.jpg */; };
 		9ADEFA2D1F1EE8AA0011FFA2 /* cymbals_02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEFA201F1EE8AA0011FFA2 /* cymbals_02.jpg */; };
@@ -590,6 +591,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06A00DD023826704005E242E /* animations.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = animations.plist; sourceTree = "<group>"; };
+		06A00DDE23828DE5005E242E /* BWConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BWConst.h; sourceTree = "<group>"; };
+		06A00DDF23828DE5005E242E /* BWConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BWConst.m; sourceTree = "<group>"; };
 		9A01F83F1F1E05F300BA2E57 /* SyncTomCat-iPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SyncTomCat-iPhone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A01F8431F1E05F300BA2E57 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9A01F84C1F1E05F300BA2E57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -601,7 +605,6 @@
 		9A01F8681F1E071600BA2E57 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9A01F8691F1E071600BA2E57 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9A01F86B1F1E08E600BA2E57 /* BWMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWMacro.h; sourceTree = "<group>"; };
-		9A59EEBC1F4E76E70062EB16 /* iPhone_TomCat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhone_TomCat.png; sourceTree = "<group>"; };
 		9ADEFA1E1F1EE8AA0011FFA2 /* cymbals_00.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cymbals_00.jpg; sourceTree = "<group>"; };
 		9ADEFA1F1F1EE8AA0011FFA2 /* cymbals_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cymbals_01.jpg; sourceTree = "<group>"; };
 		9ADEFA201F1EE8AA0011FFA2 /* cymbals_02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cymbals_02.jpg; sourceTree = "<group>"; };
@@ -1190,6 +1193,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06A00DDD23828DD9005E242E /* Const */ = {
+			isa = PBXGroup;
+			children = (
+				06A00DDE23828DE5005E242E /* BWConst.h */,
+				06A00DDF23828DE5005E242E /* BWConst.m */,
+			);
+			path = Const;
+			sourceTree = "<group>";
+		};
 		9A01F8361F1E05F300BA2E57 = {
 			isa = PBXGroup;
 			children = (
@@ -1212,9 +1224,7 @@
 				9A01F8671F1E071600BA2E57 /* AppDelegate */,
 				9A01F85E1F1E071000BA2E57 /* Main */,
 				9A01F85B1F1E070900BA2E57 /* Expand */,
-				9A01F85A1F1E070100BA2E57 /* Vender */,
 				9A01F8591F1E06F800BA2E57 /* Resource */,
-				9A59EEB71F4E76530062EB16 /* Screenshot */,
 				9A01F84B1F1E05F300BA2E57 /* Main.storyboard */,
 				9A01F84E1F1E05F300BA2E57 /* Assets.xcassets */,
 				9A01F8501F1E05F300BA2E57 /* LaunchScreen.storyboard */,
@@ -1235,34 +1245,21 @@
 		9A01F8591F1E06F800BA2E57 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				06A00DD023826704005E242E /* animations.plist */,
 				BC5ABE871F1E558400DB19D9 /* SoundsM4A */,
 				BC5ABA6E1F1E502300DB19D9 /* Animations */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		9A01F85A1F1E070100BA2E57 /* Vender */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Vender;
-			sourceTree = "<group>";
-		};
 		9A01F85B1F1E070900BA2E57 /* Expand */ = {
 			isa = PBXGroup;
 			children = (
 				9AE0239B1F1F4F8F00946A25 /* Category */,
-				9A01F85C1F1E070900BA2E57 /* Const */,
+				06A00DDD23828DD9005E242E /* Const */,
 				9A01F85D1F1E070900BA2E57 /* Macro */,
 			);
 			path = Expand;
-			sourceTree = "<group>";
-		};
-		9A01F85C1F1E070900BA2E57 /* Const */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Const;
 			sourceTree = "<group>";
 		};
 		9A01F85D1F1E070900BA2E57 /* Macro */ = {
@@ -1277,7 +1274,6 @@
 			isa = PBXGroup;
 			children = (
 				9A01F85F1F1E071000BA2E57 /* Home */,
-				9A01F8651F1E071000BA2E57 /* Other */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1286,8 +1282,6 @@
 			isa = PBXGroup;
 			children = (
 				9A01F8601F1E071000BA2E57 /* Controller */,
-				9A01F8631F1E071000BA2E57 /* Model */,
-				9A01F8641F1E071000BA2E57 /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1301,27 +1295,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		9A01F8631F1E071000BA2E57 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		9A01F8641F1E071000BA2E57 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		9A01F8651F1E071000BA2E57 /* Other */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Other;
-			sourceTree = "<group>";
-		};
 		9A01F8671F1E071600BA2E57 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1329,14 +1302,6 @@
 				9A01F8691F1E071600BA2E57 /* AppDelegate.m */,
 			);
 			path = AppDelegate;
-			sourceTree = "<group>";
-		};
-		9A59EEB71F4E76530062EB16 /* Screenshot */ = {
-			isa = PBXGroup;
-			children = (
-				9A59EEBC1F4E76E70062EB16 /* iPhone_TomCat.png */,
-			);
-			path = Screenshot;
 			sourceTree = "<group>";
 		};
 		9ADEFA1D1F1EE8AA0011FFA2 /* cymbals */ = {
@@ -2081,7 +2046,7 @@
 		9A01F8371F1E05F300BA2E57 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = BTStudio;
 				TargetAttributes = {
 					9A01F83E1F1E05F300BA2E57 = {
@@ -2098,7 +2063,7 @@
 			};
 			buildConfigurationList = 9A01F83A1F1E05F300BA2E57 /* Build configuration list for PBXProject "SyncTomCat-iPhone" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -2581,6 +2546,7 @@
 				BC5ABD4B1F1E502500DB19D9 /* foot_left_13.jpg in Resources */,
 				BC5ABE351F1E502500DB19D9 /* scratch_53.jpg in Resources */,
 				BC5ABD0F1F1E502500DB19D9 /* eat_21.jpg in Resources */,
+				06A00DD123826704005E242E /* animations.plist in Resources */,
 				BC5ABDF11F1E502500DB19D9 /* pie_09.jpg in Resources */,
 				BC5ABE791F1E502500DB19D9 /* yawn_17.jpg in Resources */,
 				BC5ABE3D1F1E502500DB19D9 /* sneeze_05.jpg in Resources */,
@@ -2603,7 +2569,6 @@
 				BC5ABE5A1F1E502500DB19D9 /* stomach_20.jpg in Resources */,
 				BC5ABD5B1F1E502500DB19D9 /* foot_left_29.jpg in Resources */,
 				BC5ABCC61F1E502400DB19D9 /* drink_29.jpg in Resources */,
-				9A59EEBD1F4E76E70062EB16 /* iPhone_TomCat.png in Resources */,
 				BC5ABD8B1F1E502500DB19D9 /* happy_17.jpg in Resources */,
 				BC5ABD601F1E502500DB19D9 /* foot_right_04.jpg in Resources */,
 				BC5ABE5E1F1E502500DB19D9 /* stomach_24.jpg in Resources */,
@@ -2708,6 +2673,7 @@
 				9A01F8661F1E071000BA2E57 /* ViewController.m in Sources */,
 				9A01F8441F1E05F300BA2E57 /* main.m in Sources */,
 				9AE023A01F1F4F8F00946A25 /* NSData+AES.m in Sources */,
+				06A00DE023828DE5005E242E /* BWConst.m in Sources */,
 				9A01F86A1F1E071600BA2E57 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2738,21 +2704,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2786,21 +2761,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

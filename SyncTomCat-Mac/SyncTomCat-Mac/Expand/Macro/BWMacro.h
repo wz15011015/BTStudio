@@ -10,15 +10,7 @@
 #define BWMacro_h
 
 
-#pragma mark - 调试模式 (DEBUG:调试模式  DEBUG1:非调试模式)
-
-#ifdef DEBUG
-#define DDEBUG_MODE 1
-#else
-#define DDEBUG_MODE 0
-#endif
-
-// MARK: NSLog
+#pragma mark - NSLog
 #ifndef __OPTIMIZE__  // 如果release状态就不执行NSLog函数
 //#define NSLog(...) printf("%s [%s:%d] %s\n", [[NSString stringWithFormat:@"%@", [[NSDate date] dateByAddingTimeInterval:[[NSTimeZone systemTimeZone] secondsFromGMTForDate:[NSDate date]]]] UTF8String], [[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String], __LINE__, [[NSString stringWithFormat:__VA_ARGS__] UTF8String]);
 #else
@@ -31,37 +23,6 @@
 // 窗口尺寸
 #define WINDOW_WIDTH (320)
 #define WINDOW_HEIGHT (512)
-
-// 屏幕宽高
-//#define WIDTH [UIScreen mainScreen].bounds.size.width
-//#define HEIGHT [UIScreen mainScreen].bounds.size.height
-//
-//#define SCREEN_MAX_LENGTH (MAX(WIDTH, HEIGHT))
-//#define SCREEN_MIN_LENGTH (MIN(WIDTH, HEIGHT))
-//
-//// 设备类型
-//#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-//#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-//#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
-//
-//// 屏幕类型
-//#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
-//#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
-//#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
-//#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
-//
-//// 适配比例 (UI效果图以 iPhone 6 Plus(414x736)屏幕像素大小为尺寸基础时)
-//#define WIDTH_SCALE (IS_IPHONE_4_OR_LESS ? (320.0 / 414.0) : (WIDTH / 414.0))
-//#define HEIGHT_SCALE (IS_IPHONE_4_OR_LESS ? (568.0 / 736.0) : (HEIGHT / 736.0))
-
-
-#pragma mark - 设备系统版本
-
-//#define DEVICE_SYSTEM_VERSION [[UIDevice currentDevice] systemVersion]
-//#define IS_IOS7 (([DEVICE_SYSTEM_VERSION compare:@"7.0" options:NSNumericSearch] != NSOrderedAscending) && ([DEVICE_SYSTEM_VERSION compare:@"8.0" options:NSNumericSearch] != NSOrderedDescending))
-//#define IS_IOS8 (([DEVICE_SYSTEM_VERSION compare:@"8.0" options:NSNumericSearch] != NSOrderedAscending) && ([DEVICE_SYSTEM_VERSION compare:@"9.0" options:NSNumericSearch] != NSOrderedDescending))
-//#define IS_IOS9 (([DEVICE_SYSTEM_VERSION compare:@"9.0" options:NSNumericSearch] != NSOrderedAscending) && ([DEVICE_SYSTEM_VERSION compare:@"10.0" options:NSNumericSearch] != NSOrderedDescending))
-//#define IS_IOS10 (([DEVICE_SYSTEM_VERSION compare:@"10.0" options:NSNumericSearch] != NSOrderedAscending) && ([DEVICE_SYSTEM_VERSION compare:@"11.0" options:NSNumericSearch] != NSOrderedDescending))
 
 
 #pragma mark - 弱引用
@@ -152,7 +113,7 @@ static class *_instance; \
 
 #pragma mark - 头文件导入 
 
-//#import "BWConst.h" // 常量
+#import "BWConst.h" // 常量
 #import "NSString+BrianExtension.h" // 字符串扩展分类
 
 

@@ -12,20 +12,18 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-NSString *const AnimationKey = @"contents";
-NSString *const AES256EncryptKey = @"BW_SyncTomCat";
-
 #define SERVICE_UUID @"6DAC6765-6249-44E4-8EE3-A924401E8717"
 #define CHARACTERISTIC_UUID @"F97DE011-D73C-4093-B229-D5756D5FFCAD"
-
 
 @interface ViewController () <CAAnimationDelegate, CBPeripheralManagerDelegate> {
     BOOL _isAnimating; // 是否正在播放动画中
 }
 
+@property (nonatomic, strong) NSImageView *backgroundImageView;
 @property (nonatomic, strong) NSImageView *animationImageView;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) AVAudioPlayer *otherAudioPlayer;
+@property (nonatomic, strong) NSDictionary *animationInfos;
 
 @property (nonatomic, strong) CBPeripheralManager *peripheralManager; // 外设管理
 @property (nonatomic, strong) CBMutableService *service; // 外设的一个服务
@@ -40,18 +38,22 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
     self.view.layer.backgroundColor = [NSColor whiteColor].CGColor;
     
-    // 0. 初始化参数
+    // 1. 初始化参数
     _isAnimating = NO;
     
-    // 1. 添加控件
+    // 2. 添加控件
     [self addSubviews];
     
-    // 2. 初始化外设管理对象
+    // 3. 初始化外设管理对象
     self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
+}
+
+- (void)setRepresentedObject:(id)representedObject {
+    [super setRepresentedObject:representedObject];
+
+    // Update the view, if already loaded.
 }
 
 
@@ -59,18 +61,19 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
 
 - (void)addSubviews {
     // 1. 动画ImageView
+    [self.view addSubview:self.backgroundImageView];
     [self.view addSubview:self.animationImageView];
     
     // 2. 两侧的功能按钮 (可见)
     __block CGFloat x = 6;
-    __block CGFloat y = WINDOW_HEIGHT * 0.2;
+    __block CGFloat y = WINDOW_HEIGHT * 0.12;
     CGFloat w = 50;
     CGFloat margin = 16;
     NSArray *buttons = @[@"milk_button", @"cymbals_button", @"fart_button", @"paw_button", @"pie_button", @"bird_button"];
     [buttons enumerateObjectsUsingBlock:^(NSString *imageName, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 3) {
             x = WINDOW_WIDTH - x - w;
-            y = WINDOW_HEIGHT * 0.2;
+            y = WINDOW_HEIGHT * 0.12;
         }
         
         NSButton *button = [NSButton buttonWithImage:[NSImage imageNamed:imageName] target:self action:@selector(buttonEvent:)];
@@ -84,30 +87,69 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
     
     // 3. 其他的功能按钮 (不可见)
     // [foot_right, foot_left, angry, stomach, happy, sneeze, yawn, yawn, happy_simple, happy_simple, knockout]
+    CGFloat happy_simple_w = 50;
+    CGFloat happy_simple_h = 65;
+    CGFloat yawn_w = 90;
+    CGFloat yawn_h = 50;
+    CGFloat foot_w = 42;
+    CGFloat foot_h = 38;
     for (int i = 0; i < 11; i++) {
         CGFloat x = 0, y = 0, w = 0, h = 0;
-        if (i == 0) {
-            w = 40, h = 28, x = (WINDOW_WIDTH / 2) - w - 5, y = 18;
-        } else if (i == 1) {
-            w = 40, h = 28, x = (WINDOW_WIDTH / 2) + 5, y = 18;
-        } else if (i == 2) {
-            w = 34, h = 80, x = (WINDOW_WIDTH / 2) + 55, y = 48;
-        } else if (i == 3) {
-            w = 100, h = 60, x = (WINDOW_WIDTH - w) / 2, y = 70;
-        } else if (i == 4) {
-            w = 80, h = 50, x = (WINDOW_WIDTH - w) / 2, y = 160;
-        } else if (i == 5) {
-            w = 60, h = 30, x = (WINDOW_WIDTH - w) / 2 + 3, y = 320;
-        } else if (i == 6) {
-            w = 85, h = 50, x = 18, y = 320;
-        } else if (i == 7) {
-            w = 85, h = 50, x = WINDOW_WIDTH - 18 - w, y = 320;
-        } else if (i == 8) {
-            w = 50, h = 60, x = 60, y = 370;
-        } else if (i == 9) {
-            w = 50, h = 60, x = WINDOW_WIDTH - 60 - w, y = 370;
-        } else if (i == 10) {
-            w = 70, h = 40, x = (WINDOW_WIDTH - w) / 2, y = 385;
+        if (i == 0) { // foot_left
+            w = foot_w;
+            h = foot_h;
+            x = (WINDOW_WIDTH / 2) - w - 5;
+            y = 18;
+        } else if (i == 1) { // foot_right
+            w = foot_w;
+            h = foot_h;
+            x = (WINDOW_WIDTH / 2) + 5;
+            y = 18;
+        } else if (i == 2) { // angry
+            w = 36;
+            h = 88;
+            x = (WINDOW_WIDTH / 2) + 52;
+            y = 46;
+        } else if (i == 3) { // stomach
+            w = 100;
+            h = 60;
+            x = (WINDOW_WIDTH - w) / 2;
+            y = 70;
+        } else if (i == 4) { // happy
+            w = 86;
+            h = 50;
+            x = (WINDOW_WIDTH - w) / 2;
+            y = 160;
+        } else if (i == 5) { // sneeze
+            w = 80;
+            h = 38;
+            x = (WINDOW_WIDTH - w) / 2 + 3;
+            y = 316;
+        } else if (i == 6) { // yawn
+            w = yawn_w;
+            h = yawn_h;
+            x = 18;
+            y = 320;
+        } else if (i == 7) { // yawn
+            w = yawn_w;
+            h = yawn_h;
+            x = WINDOW_WIDTH - 18 - w;
+            y = 320;
+        } else if (i == 8) { // happy_simple
+            w = happy_simple_w;
+            h = happy_simple_h;
+            x = 60;
+            y = 372;
+        } else if (i == 9) { // happy_simple
+            w = happy_simple_w;
+            h = happy_simple_h;
+            x = WINDOW_WIDTH - 60 - w;
+            y = 372;
+        } else if (i == 10) { // knockout
+            w = 90;
+            h = 44;
+            x = (WINDOW_WIDTH - w) / 2;
+            y = 388;
         }
         
         NSButton *button = [[NSButton alloc] initWithFrame:NSMakeRect(x, y, w, h)];
@@ -118,7 +160,8 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
         button.target = self;
         button.action = @selector(buttonEvent:);
         [self.view addSubview:button];
-        
+        // TODO: 调试
+//        button.wantsLayer = YES;
 //        button.layer.backgroundColor = [NSColor colorWithWhite:0 alpha:0.3].CGColor;
     }
 }
@@ -127,6 +170,7 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
     if (_isAnimating) { // 正在动画
         return;
     }
+    
     // 1. 动画
     NSMutableArray *images = [NSMutableArray arrayWithCapacity:count];
     for (int i = 0; i < count; i++) {
@@ -134,7 +178,8 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
         NSImage *image = [NSImage imageNamed:imageName];
         [images addObject:image];
     }
-    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:AnimationKey];
+    
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
     animation.values = images;
     animation.duration = 0.1 * count;
     animation.repeatCount = 1;
@@ -142,12 +187,12 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
     animation.delegate = self;
     animation.removedOnCompletion = YES;
     
-    CALayer *layer = [CALayer layer];
-    layer.frame = self.animationImageView.bounds;
-    [layer addAnimation:animation forKey:AnimationKey];
+    CALayer *animationLayer = [CALayer layer];
+    animationLayer.frame = self.animationImageView.bounds;
+    [animationLayer addAnimation:animation forKey:nil];
     
-    [self.animationImageView.layer insertSublayer:layer atIndex:0];
-//    self.animationImageView.wantsLayer = YES;
+    self.animationImageView.layer = animationLayer;
+    self.animationImageView.wantsLayer = YES;
     
  
     // 2. 创建一个音频播放器,播放相应动作的音效
@@ -227,54 +272,51 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
 
 #pragma mark - Events
 
+/// 动作按钮事件
+/// @param sender 按钮
 - (void)buttonEvent:(NSButton *)sender {
-    NSString *actionName = @"none"; // 动作名称
+    if (_isAnimating) {
+        NSLog(@"正在播放动画...");
+        return;
+    }
     
+    NSString *actionName = @"none"; // 动作名称
     if (sender.tag == 10) {
         actionName = @"drink";
-        [self startAnimationWithName:@"drink" count:81];
     } else if (sender.tag == 11) {
         actionName = @"cymbals";
-        [self startAnimationWithName:@"cymbals" count:13];
     } else if (sender.tag == 12) {
         actionName = @"fart";
-        [self startAnimationWithName:@"fart" count:28];
     } else if (sender.tag == 13) {
         actionName = @"scratch";
-        [self startAnimationWithName:@"scratch" count:56];
     } else if (sender.tag == 14) {
         actionName = @"pie";
-        [self startAnimationWithName:@"pie" count:24];
     } else if (sender.tag == 15) {
         actionName = @"eat";
-        [self startAnimationWithName:@"eat" count:40];
     } else if (sender.tag == 16) {
         actionName = @"foot_right";
-        [self startAnimationWithName:@"foot_right" count:30];
     } else if (sender.tag == 17) {
         actionName = @"foot_left";
-        [self startAnimationWithName:@"foot_left"  count:30];
     } else if (sender.tag == 18) {
         actionName = @"angry";
-        [self startAnimationWithName:@"angry" count:26];
     } else if (sender.tag == 19) {
         actionName = @"stomach";
-        [self startAnimationWithName:@"stomach" count:34];
     } else if (sender.tag == 20) {
         actionName = @"happy";
-        [self startAnimationWithName:@"happy" count:29];
     } else if (sender.tag == 21) {
         actionName = @"sneeze";
-        [self startAnimationWithName:@"sneeze" count:14];
     } else if (sender.tag == 22 || sender.tag == 23) {
         actionName = @"yawn";
-        [self startAnimationWithName:@"yawn" count:31];
     } else if (sender.tag == 24 || sender.tag == 25) {
         actionName = @"happy_simple";
-        [self startAnimationWithName:@"happy_simple" count:25];
     } else if (sender.tag == 26) {
         actionName = @"knockout";
-        [self startAnimationWithName:@"knockout" count:81];
+    }
+    NSDictionary *animationInfo = [self.animationInfos objectForKey:actionName];
+    if (animationInfo) {
+        NSString *name = animationInfo[@"name"];
+        NSString *count = animationInfo[@"count"];
+        [self startAnimationWithName:name count:[count integerValue]];
     }
 
     [self sendValueToCentralForCharacteristic:actionName];
@@ -308,51 +350,11 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
     valueStr = [valueStr AES256_DecryptWithKey:AES256EncryptKey];
     NSLog(@"收到的特征写入值是: %@", valueStr);
     
-    NSString *actionName = valueStr; // 动作名称
-    if ([actionName isEqualToString:@"drink"]) {
-        [self startAnimationWithName:@"drink" count:81];
-        
-    } else if ([actionName isEqualToString:@"cymbals"]) {
-        [self startAnimationWithName:@"cymbals" count:13];
-        
-    } else if ([actionName isEqualToString:@"fart"]) {
-        [self startAnimationWithName:@"fart" count:28];
-        
-    } else if ([actionName isEqualToString:@"scratch"]) {
-        [self startAnimationWithName:@"scratch" count:56];
-        
-    } else if ([actionName isEqualToString:@"pie"]) {
-        [self startAnimationWithName:@"pie" count:24];
-        
-    } else if ([actionName isEqualToString:@"eat"]) {
-        [self startAnimationWithName:@"eat" count:40];
-        
-    } else if ([actionName isEqualToString:@"foot_right"]) {
-        [self startAnimationWithName:@"foot_right" count:30];
-        
-    } else if ([actionName isEqualToString:@"foot_left"]) {
-        [self startAnimationWithName:@"foot_left"  count:30];
-        
-    } else if ([actionName isEqualToString:@"angry"]) {
-        [self startAnimationWithName:@"angry" count:26];
-        
-    } else if ([actionName isEqualToString:@"stomach"]) {
-        [self startAnimationWithName:@"stomach" count:34];
-        
-    } else if ([actionName isEqualToString:@"happy"]) {
-        [self startAnimationWithName:@"happy" count:29];
-        
-    } else if ([actionName isEqualToString:@"sneeze"]) {
-        [self startAnimationWithName:@"sneeze" count:14];
-        
-    } else if ([actionName isEqualToString:@"yawn"]) {
-        [self startAnimationWithName:@"yawn" count:31];
-        
-    } else if ([actionName isEqualToString:@"happy_simple"]) {
-        [self startAnimationWithName:@"happy_simple" count:25];
-        
-    } else if ([actionName isEqualToString:@"knockout"]) {
-        [self startAnimationWithName:@"knockout" count:81];
+    NSDictionary *animationInfo = [self.animationInfos objectForKey:valueStr];
+    if (animationInfo) {
+        NSString *name = animationInfo[@"name"];
+        NSString *count = animationInfo[@"count"];
+        [self startAnimationWithName:name count:[count integerValue]];
     }
 }
 
@@ -365,6 +367,10 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     _isAnimating = NO;
+    
+    CALayer *imageLayer = [CALayer layer];
+    imageLayer.contents = [NSImage imageNamed:@"default_TomCat"];
+    self.animationImageView.layer = imageLayer;
 }
 
 
@@ -435,7 +441,6 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
     NSLog(@"开始广播...");
 }
 
-
 // 监听到来自中心设备的"读"请求
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request {
     NSLog(@"收到来自中心设备的\"读\"请求");
@@ -499,7 +504,6 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
     }
 }
 
-
 // 中心设备订阅了该外设的特征
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
     // 特征UUID
@@ -528,7 +532,6 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
     NSLog(@"中心设备取消了订阅该外设的特征,特征UUID = %@", UUIDStr);
 }
 
-
 // 当传输队列可用时，会调用外设管理器的代理:peripheralManagerIsReadyToUpdateSubscribers:, 可以在此代理方法中再次发送更新数据
 - (void)peripheralManagerIsReadyToUpdateSubscribers:(CBPeripheralManager *)peripheral {
     NSLog(@"需要再次发送更新数据");
@@ -536,6 +539,14 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
 
 
 #pragma mark - Getters
+
+- (NSImageView *)backgroundImageView {
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[NSImageView alloc] initWithFrame:NSMakeRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)];
+        _backgroundImageView.image = [NSImage imageNamed:@"default_TomCat"];
+    }
+    return _backgroundImageView;
+}
 
 - (NSImageView *)animationImageView {
     if (!_animationImageView) {
@@ -545,12 +556,20 @@ NSString *const AES256EncryptKey = @"BW_SyncTomCat";
     return _animationImageView;
 }
 
-
-- (void)setRepresentedObject:(id)representedObject {
-    [super setRepresentedObject:representedObject];
-
-    // Update the view, if already loaded.
+- (NSDictionary *)animationInfos {
+    if (!_animationInfos) {
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"animations" ofType:@"plist"];
+        if (@available(macOS 10.13, *)) {
+            NSError *error = nil;
+            _animationInfos = [NSDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:filePath] error:&error];
+            if (error) {
+                _animationInfos = [NSDictionary dictionary];
+            }
+        } else {
+            _animationInfos = [NSDictionary dictionaryWithContentsOfURL:[NSURL fileURLWithPath:filePath]];
+        }
+    }
+    return _animationInfos;
 }
-
 
 @end

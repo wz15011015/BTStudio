@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A59EEC01F4E77120062EB16 /* Mac_TomCat.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A59EEBF1F4E77120062EB16 /* Mac_TomCat.png */; };
+		06A00DD523826F8B005E242E /* animations.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06A00DD423826F8B005E242E /* animations.plist */; };
+		06A00DDC23828D66005E242E /* BWConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A00DDB23828D66005E242E /* BWConst.m */; };
 		9ADEFA7C1F1F013C0011FFA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADEFA7B1F1F013C0011FFA2 /* main.m */; };
 		9ADEFA811F1F013C0011FFA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEFA801F1F013C0011FFA2 /* Assets.xcassets */; };
 		9ADEFA841F1F013C0011FFA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9ADEFA821F1F013C0011FFA2 /* Main.storyboard */; };
@@ -589,12 +590,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9A59EEBF1F4E77120062EB16 /* Mac_TomCat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mac_TomCat.png; sourceTree = "<group>"; };
+		06A00DD423826F8B005E242E /* animations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = animations.plist; sourceTree = "<group>"; };
+		06A00DDA23828D66005E242E /* BWConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BWConst.h; sourceTree = "<group>"; };
+		06A00DDB23828D66005E242E /* BWConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BWConst.m; sourceTree = "<group>"; };
+		06A00DE123828F32005E242E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9ADEFA741F1F013C0011FFA2 /* SyncTomCat-Mac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SyncTomCat-Mac.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ADEFA7B1F1F013C0011FFA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9ADEFA801F1F013C0011FFA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9ADEFA831F1F013C0011FFA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		9ADEFA851F1F013C0011FFA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9ADEFA921F1F028C0011FFA2 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		9ADEFA931F1F028C0011FFA2 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9ADEFA951F1F02930011FFA2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1188,12 +1191,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9A59EEBE1F4E77120062EB16 /* Screenshot */ = {
+		06A00DD923828D4F005E242E /* Const */ = {
 			isa = PBXGroup;
 			children = (
-				9A59EEBF1F4E77120062EB16 /* Mac_TomCat.png */,
+				06A00DDA23828D66005E242E /* BWConst.h */,
+				06A00DDB23828D66005E242E /* BWConst.m */,
 			);
-			path = Screenshot;
+			path = Const;
 			sourceTree = "<group>";
 		};
 		9ADEFA6B1F1F013C0011FFA2 = {
@@ -1215,15 +1219,13 @@
 		9ADEFA761F1F013C0011FFA2 /* SyncTomCat-Mac */ = {
 			isa = PBXGroup;
 			children = (
+				9ADEFA821F1F013C0011FFA2 /* Main.storyboard */,
 				9ADEFA911F1F02570011FFA2 /* AppDelegate */,
 				9ADEFA901F1F02520011FFA2 /* Main */,
 				9ADEFA8D1F1F02440011FFA2 /* Expand */,
-				9ADEFA8C1F1F023D0011FFA2 /* Vender */,
 				9ADEFA8B1F1F02330011FFA2 /* Resource */,
-				9A59EEBE1F4E77120062EB16 /* Screenshot */,
+				06A00DE123828F32005E242E /* Info.plist */,
 				9ADEFA801F1F013C0011FFA2 /* Assets.xcassets */,
-				9ADEFA821F1F013C0011FFA2 /* Main.storyboard */,
-				9ADEFA851F1F013C0011FFA2 /* Info.plist */,
 				9ADEFA7A1F1F013C0011FFA2 /* Supporting Files */,
 			);
 			path = "SyncTomCat-Mac";
@@ -1240,34 +1242,21 @@
 		9ADEFA8B1F1F02330011FFA2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				06A00DD423826F8B005E242E /* animations.plist */,
 				9ADEFEE41F1F03060011FFA2 /* SoundsM4A */,
 				9ADEFA981F1F02F70011FFA2 /* Animations */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		9ADEFA8C1F1F023D0011FFA2 /* Vender */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Vender;
-			sourceTree = "<group>";
-		};
 		9ADEFA8D1F1F02440011FFA2 /* Expand */ = {
 			isa = PBXGroup;
 			children = (
+				06A00DD923828D4F005E242E /* Const */,
 				9AE023A21F1F4F9900946A25 /* Category */,
-				9ADEFA8E1F1F02440011FFA2 /* Const */,
 				9ADEFA8F1F1F02440011FFA2 /* Macro */,
 			);
 			path = Expand;
-			sourceTree = "<group>";
-		};
-		9ADEFA8E1F1F02440011FFA2 /* Const */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Const;
 			sourceTree = "<group>";
 		};
 		9ADEFA8F1F1F02440011FFA2 /* Macro */ = {
@@ -2038,7 +2027,7 @@
 		9ADEFA6C1F1F013C0011FFA2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = BTStudio;
 				TargetAttributes = {
 					9ADEFA731F1F013C0011FFA2 = {
@@ -2050,7 +2039,7 @@
 			};
 			buildConfigurationList = 9ADEFA6F1F1F013C0011FFA2 /* Build configuration list for PBXProject "SyncTomCat-Mac" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -2210,7 +2199,6 @@
 				9ADEFE801F1F02F80011FFA2 /* scratch_35.jpg in Resources */,
 				9ADEFD701F1F02F80011FFA2 /* fart_10.jpg in Resources */,
 				9ADEFE501F1F02F80011FFA2 /* pie_11.jpg in Resources */,
-				9A59EEC01F4E77120062EB16 /* Mac_TomCat.png in Resources */,
 				9ADEFD611F1F02F80011FFA2 /* eat_35.jpg in Resources */,
 				9ADEFD751F1F02F80011FFA2 /* fart_15.jpg in Resources */,
 				9ADEFEB51F1F02F80011FFA2 /* stomach_18.jpg in Resources */,
@@ -2391,6 +2379,7 @@
 				9ADEFE691F1F02F80011FFA2 /* scratch_12.jpg in Resources */,
 				9ADEFF141F1F03060011FFA2 /* scratch.m4a in Resources */,
 				9ADEFE121F1F02F80011FFA2 /* knockout_30.jpg in Resources */,
+				06A00DD523826F8B005E242E /* animations.plist in Resources */,
 				9ADEFEB71F1F02F80011FFA2 /* stomach_20.jpg in Resources */,
 				9ADEFD5D1F1F02F80011FFA2 /* eat_31.jpg in Resources */,
 				9ADEFD8B1F1F02F80011FFA2 /* foot_left_09.jpg in Resources */,
@@ -2659,6 +2648,7 @@
 				9ADEFA941F1F028C0011FFA2 /* ViewController.m in Sources */,
 				9ADEFA7C1F1F013C0011FFA2 /* main.m in Sources */,
 				9AE023A71F1F4F9900946A25 /* NSData+AES.m in Sources */,
+				06A00DDC23828D66005E242E /* BWConst.m in Sources */,
 				9ADEFA971F1F02930011FFA2 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2681,21 +2671,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2729,21 +2728,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -2770,6 +2778,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Q9DDP5YT6J;
 				INFOPLIST_FILE = "SyncTomCat-Mac/Info.plist";
@@ -2783,6 +2792,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = Q9DDP5YT6J;
 				INFOPLIST_FILE = "SyncTomCat-Mac/Info.plist";
