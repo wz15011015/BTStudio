@@ -1,24 +1,11 @@
 # BTStudio
+
 <img src="https://avatars2.githubusercontent.com/u/12229793?v=3&s=460" width="240" height="240">
 
 [![BTStudio](https://img.shields.io/badge/Team-BTStudio-brightgreen.svg?style=flat)](https://github.com/wz15011015github/BTStudio "BTStudio")
 
 ![](https://img.shields.io/badge/platform-iOS-red.svg) ![](https://img.shields.io/badge/language-Objective--C-orange.svg) ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
 
-## How To Get Started
-
-- [Download TouchIDDemo](https://github.com/wz15011015github/BTStudio.git) and try out the included iPhone example apps.
-
-- 第一次添加一个README.md文件
-#####   Git command
-```bash
-echo "# BTStudio" >> README.md
-git init
-git add README.md
-git commit -m 'first commit'
-git remote add origin https://github.com/wz15011015github/BTStudio.git
-git push -u origin master
-```
 
 
 ## Communication
@@ -59,6 +46,7 @@ git push -u origin master
 <!-- ``` -->
 
 
+
 ## Requirements
 
 | Minimum iOS Target |
@@ -66,19 +54,26 @@ git push -u origin master
 | iOS 8.0 |
 
 
+
 ## Usage
 
-### 1. TouchIDDemo
+### 1. SyncTomCat (同步的汤姆猫)
+
+利用 Core Bluetooth 框架实现Mac端汤姆猫与iPhone手机端汤姆猫同步动作。
+
+#### <a id=">Mac界面"></a>Mac端界面 -- iPhone端界面
+<img src="https://github.com/wz15011015/BTStudio/blob/master/Screenshots/Mac_TomCat.png" width="230" height="409">      <img src="https://github.com/wz15011015/BTStudio/blob/master/Screenshots/iPhone_TomCat.png" width="230" height="409">
+
+
+### 2. TouchIDDemo
 
 TouchID使用Demo.
 
-### 2. LiveForMobile
+
+### 3. LiveForMobile
 
 移动直播Demo，模仿iOS平台主流直播App界面来搭建。
 
-### 3. SyncTomCat
-
-利用 Core Bluetooth 框架实现Mac端TomCat与iPhone手机端TomCat同步动作。
 
 
 ## License
