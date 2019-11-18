@@ -62,7 +62,7 @@
 利用 Core Bluetooth 框架实现Mac端汤姆猫与iPhone手机端汤姆猫同步动作。
 
 #### <a id=">Mac界面"></a>Mac端界面 -- iPhone端界面
-<img src="https://github.com/wz15011015/BTStudio/blob/master/Screenshots/Mac_TomCat.png" width="230" height="409">      <img src="https://github.com/wz15011015/BTStudio/blob/master/Screenshots/iPhone_TomCat.png" width="230" height="409">
+<img src="https://github.com/wz15011015/BTStudio/blob/master/Screenshots/TomCat-Mac.png" width="230" height="409">      <img src="https://github.com/wz15011015/BTStudio/blob/master/Screenshots/TomCat-iPhone.png" width="230" height="409">
 
 
 ### 2. TouchIDDemo
