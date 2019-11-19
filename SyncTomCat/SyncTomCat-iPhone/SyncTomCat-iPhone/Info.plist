@@ -26,6 +26,10 @@
 	<string>为了与Mac端SyncTomCat进行信息同步，App需要使用您的蓝牙服务。</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>为了与Mac端SyncTomCat进行信息同步，App需要使用您的蓝牙服务。</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

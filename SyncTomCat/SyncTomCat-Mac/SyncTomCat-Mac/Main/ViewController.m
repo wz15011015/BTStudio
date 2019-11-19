@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) NSImageView *backgroundImageView;
 @property (nonatomic, strong) NSImageView *animationImageView;
+@property (nonatomic, strong) NSButton *rescanButton;
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, strong) AVAudioPlayer *otherAudioPlayer;
 @property (nonatomic, strong) NSDictionary *animationInfos;
@@ -57,12 +58,52 @@
 }
 
 
-#pragma mark - Methods
+#pragma mark - 数据的处理
+
+// 向中心设备发送数据
+- (void)sendValueToCentralForCharacteristicWithValue:(NSString *)valueStr {
+    if (!self.characteristic) {
+        NSLog(@"外设特征为空");
+        return;
+    }
+    
+    // 加密一下
+    NSString *encryptValue = [valueStr AES256_EncryptWithKey:AES256EncryptKey];
+    NSData *value = [encryptValue dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSArray *centrals = self.central ? @[self.central] : nil;
+    // 给订阅的中心设备发送更新数据，centrals如果传nil，表示所有的订阅的中心设备都更新数据
+    BOOL success = [self.peripheralManager updateValue:value forCharacteristic:self.characteristic onSubscribedCentrals:centrals];
+    if (success) {
+        NSLog(@"发送更新数据成功！数据: %@", valueStr);
+    } else { // 用于传入更新值的队列是满的 (当传输队列可用时，会调用外设管理器的代理:peripheralManagerIsReadyToUpdateSubscribers:, 可以在此代理方法中再次发送更新数据)
+        NSLog(@"发送更新数据失败！数据: %@", valueStr);
+    }
+}
+
+// 蓝牙收到特征的写入值
+- (void)receivedWriteValueForCharacteristic:(NSData *)value {
+    NSString *valueStr = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+    // 解密一下
+    valueStr = [valueStr AES256_DecryptWithKey:AES256EncryptKey];
+    NSLog(@"收到的特征写入值是: %@", valueStr);
+    
+    NSDictionary *animationInfo = [self.animationInfos objectForKey:valueStr];
+    if (animationInfo) {
+        NSString *name = animationInfo[@"name"];
+        NSString *count = animationInfo[@"count"];
+        [self startAnimationWithName:name count:[count integerValue]];
+    }
+}
+
+
+#pragma mark - UI
 
 - (void)addSubviews {
-    // 1. 动画ImageView
+    // 1. 背景ImageView / 动画ImageView / 重新扫描按钮
     [self.view addSubview:self.backgroundImageView];
     [self.view addSubview:self.animationImageView];
+    [self.view addSubview:self.rescanButton];
     
     // 2. 两侧的功能按钮 (可见)
     __block CGFloat x = 6;
@@ -164,6 +205,12 @@
 //        button.wantsLayer = YES;
 //        button.layer.backgroundColor = [NSColor colorWithWhite:0 alpha:0.3].CGColor;
     }
+}
+
+- (void)updateRescanButtonWithText:(NSString *)text {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.rescanButton setTitle:text];
+    });
 }
 
 - (void)startAnimationWithName:(NSString *)name count:(NSUInteger)count {
@@ -319,43 +366,20 @@
         [self startAnimationWithName:name count:[count integerValue]];
     }
 
-    [self sendValueToCentralForCharacteristic:actionName];
+    [self sendValueToCentralForCharacteristicWithValue:actionName];
 }
 
-// 向中心设备发送数据
-- (void)sendValueToCentralForCharacteristic:(NSString *)valueStr {
-    if (!self.characteristic) {
-        NSLog(@"外设特征为空");
+- (void)rescanEvent:(NSButton *)sender {
+    BOOL isAdvertising = self.peripheralManager.isAdvertising;
+    if (isAdvertising) {
+        NSLog(@"正在广播中...");
         return;
     }
     
-    // 加密一下
-    NSString *encryptValue = [valueStr AES256_EncryptWithKey:AES256EncryptKey];
-    NSData *value = [encryptValue dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSArray *centrals = self.central ? @[self.central] : nil;
-    // 给订阅的中心设备发送更新数据，centrals如果传nil，表示所有的订阅的中心设备都更新数据
-    BOOL success = [self.peripheralManager updateValue:value forCharacteristic:self.characteristic onSubscribedCentrals:centrals];
-    if (success) {
-        NSLog(@"发送更新数据成功！数据: %@", valueStr);
-    } else { // 用于传入更新值的队列是满的 (当传输队列可用时，会调用外设管理器的代理:peripheralManagerIsReadyToUpdateSubscribers:, 可以在此代理方法中再次发送更新数据)
-        NSLog(@"发送更新数据失败！数据: %@", valueStr);
-    }
-}
-
-// 蓝牙收到特征的写入值
-- (void)receivedWriteValueForCharacteristic:(NSData *)value {
-    NSString *valueStr = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
-    // 解密一下
-    valueStr = [valueStr AES256_DecryptWithKey:AES256EncryptKey];
-    NSLog(@"收到的特征写入值是: %@", valueStr);
-    
-    NSDictionary *animationInfo = [self.animationInfos objectForKey:valueStr];
-    if (animationInfo) {
-        NSString *name = animationInfo[@"name"];
-        NSString *count = animationInfo[@"count"];
-        [self startAnimationWithName:name count:[count integerValue]];
-    }
+    // 重新广播
+    NSLog(@"重新广播");
+    CBUUID *serviceUUID = [CBUUID UUIDWithString:SERVICE_UUID];
+    [self.peripheralManager startAdvertising:@{CBAdvertisementDataLocalNameKey : @"SyncTomCat-Mac", CBAdvertisementDataServiceUUIDsKey : @[serviceUUID]}];
 }
 
 
@@ -393,28 +417,28 @@
         
         // 开始中心服务
         
-        //        CBUUID *characteristicUUID = [CBUUID UUIDWithString:CHARACTERISTIC_UUID];
-        //        // 1. 可以通知的特征
-        //        CBMutableCharacteristic *characteristic1 = [[CBMutableCharacteristic alloc] initWithType:characteristicUUID properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsReadable];
-        //        // 2. 可以读写的特征
-        //        CBMutableCharacteristic *characteristic2 = [[CBMutableCharacteristic alloc] initWithType:characteristicUUID properties:CBCharacteristicPropertyRead | CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsReadable | CBAttributePermissionsWriteable];
-        //        // 3. 只读的特征
-        //        CBMutableCharacteristic *characteristic3 = [[CBMutableCharacteristic alloc] initWithType:characteristicUUID properties:CBCharacteristicPropertyRead value:nil permissions:CBAttributePermissionsReadable];
+//        CBUUID *characteristicUUID = [CBUUID UUIDWithString:CHARACTERISTIC_UUID];
+//        // 1. 可以通知的特征
+//        CBMutableCharacteristic *characteristic1 = [[CBMutableCharacteristic alloc] initWithType:characteristicUUID properties:CBCharacteristicPropertyNotify value:nil permissions:CBAttributePermissionsReadable];
+//        // 2. 可以读写的特征
+//        CBMutableCharacteristic *characteristic2 = [[CBMutableCharacteristic alloc] initWithType:characteristicUUID properties:CBCharacteristicPropertyRead | CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsReadable | CBAttributePermissionsWriteable];
+//        // 3. 只读的特征
+//        CBMutableCharacteristic *characteristic3 = [[CBMutableCharacteristic alloc] initWithType:characteristicUUID properties:CBCharacteristicPropertyRead value:nil permissions:CBAttributePermissionsReadable];
         
         // 1. 通过UUID创建一个特征
         CBUUID *characteristicUUID = [CBUUID UUIDWithString:CHARACTERISTIC_UUID];
         self.characteristic = [[CBMutableCharacteristic alloc] initWithType:characteristicUUID properties:CBCharacteristicPropertyNotify | CBCharacteristicPropertyRead | CBCharacteristicPropertyWrite value:nil permissions:CBAttributePermissionsReadable | CBAttributePermissionsWriteable];
         
-        //        CBUUID *descriptorUUID = [CBUUID UUIDWithString:CBUUIDCharacteristicUserDescriptionString];
-        //        CBMutableDescriptor *descriptor = [[CBMutableDescriptor alloc] initWithType:descriptorUUID value:@"readAndNotify"];
-        //        self.characteristic.descriptors = @[descriptor];
+//        CBUUID *descriptorUUID = [CBUUID UUIDWithString:CBUUIDCharacteristicUserDescriptionString];
+//        CBMutableDescriptor *descriptor = [[CBMutableDescriptor alloc] initWithType:descriptorUUID value:@"readAndNotify"];
+//        self.characteristic.descriptors = @[descriptor];
         
         // 2. 通过UUID创建一个服务
         CBUUID *serviceUUID = [CBUUID UUIDWithString:SERVICE_UUID];
         self.service = [[CBMutableService alloc] initWithType:serviceUUID primary:YES];
         [self.service setCharacteristics:@[self.characteristic]];
         
-        // 3. 使用这个服务
+        // 3. 使用这个服务 (Services cannot be added more than once)
         [peripheral addService:self.service];
     }
 }
@@ -436,6 +460,10 @@
 - (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(NSError *)error {
     if (error) {
         NSLog(@"开始广播时出错，error = %@", error);
+        
+        // 停止广播
+        [peripheral stopAdvertising];
+        
         return;
     }
     NSLog(@"开始广播...");
@@ -506,9 +534,14 @@
 
 // 中心设备订阅了该外设的特征
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic {
+    // 停止广播
+    [peripheral stopAdvertising];
+    
     // 特征UUID
     NSString *UUIDStr = characteristic.UUID.UUIDString;
     NSLog(@"中心设备订阅了该外设的特征,特征UUID = %@", UUIDStr);
+    
+    [self updateRescanButtonWithText:@"已连接至: SyncTomCat-iPhone"];
     
     self.central = central;
     
@@ -528,8 +561,13 @@
 
 // 中心设备取消了订阅该外设的特征
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic {
+    // 停止广播
+    [peripheral stopAdvertising];
+    
     NSString *UUIDStr = characteristic.UUID.UUIDString; // 特征UUID
     NSLog(@"中心设备取消了订阅该外设的特征,特征UUID = %@", UUIDStr);
+    
+    [self updateRescanButtonWithText:@"SyncTomCat-iPhone 可能断开了连接,重新扫描"];
 }
 
 // 当传输队列可用时，会调用外设管理器的代理:peripheralManagerIsReadyToUpdateSubscribers:, 可以在此代理方法中再次发送更新数据
@@ -554,6 +592,19 @@
         _animationImageView.image = [NSImage imageNamed:@"default_TomCat"];
     }
     return _animationImageView;
+}
+
+- (NSButton *)rescanButton {
+    if (!_rescanButton) {
+        _rescanButton = [NSButton buttonWithTitle:@"" target:self action:@selector(rescanEvent:)];
+        _rescanButton.frame = CGRectMake(10, WINDOW_HEIGHT - 44, WINDOW_WIDTH - 20, 44);
+        _rescanButton.highlighted = NO; // 不显示高亮状态
+        _rescanButton.bordered = NO; // 不显示边框
+        // 设置背景颜色
+        _rescanButton.wantsLayer = YES;
+        _rescanButton.layer.backgroundColor = [NSColor clearColor].CGColor;
+    }
+    return _rescanButton;
 }
 
 - (NSDictionary *)animationInfos {

@@ -68,7 +68,46 @@
 }
 
 
-#pragma mark - Methods
+#pragma mark - 数据的处理
+
+// 蓝牙收到更新的特征值
+- (void)receivedUpdateValueForCharacteristic:(NSData *)value {
+    NSString *valueStr = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
+    // 解密一下
+    valueStr = [valueStr AES256_DecryptWithKey:AES256EncryptKey];
+    NSLog(@"收到的特征值(解密后)是: %@", valueStr);
+    
+    if ([valueStr containsString:@"BTStudio"]) { // 读取特征的值
+        NSLog(@"是匹配的设备");
+    }
+    
+    NSDictionary *animationInfo = [self.animationInfos objectForKey:valueStr];
+    if (animationInfo) {
+        NSString *name = animationInfo[@"name"]; // 动画名称
+        NSString *count = animationInfo[@"count"]; // 动画图片数量
+        [self startAnimationWithName:name count:[count integerValue]];
+    }
+}
+
+// 向外设的特征写入值
+- (void)writeValueToPeripheralForCharacteristicWithValue:(NSString *)valueStr {
+    if (!self.peripheral || !_isConnected) {
+        NSLog(@"向外设的特征写入值时，外设不存在或未连接");
+        return;
+    }
+    if (!self.characteristic) {
+        NSLog(@"要写入的特征为空");
+        return;
+    }
+    NSLog(@"向外设的特征写入值，值为: %@", valueStr);
+    // 加密一下
+    NSString *encryptValue = [valueStr AES256_EncryptWithKey:AES256EncryptKey];
+    NSData *value = [encryptValue dataUsingEncoding:NSUTF8StringEncoding];
+    [self.peripheral writeValue:value forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
+}
+
+
+#pragma mark - UI
 
 - (void)addSubviews {
     // 1. 背景ImageView / 动画ImageView / 按钮View
@@ -186,6 +225,12 @@
     }
 }
 
+- (void)updateRescanButtonWithText:(NSString *)text {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.rescanButton setTitle:text forState:UIControlStateNormal];
+    });
+}
+
 - (void)startAnimationWithName:(NSString *)name count:(NSUInteger)count {
     if (self.animationImageView.isAnimating) { // 正在动画
         NSLog(@"正在播放动画序列帧");
@@ -280,43 +325,6 @@
 }
 
 
-// 蓝牙收到更新的特征值
-- (void)receivedUpdateValueForCharacteristic:(NSData *)value {
-    NSString *valueStr = [[NSString alloc] initWithData:value encoding:NSUTF8StringEncoding];
-    // 解密一下
-    valueStr = [valueStr AES256_DecryptWithKey:AES256EncryptKey];
-    NSLog(@"收到的特征值是: %@", valueStr);
-    
-    if ([valueStr containsString:@"BTStudio"]) { // 读取特征的值
-        NSLog(@"是匹配的设备");
-    }
-    
-    NSDictionary *animationInfo = [self.animationInfos objectForKey:valueStr];
-    if (animationInfo) {
-        NSString *name = animationInfo[@"name"]; // 动画名称
-        NSString *count = animationInfo[@"count"]; // 动画图片数量
-        [self startAnimationWithName:name count:[count integerValue]];
-    }
-}
-
-// 向外设的特征写入值
-- (void)writeValueToPeripheralForCharacteristic:(NSString *)valueStr {
-    if (!self.peripheral || !_isConnected) {
-        NSLog(@"向外设的特征写入值时，外设不存在或未连接");
-        return;
-    }
-    if (!self.characteristic) {
-        NSLog(@"要写入的特征为空");
-        return;
-    }
-    NSLog(@"向外设的特征写入值，值为: %@", valueStr);
-    // 加密一下
-    NSString *encryptValue = [valueStr AES256_EncryptWithKey:AES256EncryptKey];
-    NSData *value = [encryptValue dataUsingEncoding:NSUTF8StringEncoding];
-    [self.peripheral writeValue:value forCharacteristic:self.characteristic type:CBCharacteristicWriteWithResponse];
-}
-
-
 #pragma mark - Events
 
 /// 动作按钮事件
@@ -366,11 +374,12 @@
         [self startAnimationWithName:name count:[count integerValue]];
     }
     
+    // TODO: 调试 从外设读取的功能
     if (sender.tag == 10) {
         // 读取特征的值
         [self.peripheral readValueForCharacteristic:self.characteristic];
     } else {
-        [self writeValueToPeripheralForCharacteristic:actionName];
+        [self writeValueToPeripheralForCharacteristicWithValue:actionName];
     }
 }
 
@@ -387,8 +396,13 @@
     } else if (self.centralManager.state == CBManagerStatePoweredOff) {
         NSLog(@"蓝牙 未打开");
     } else {
-        NSLog(@"蓝牙 已打开，重新扫描外围设备");
+        BOOL isScanning = self.centralManager.isScanning;
+        if (isScanning) {
+            NSLog(@"正在扫描中...");
+            return;
+        }
         
+        NSLog(@"蓝牙 已打开，重新扫描外围设备");
         CBUUID *serviceUUID = [CBUUID UUIDWithString:SERVICE_UUID];
         [self.centralManager scanForPeripheralsWithServices:@[serviceUUID] options:@{CBCentralManagerScanOptionAllowDuplicatesKey : @(YES)}];
     }
@@ -422,17 +436,18 @@
 // 发现外围设备
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI {
     NSLog(@"发现外围设备");
+    // 停止扫描
+    [self.centralManager stopScan];
     
     self.peripheral = peripheral;
     // 开始连接该外设
     [self.centralManager connectPeripheral:peripheral options:nil];
-    // 停止扫描
-    [self.centralManager stopScan];
 }
 
 // 连接到了外围设备
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"连接到了外围设备");
+    [self updateRescanButtonWithText:@"已连接至: SyncTomCat-Mac"];
     
     _isConnected = YES;
     peripheral.delegate = self;
@@ -445,11 +460,17 @@
 // 连接外围设备失败
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"连接外围设备失败, error: %@", error);
+    [self updateRescanButtonWithText:@"连接外围设备失败"];
 }
 
 // 与外围设备断开了连接
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"与外围设备断开了连接, error: %@", error);
+    
+    // 停止扫描
+    [self.centralManager stopScan];
+    
+    [self updateRescanButtonWithText:@"与外围设备断开了连接"];
     
     _isConnected = NO;
     self.peripheral = nil;
@@ -480,7 +501,14 @@
     
     [invalidatedServices enumerateObjectsUsingBlock:^(CBService *service, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *UUIDStr = service.UUID.UUIDString;
-        NSLog(@"改变后,无效的服务%ld [UUID = %@]", idx, UUIDStr);
+        NSLog(@"改变后,无效的服务%lu [UUID = %@]", (unsigned long)idx, UUIDStr);
+        
+        if ([UUIDStr isEqualToString:SERVICE_UUID]) {
+            // 停止扫描
+            [self.centralManager stopScan];
+            
+            [self updateRescanButtonWithText:@"SyncTomCat-Mac 可能断开了连接,重新扫描"];
+        }
     }];
 }
 
@@ -550,7 +578,7 @@
         NSLog(@"收到的特征值为空");
         return;
     }
-    
+    NSLog(@"收到的特征值是: %@", characteristic.value);
     [self receivedUpdateValueForCharacteristic:characteristic.value];
 }
 
@@ -560,10 +588,12 @@
         NSLog(@"向特征[%@]写入值失败, error: %@", characteristic.UUID.UUIDString, error);
         return;
     }
-//    NSString *valueStr = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
-//    valueStr = [valueStr AES256_DecryptWithKey:AES256EncryptKey]; // 解密一下
-    
     NSLog(@"向特征[%@]写入值成功!", characteristic.UUID.UUIDString);
+    
+    // 此代理方法中characteristic的值为上一次 peripheral:didUpdateValueForCharacteristic:error: 代理方法被回调时,特征的值
+    NSString *valueStr = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+    valueStr = [valueStr AES256_DecryptWithKey:AES256EncryptKey]; // 解密一下
+    NSLog(@"特征[%@]的值(上一次收到的特征值)是: %@", characteristic.UUID.UUIDString, valueStr);
 }
 
 
@@ -597,8 +627,9 @@
 - (UIButton *)rescanButton {
     if (!_rescanButton) {
         _rescanButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        _rescanButton.frame = CGRectMake(10, 20, 84, 44);
-        [_rescanButton setTitle:@"重新扫描" forState:UIControlStateNormal];
+        _rescanButton.frame = CGRectMake(10, 20, WIDTH - 20, 44);
+        _rescanButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [_rescanButton setTitle:@"开始扫描外围设备..." forState:UIControlStateNormal];
         [_rescanButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_rescanButton addTarget:self action:@selector(rescanEvent:) forControlEvents:UIControlEventTouchUpInside];
     }
