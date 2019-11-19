@@ -17,9 +17,9 @@
 
 @property (nonatomic, weak) UIScrollView *scrollView;
 // 返回上一级
-@property (nonatomic, copy) void(^backActionBlock)();
+@property (nonatomic, copy) void(^backActionBlock)(void);
 // image action
-@property (nonatomic, copy) void(^imgActionBlock)();
+@property (nonatomic, copy) void(^imgActionBlock)(void);
 
 - (id)initWithFrame:(CGRect)frame backGroudImage:(NSString *)backImageName headerImageURL:(NSString *)headerImageURL title:(NSString *)title subTitle:(NSString *)subTitle;
 

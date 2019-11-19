@@ -28,6 +28,10 @@
 	<string>Copyright © 2019年 wangzhi. All rights reserved.</string>
 	<key>NSMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>为了与iPhone端SyncTomCat进行信息同步，App需要使用您的蓝牙服务。</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>为了与iPhone端SyncTomCat进行信息同步，App需要使用您的蓝牙服务。</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

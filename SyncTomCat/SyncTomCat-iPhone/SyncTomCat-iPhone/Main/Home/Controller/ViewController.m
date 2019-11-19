@@ -181,8 +181,8 @@
         [button addTarget:self action:@selector(buttonEvent:) forControlEvents:UIControlEventTouchUpInside];
         [self.buttonView addSubview:button];
         // TODO: 调试代码
-        button.backgroundColor = [UIColor grayColor];
-        button.alpha = 0.5;
+//        button.backgroundColor = [UIColor grayColor];
+//        button.alpha = 0.5;
     }
 }
 

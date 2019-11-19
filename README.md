@@ -2,9 +2,7 @@
 
 <img src="https://avatars2.githubusercontent.com/u/12229793?v=3&s=460" width="240" height="240">
 
-[![BTStudio](https://img.shields.io/badge/Team-BTStudio-brightgreen.svg?style=flat)](https://github.com/wz15011015github/BTStudio "BTStudio")
-
-![](https://img.shields.io/badge/platform-iOS-red.svg) ![](https://img.shields.io/badge/language-Objective--C-orange.svg) ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
+[![BTStudio](https://img.shields.io/badge/Team-BTStudio-brightgreen.svg?style=flat)](https://github.com/wz15011015github/BTStudio "BTStudio") ![](https://img.shields.io/badge/platform-iOS-red.svg) ![](https://img.shields.io/badge/language-Objective--C-orange.svg) ![](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg) 
 
 
 
@@ -47,11 +45,11 @@
 
 
 
-## Requirements
+<!--## Requirements
 
 | Minimum iOS Target |
 |:------------------:|
-| iOS 8.0 |
+| iOS 8.0 |-->
 
 
 
@@ -59,15 +57,15 @@
 
 ### 1. SyncTomCat (同步的汤姆猫)
 
-利用 Core Bluetooth 框架实现Mac端汤姆猫与iPhone手机端汤姆猫同步动作。
+利用 Core Bluetooth 框架实现Mac端汤姆猫与iPhone端汤姆猫同步动作。
 
-#### <a id=">Mac界面"></a>Mac端界面 -- iPhone端界面
-<img src="https://github.com/wz15011015/BTStudio/blob/master/Screenshots/TomCat-Mac.png" width="230" height="409">      <img src="https://github.com/wz15011015/BTStudio/blob/master/Screenshots/TomCat-iPhone.png" width="230" height="409">
+##### Mac端页面 & iPhone端页面:
+<img src="https://github.com/wz15011015/BTStudio/blob/master/Screenshots/TomCat-Mac.png" width="270" height="420">      <img src="https://github.com/wz15011015/BTStudio/blob/master/Screenshots/TomCat-iPhone.jpeg" width="194" height="409">
 
 
 ### 2. TouchIDDemo
 
-TouchID使用Demo.
+TouchID使用Demo。
 
 
 ### 3. LiveForMobile

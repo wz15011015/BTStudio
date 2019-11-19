@@ -2027,6 +2027,7 @@
 		9ADEFA6C1F1F013C0011FFA2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = BW;
 				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = BTStudio;
 				TargetAttributes = {
