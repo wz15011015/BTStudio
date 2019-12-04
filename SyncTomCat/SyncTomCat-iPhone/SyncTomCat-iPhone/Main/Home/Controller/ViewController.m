@@ -128,17 +128,27 @@
     CGFloat button_w = 60;
     CGFloat margin = 18;
     NSArray *buttons = @[@"fart_button", @"cymbals_button", @"milk_button", @"bird_button", @"pie_button", @"paw_button"];
+    NSArray *button_VO_Labels = @[NSLocalizedString(@"VO_fart", nil),
+                                  NSLocalizedString(@"VO_cymbals", nil),
+                                  NSLocalizedString(@"VO_drink milk", nil),
+                                  NSLocalizedString(@"VO_eat bird", nil),
+                                  NSLocalizedString(@"VO_pie", nil),
+                                  NSLocalizedString(@"VO_paw", nil)];
     [buttons enumerateObjectsUsingBlock:^(NSString *imageName, NSUInteger idx, BOOL * _Nonnull stop) {
         if (idx == 3) {
             button_x = width - button_x - button_w;
             button_y = height * 0.48;
         }
         
+        // 按钮的VoiceOver标签
+        NSString *vo_label = button_VO_Labels[idx];
+        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = 10 + idx;
         button.frame = CGRectMake(button_x, button_y, button_w, button_w);
         [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonEvent:) forControlEvents:UIControlEventTouchUpInside];
+        button.accessibilityLabel = vo_label;
         [self.buttonView addSubview:button];
         
         button_y = button_y + button_w + margin;
@@ -146,13 +156,24 @@
     
     // 3.2 其他的功能按钮 (不可见)
     // [knockout, happy_simple, happy_simple, yawn, yawn, sneeze, happy, stomach, angry, foot_right, foot_left]
+    NSArray *hidden_button_VO_Labels = @[NSLocalizedString(@"VO_knockout", nil),
+                                         NSLocalizedString(@"VO_happy simple", nil),
+                                         NSLocalizedString(@"VO_happy simple", nil),
+                                         NSLocalizedString(@"VO_yawn", nil),
+                                         NSLocalizedString(@"VO_yawn", nil),
+                                         NSLocalizedString(@"VO_sneeze", nil),
+                                         NSLocalizedString(@"VO_happy", nil),
+                                         NSLocalizedString(@"VO_stomach", nil),
+                                         NSLocalizedString(@"VO_angry", nil),
+                                         NSLocalizedString(@"VO_foot", nil),
+                                         NSLocalizedString(@"VO_foot", nil)];
     CGFloat happy_simple_w = 65;
     CGFloat happy_simple_h = 72;
     CGFloat yawn_w = 120;
     CGFloat yawn_h = 70;
     CGFloat foot_w = 56;
     CGFloat foot_h = 54;
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < hidden_button_VO_Labels.count; i++) {
         CGFloat x = 0, y = 0, w = 0, h = 0;
         
         if (i == 0) { // knockout
@@ -214,10 +235,14 @@
             y = height - 70;
         }
         
+        // 按钮的VoiceOver标签
+        NSString *voLabel = hidden_button_VO_Labels[i];
+        
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = 16 + i;
         button.frame = CGRectMake(x, y, w, h);
         [button addTarget:self action:@selector(buttonEvent:) forControlEvents:UIControlEventTouchUpInside];
+        button.accessibilityLabel = voLabel;
         [self.buttonView addSubview:button];
         // TODO: 调试代码
 //        button.backgroundColor = [UIColor grayColor];
@@ -227,7 +252,12 @@
 
 - (void)updateRescanButtonWithText:(NSString *)text {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.rescanButton setTitle:text forState:UIControlStateNormal];
+        [self.rescanButton setTitle:NSLocalizedString(text, nil) forState:UIControlStateNormal];
+        
+        // 按钮标题更新时,主动给用户发出VoiceOver内容提示,并更新按钮的accessibilityLabel
+        NSString *voText = [NSString stringWithFormat:@"VO_%@", text];
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, NSLocalizedString(voText, nil));
+        self.rescanButton.accessibilityLabel = NSLocalizedString(voText, nil);
     });
 }
 
@@ -447,7 +477,7 @@
 // 连接到了外围设备
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
     NSLog(@"连接到了外围设备");
-    [self updateRescanButtonWithText:@"已连接至: SyncTomCat-Mac"];
+    [self updateRescanButtonWithText:@"Connected to SyncTomCat-Mac"];
     
     _isConnected = YES;
     peripheral.delegate = self;
@@ -460,7 +490,7 @@
 // 连接外围设备失败
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"连接外围设备失败, error: %@", error);
-    [self updateRescanButtonWithText:@"连接外围设备失败"];
+    [self updateRescanButtonWithText:@"Failed to connect peripherals"];
 }
 
 // 与外围设备断开了连接
@@ -470,7 +500,7 @@
     // 停止扫描
     [self.centralManager stopScan];
     
-    [self updateRescanButtonWithText:@"与外围设备断开了连接"];
+    [self updateRescanButtonWithText:@"Disconnected from peripherals"];
     
     _isConnected = NO;
     self.peripheral = nil;
@@ -507,7 +537,7 @@
             // 停止扫描
             [self.centralManager stopScan];
             
-            [self updateRescanButtonWithText:@"SyncTomCat-Mac 可能断开了连接,重新扫描"];
+            [self updateRescanButtonWithText:@"SyncTomCat-Mac may be disconnected and rescan"];
         }
     }];
 }
@@ -626,12 +656,16 @@
 
 - (UIButton *)rescanButton {
     if (!_rescanButton) {
+        NSString *title = @"Start scanning peripherals...";
+        NSString *voTitle = [NSString stringWithFormat:@"VO_%@", title];
+        
         _rescanButton = [UIButton buttonWithType:UIButtonTypeSystem];
         _rescanButton.frame = CGRectMake(10, 20, WIDTH - 20, 44);
         _rescanButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        [_rescanButton setTitle:@"开始扫描外围设备..." forState:UIControlStateNormal];
+        [_rescanButton setTitle:NSLocalizedString(title, nil) forState:UIControlStateNormal];
         [_rescanButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_rescanButton addTarget:self action:@selector(rescanEvent:) forControlEvents:UIControlEventTouchUpInside];
+        _rescanButton.accessibilityLabel = NSLocalizedString(voTitle, nil);
     }
     return _rescanButton;
 }

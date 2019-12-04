@@ -1,0 +1,52 @@
+/* 
+  Localizable.strings
+  SyncTomCat-iPhone
+
+  Created by hadlinks on 2019/12/4.
+  Copyright © 2019 BTStudio. All rights reserved.
+*/
+
+/*********************** VoiceOver Labels ************************/
+
+"VO_angry" = "踩尾巴";
+
+"VO_Connected to SyncTomCat-Mac" = "已连接至SyncTomCat-Mac";
+"VO_cymbals" = "打镲";
+
+"VO_Disconnected from peripherals" = "与外围设备断开了连接";
+"VO_drink milk" = "喝牛奶";
+
+"VO_eat bird" = "吃小鸟";
+
+"VO_Failed to connect peripherals" = "连接外围设备失败";
+"VO_fart" = "放屁";
+"VO_foot" = "脚疼";
+
+"VO_happy" = "快乐";
+"VO_happy simple" = "摸耳朵";
+
+"VO_knockout" = "晕倒";
+
+"VO_paw" = "抓玻璃";
+"VO_pie" = "拍饼";
+
+"VO_sneeze" = "打喷嚏";
+"VO_Start scanning peripherals..." = "开始扫描外围设备";
+"VO_stomach" = "肚子疼";
+"VO_SyncTomCat-Mac may be disconnected and rescan" = "SyncTomCat-Mac可能断开了连接,重新扫描";
+
+"VO_yawn" = "打哈欠";
+
+/*********************** VoiceOver Labels ************************/
+
+
+
+
+"Connected to SyncTomCat-Mac" = "已连接至: SyncTomCat-Mac";
+
+"Disconnected from peripherals" = "与外围设备断开了连接!";
+
+"Failed to connect peripherals" = "连接外围设备失败!";
+
+"Start scanning peripherals..." = "开始扫描外围设备...";
+"SyncTomCat-Mac may be disconnected and rescan" = "SyncTomCat-Mac 可能断开了连接,重新扫描";

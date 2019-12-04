@@ -1,0 +1,52 @@
+/* 
+  Localizable.strings
+  SyncTomCat-iPhone
+
+  Created by hadlinks on 2019/12/4.
+  Copyright © 2019 BTStudio. All rights reserved.
+*/
+
+/*********************** VoiceOver Labels ************************/
+
+"VO_angry" = "angry";
+
+"VO_Connected to SyncTomCat-Mac" = "Connected to SyncTomCat-Mac";
+"VO_cymbals" = "play cymbals";
+
+"VO_Disconnected from peripherals" = "Disconnected from peripherals";
+"VO_drink milk" = "drink milk";
+
+"VO_eat bird" = "eat bird";
+
+"VO_Failed to connect peripherals" = "Failed to connect peripherals";
+"VO_fart" = "fart";
+"VO_foot" = "foot pain";
+
+"VO_happy" = "happy";
+"VO_happy simple" = "happy simple";
+
+"VO_knockout" = "knockout";
+
+"VO_paw" = "paw";
+"VO_pie" = "pie";
+
+"VO_sneeze" = "sneeze";
+"VO_Start scanning peripherals..." = "Start scanning peripherals";
+"VO_stomach" = "stomachache";
+"VO_SyncTomCat-Mac may be disconnected and rescan" = "SyncTomCat-Mac may be disconnected and rescan";
+
+"VO_yawn" = "yawn";
+
+/*********************** VoiceOver Labels ************************/
+
+
+
+
+"Connected to SyncTomCat-Mac" = "Connected to SyncTomCat-Mac";
+
+"Disconnected from peripherals" = "Disconnected from peripherals";
+
+"Failed to connect peripherals" = "Failed to connect peripherals";
+
+"Start scanning peripherals..." = "Start scanning peripherals...";
+"SyncTomCat-Mac may be disconnected and rescan" = "SyncTomCat-Mac may be disconnected and rescan";
