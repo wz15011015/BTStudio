@@ -1,0 +1,50 @@
+/* 
+  Localizable.strings
+  SyncTomCat-Mac
+
+  Created by hadlinks on 2019/12/5.
+  Copyright © 2019 BTStudio. All rights reserved.
+*/
+
+/*********************** VoiceOver Labels ************************/
+
+"VO_angry" = "angry";
+
+"VO_Connected to SyncTomCat-iPhone" = "Connected to SyncTomCat-iPhone";
+"VO_cymbals" = "play cymbals";
+
+"VO_drink milk" = "drink milk";
+
+"VO_eat bird" = "eat bird";
+
+"VO_fart" = "fart";
+"VO_foot" = "foot pain";
+
+"VO_happy" = "happy";
+"VO_happy simple" = "happy simple";
+
+"VO_knockout" = "knockout";
+
+"VO_paw" = "paw";
+"VO_pie" = "pie";
+
+"VO_sneeze" = "sneeze";
+"VO_stomach" = "stomachache";
+"VO_SyncTomCat-iPhone may be disconnected and rescan" = "SyncTomCat-iPhone may be disconnected and rescan";
+
+"VO_TomCat" = "TomCat";
+
+"VO_Waiting for a connection with SyncTomCat-iPhone..." = "Waiting for a connection with SyncTomCat-iPhone";
+
+"VO_yawn" = "yawn";
+
+/*********************** VoiceOver Labels ************************/
+
+
+
+
+"Connected to SyncTomCat-iPhone" = "Connected to SyncTomCat-iPhone";
+
+"SyncTomCat-iPhone may be disconnected and rescan" = "SyncTomCat-iPhone may be disconnected and rescan";
+
+"Waiting for a connection with SyncTomCat-iPhone..." = "Waiting for a connection with SyncTomCat-iPhone...";

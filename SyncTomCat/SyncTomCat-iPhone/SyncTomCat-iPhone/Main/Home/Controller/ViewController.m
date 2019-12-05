@@ -140,15 +140,15 @@
             button_y = height * 0.48;
         }
         
-        // 按钮的VoiceOver标签
-        NSString *vo_label = button_VO_Labels[idx];
+        // 按钮的VoiceOver标签字符串
+        NSString *voLabelString = button_VO_Labels[idx];
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = 10 + idx;
         button.frame = CGRectMake(button_x, button_y, button_w, button_w);
         [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonEvent:) forControlEvents:UIControlEventTouchUpInside];
-        button.accessibilityLabel = vo_label;
+        button.accessibilityLabel = voLabelString;
         [self.buttonView addSubview:button];
         
         button_y = button_y + button_w + margin;
@@ -235,14 +235,14 @@
             y = height - 70;
         }
         
-        // 按钮的VoiceOver标签
-        NSString *voLabel = hidden_button_VO_Labels[i];
+        // 按钮的VoiceOver标签字符串
+        NSString *voLabelString = hidden_button_VO_Labels[i];
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = 16 + i;
         button.frame = CGRectMake(x, y, w, h);
         [button addTarget:self action:@selector(buttonEvent:) forControlEvents:UIControlEventTouchUpInside];
-        button.accessibilityLabel = voLabel;
+        button.accessibilityLabel = voLabelString;
         [self.buttonView addSubview:button];
         // TODO: 调试代码
 //        button.backgroundColor = [UIColor grayColor];
@@ -663,7 +663,7 @@
         _rescanButton.frame = CGRectMake(10, 20, WIDTH - 20, 44);
         _rescanButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         [_rescanButton setTitle:NSLocalizedString(title, nil) forState:UIControlStateNormal];
-        [_rescanButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_rescanButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.7] forState:UIControlStateNormal];
         [_rescanButton addTarget:self action:@selector(rescanEvent:) forControlEvents:UIControlEventTouchUpInside];
         _rescanButton.accessibilityLabel = NSLocalizedString(voTitle, nil);
     }
