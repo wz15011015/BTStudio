@@ -31,6 +31,9 @@
 @property (nonatomic, strong) CBMutableCharacteristic *characteristic; // 外设某个服务中的一个特征
 @property (nonatomic, strong) CBCentral *central; // 已与本外设连接的中心设备
 
+@property (nonatomic, strong) NSTimer *testTimer;
+@property (nonatomic, assign) NSInteger testTime;
+
 @end
 
 @implementation ViewController
@@ -49,12 +52,46 @@
     
     // 3. 初始化外设管理对象
     self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil];
+    
+//    [self testBackgroundModesOfUsesBluetoothLEAccessories];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
 
     // Update the view, if already loaded.
+}
+
+
+#pragma mark - Background Modes: Uses Bluetooth LE Accessories 后台运行功能测试
+
+- (void)testBackgroundModesOfUsesBluetoothLEAccessories {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(30 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.testTime = 0;
+        self.testTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(testBackgroundModesOfUsesBluetoothLEAccessoriesSendData) userInfo:nil repeats:YES];
+    });
+}
+
+- (void)testBackgroundModesOfUsesBluetoothLEAccessoriesSendData {
+    self.testTime += 1;
+    
+    if (self.testTime == 10) {
+        [self sendValueToCentralForCharacteristicWithValue:@"10"];
+    } else if (self.testTime == 30) {
+        [self sendValueToCentralForCharacteristicWithValue:@"30"];
+    } else if (self.testTime == 60 * 1) {
+        [self sendValueToCentralForCharacteristicWithValue:@"60*1"];
+    } else if (self.testTime == 60 * 3) {
+        [self sendValueToCentralForCharacteristicWithValue:@"60*3"];
+    } else if (self.testTime == 60 * 5) {
+        [self sendValueToCentralForCharacteristicWithValue:@"60*5"];
+    } else if (self.testTime == 60 * 10) {
+        [self sendValueToCentralForCharacteristicWithValue:@"60*10"];
+    } else if (self.testTime == 60 * 30) {
+        [self sendValueToCentralForCharacteristicWithValue:@"60*30"];
+    } else if (self.testTime == 60 * 60) {
+        [self sendValueToCentralForCharacteristicWithValue:@"60*60"];
+    }
 }
 
 

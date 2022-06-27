@@ -50,6 +50,8 @@
     // 2. 初始化中心设备
 //    dispatch_queue_t bleQueue = dispatch_queue_create("BLE", DISPATCH_QUEUE_CONCURRENT);
     self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    
+//    [self testBackgroundModesOfUsesBluetoothLEAccessoriesRead];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -68,6 +70,52 @@
 }
 
 
+#pragma mark - Background Modes: Uses Bluetooth LE Accessories 后台运行功能测试
+
+- (void)testBackgroundModesOfUsesBluetoothLEAccessoriesRead {
+//    2022-06-27 14:00:08.811190+0800 SyncTomCat-Mac[9040:204657] 发送更新数据成功！数据: 10
+//    2022-06-27 14:00:28.811295+0800 SyncTomCat-Mac[9040:204657] 发送更新数据成功！数据: 30
+//    2022-06-27 14:00:58.813104+0800 SyncTomCat-Mac[9040:204657] 发送更新数据成功！数据: 60*1
+//    2022-06-27 14:06:28.820945+0800 SyncTomCat-Mac[9040:204657] 发送更新数据成功！数据: 60*3
+//    2022-06-27 14:08:28.823817+0800 SyncTomCat-Mac[9040:204657] 发送更新数据成功！数据: 60*5
+//    2022-06-27 14:13:28.837187+0800 SyncTomCat-Mac[9040:204657] 发送更新数据成功！数据: 60*10
+//    2022-06-27 14:33:28.858251+0800 SyncTomCat-Mac[9040:204657] 发送更新数据成功！数据: 60*30
+    
+    // 13:59:28
+    
+//    [
+//    1656309608.757248: 10         // 2022-06-27 14:00:08
+//    1656309628.735821: 30         // 2022-06-27 14:00:28
+//    1656309658.739375: 60*1       // 2022-06-27 14:00:58
+//    1656309988.790265: 60*3       // 2022-06-27 14:06:28
+//    1656310108.744705: 60*5       // 2022-06-27 14:08:28
+//    1656310408.742742: 60*10      // 2022-06-27 14:13:28
+//    1656311608.737620: 60*30      // 2022-06-27 14:33:28
+//    ]
+    
+    // 读取存储的字符串
+    NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:@"BackgroundModesOfUsesBLE"];
+    NSLog(@"BackgroundModesOfUsesBLE: [%@]", str);
+    // 读取完成后,清空内容
+//    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"BackgroundModesOfUsesBLE"];
+}
+
+- (void)testBackgroundModesOfUsesBluetoothLEAccessoriesWrite:(NSString *)string {
+    // 写入字符串
+    NSString *str = [[NSUserDefaults standardUserDefaults] objectForKey:@"BackgroundModesOfUsesBLE"];
+    
+    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
+    if (!str || str.length == 0) {
+        str = [NSString stringWithFormat:@"%f: %@,\n", timeInterval, string];
+    } else {
+        str = [NSString stringWithFormat:@"%@%f: %@\n", str, timeInterval, string];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:str forKey:@"BackgroundModesOfUsesBLE"];
+}
+
+
+
 #pragma mark - 数据的处理
 
 // 蓝牙收到更新的特征值
@@ -76,6 +124,8 @@
     // 解密一下
     valueStr = [valueStr AES256_DecryptWithKey:AES256EncryptKey];
     NSLog(@"收到的特征值(解密后)是: %@", valueStr);
+    
+    [self testBackgroundModesOfUsesBluetoothLEAccessoriesWrite:valueStr];
     
     if ([valueStr containsString:@"BTStudio"]) { // 读取特征的值
         NSLog(@"是匹配的设备");
